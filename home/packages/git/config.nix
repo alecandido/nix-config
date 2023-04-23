@@ -1,4 +1,4 @@
-{ config, ...}:
+{ config, ... }:
 
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
@@ -37,10 +37,10 @@ in
       };
       branch = {
         current = "yellow bold";
-	local = "green";
-	remote = "blue";
-	upstream = "blue bold";
-	plain = 7;
+        local = "green";
+        remote = "blue";
+        upstream = "blue bold";
+        plain = 7;
       };
     };
   };

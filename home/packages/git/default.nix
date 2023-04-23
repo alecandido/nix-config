@@ -7,6 +7,6 @@
     userName = "Alessandro Candido";
     userEmail = "candido.ale@gmail.com";
 
-    ignores = [ ".DS_Store" ".venv-this" ];
+    ignores = [ ".DS_Store" ".direnv" ];
   };
 }

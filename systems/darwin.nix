@@ -8,12 +8,12 @@ let
     home-manager.useUserPackages = true;
   };
 
-  nixpkgs =((import ../overlays) inputs); 
+  nixpkgs = ((import ../overlays) inputs);
 
   userInfo = { user }: rec {
     home-manager.users.${user} = import ../home;
     home-manager.sharedModules = singleton {
-      nixpkgs = nixpkgs [];
+      nixpkgs = nixpkgs [ ];
     };
     home-manager.extraSpecialArgs = {
       inherit user;
@@ -30,7 +30,7 @@ in
       ../etc/darwin
       home-manager.darwinModules.home-manager
       (homeCommons // (userInfo { user = "alessandro"; }))
-    ] ++ singleton { nixpkgs =  nixpkgs [ ]; };
+    ] ++ singleton { nixpkgs = nixpkgs [ ]; };
     system = "aarch64-darwin";
   };
 

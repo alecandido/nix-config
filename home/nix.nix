@@ -3,7 +3,7 @@
 {
   nix.settings = {
     auto-optimise-store = true;
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [ "nix-command" "flakes" "repl-flake" ];
     substituters = [ "https://cache.nixos.org" "https://alecandido.cachix.org" ];
     trusted-users = [ "root" user ];
     trusted-public-keys = [
