@@ -2,7 +2,7 @@
   programs.git.delta = {
     enable = true;
     options = {
-      #features = "decorations";
+      features = "decorations";
       side-by-side = true;
     };
   };

@@ -1,5 +1,5 @@
 {
-  imports = [ ./aliases.nix ./delta.nix ];
+  imports = [ ./aliases.nix ./delta.nix ./config.nix ];
 
   programs.git = {
     enable = true;
