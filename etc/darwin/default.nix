@@ -9,8 +9,8 @@
   #  '';
   #};
 
-  imports = [ ./fonts.nix ./keyboard.nix ];
-  
+  imports = [ ../fonts.nix ../keyboard.nix ];
+
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
 

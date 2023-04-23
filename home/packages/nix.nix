@@ -1,10 +1,16 @@
-{ pkgs, inputs, ... }:
+# Useful nix related tools
+{ pkgs, ... }:
 
 {
   home.packages = with pkgs; [
-    # Useful nix related tools
     cachix
-    inputs.devenv.packages.aarch64-darwin.devenv
+    devenv
     niv
   ];
+
+  # Direnv
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 }

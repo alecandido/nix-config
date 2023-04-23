@@ -1,5 +1,5 @@
 {
-  imports = [ ./tools.nix ./nix.nix ];
+  imports = [ ./git.nix ./nix.nix ./tools.nix ];
 
   # XDG
   xdg.enable = true;
@@ -17,5 +17,11 @@
       simplified_ui = true;
       theme = "nord";
     };
+  };
+
+  # Htop
+  programs.htop = {
+    enable = true;
+    settings.show_program_path = true;
   };
 }

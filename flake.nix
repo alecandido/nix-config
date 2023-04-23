@@ -18,8 +18,9 @@
   outputs = inputs:
     let
       sys = (import ./systems) inputs;
-      nixConfigs = (import ./configs/nix.nix) inputs;
-    in {
+      nixConfigs = (import ./nix.nix) inputs;
+    in
+    {
       darwinConfigurations = sys.darwin;
 
       inherit (nixConfigs) formatter;
