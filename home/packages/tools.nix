@@ -7,7 +7,6 @@
       coreutils
       curl
       wget
-      neovim
 
       # Tools
       exa

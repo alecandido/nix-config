@@ -1,5 +1,5 @@
 {
-  imports = [ ./git ./nix.nix ./tools.nix ];
+  imports = [ ./git ./neovim ./nix.nix ./tools.nix ];
 
   # XDG
   xdg.enable = true;
