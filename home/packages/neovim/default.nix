@@ -6,8 +6,8 @@ in
 {
   programs.neovim.enable = true;
 
-  xdg.configFile."nvim/lua".source = mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/lua";
+  xdg.configFile."nvim/lua".source = mkOutOfStoreSymlink "/Users/alessandro/.config/nixpkgs/config/nvim/lua";
 
   # Load the `init` module from the above configs
-  # programs.neovim.extraConfig = "lua require('init')";
+  programs.neovim.extraConfig = "lua require('init')";
 }
