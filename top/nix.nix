@@ -5,6 +5,4 @@ let
 in
 (eachSystem (system: {
   formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
-})) // {
-  nix.registry.nixpkgs.flake = nixpkgs;
-}
+}))

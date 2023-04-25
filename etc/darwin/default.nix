@@ -1,5 +1,3 @@
-{ config, pkgs, ... }:
-
 {
   # TODO: it has been required to make it work the first time, now moved to home/nix.nix
   #nix = {
@@ -9,7 +7,7 @@
   #  '';
   #};
 
-  imports = [ ../fonts.nix ../keyboard.nix ];
+  imports = [ ../fonts.nix ../keyboard.nix ../nix.nix ];
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;

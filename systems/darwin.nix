@@ -1,4 +1,4 @@
-{ self, darwin, home-manager, ... }@inputs:
+{ darwin, home-manager, ... }@inputs:
 
 let
   inherit (inputs.nixpkgs.lib) singleton;
@@ -16,7 +16,7 @@ let
       nixpkgs = nixpkgs [ ];
     };
     home-manager.extraSpecialArgs = {
-      inherit user;
+      inherit user inputs;
       home = "/Users/${user}";
     };
     users.users.${user}.home = home-manager.extraSpecialArgs.home;
