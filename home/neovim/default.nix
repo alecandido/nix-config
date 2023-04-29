@@ -16,5 +16,8 @@ in
   programs.neovim.plugins = with pkgs.vimPlugins; [
     vim-eunuch
     vim-fugitive
+
+    # Nix
+    statix
   ];
 }

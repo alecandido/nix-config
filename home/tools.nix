@@ -1,5 +1,21 @@
+{ pkgs, lib, ... }:
+
 {
-  imports = [ ./git ./neovim ./nix.nix ./tools.nix ];
+  home.packages = with pkgs;
+    [
+      # Some basics
+      coreutils
+      curl
+      wget
+
+      # Tools
+      exa
+      jq
+      ripgrep
+      fd
+      ripgrep-all
+      gh
+    ] ++ lib.optionals stdenv.isDarwin [ m-cli ];
 
   # XDG
   xdg.enable = true;
@@ -17,6 +33,12 @@
       simplified_ui = true;
       theme = "nord";
     };
+  };
+
+  # Direnv
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
   };
 
   # Htop

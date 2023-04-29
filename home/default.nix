@@ -1,12 +1,13 @@
-{ config, pkgs, user, ... }:
+{ user, ... }:
 
 {
   imports = [
-    ./packages
     ./nix.nix
     ./aliases
-    # (import ./packages.nix)
-    # (import ./neovim.nix)
+    ./git
+    ./neovim
+    ./nix.nix
+    ./tools.nix
   ];
 
   programs.zsh.enable = true;
