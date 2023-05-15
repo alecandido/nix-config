@@ -15,6 +15,7 @@
       fd
       ripgrep-all
       gh
+      ncdu
     ] ++ lib.optionals stdenv.isDarwin [ m-cli ];
 
   # XDG

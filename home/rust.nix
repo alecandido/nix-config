@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs;
     [
-      cargo
+      rustup
     ];
 
   home.file.".cargo/config.toml".text = ''
