@@ -54,6 +54,10 @@ local plugins = {
 		lazy = false,
 	},
 	{
+		"tpope/vim-speeddating",
+		lazy = false,
+	},
+	{
 		"tpope/vim-abolish",
 		lazy = false,
 	},
