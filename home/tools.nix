@@ -24,7 +24,7 @@
   # Starship
   programs.starship = {
     enable = true;
-    settings = { hostname.ssh_only = false; };
+    settings = { hostname.ssh_only = false; package.disabled = true; };
   };
 
   # Zellij
