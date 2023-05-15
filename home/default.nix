@@ -2,10 +2,10 @@
 
 {
   imports = [
-    ./nix.nix
     ./aliases
     ./git
     ./neovim
+    ./rust.nix
     ./nix.nix
     ./tools.nix
   ];
