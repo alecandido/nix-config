@@ -47,16 +47,31 @@ local plugins = {
 		end,
 	},
 
+
 	-- Non-lua plugin can not be lazy-loaded, seems like
 	{
 		"tpope/vim-eunuch",
 		lazy = false,
 	},
+	{
+		"tpope/vim-abolish",
+		lazy = false,
+	},
+	{
+		"svermeulen/vim-subversive",
+		lazy = false,
+	},
+	{
+		"svermeulen/vim-cutlass",
+		lazy = false,
+	},
 
+  -- Language specific
 	{
 		"rust-lang/rust.vim",
 		ft = "rust",
 	},
+
 
 	-- To make a plugin not be loaded
 	-- {
