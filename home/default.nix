@@ -5,6 +5,7 @@
     ./aliases
     ./git
     ./neovim
+    ./javascript.nix
     ./python.nix
     ./rust.nix
     ./nix.nix

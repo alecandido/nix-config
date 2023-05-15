@@ -22,6 +22,10 @@ local plugins = {
 		end, -- Override to setup mason-lspconfig
 	},
 
+	{
+		"folke/trouble.nvim",
+	},
+
 	-- override plugin configs
 	{
 		"williamboman/mason.nvim",

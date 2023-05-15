@@ -3,28 +3,42 @@ local M = {}
 
 M.general = {
   n = {
-    [";"] = { ":", "Enter command mode", opts = { nowait = true } },
-    ["H"] = { "^", "Beginning of line", opts = { nowait = true } },
-    ["L"] = { "$", "End of line", opts = { nowait = true } },
-    ["^"] = { "^", "Beginning of page", opts = { nowait = true } },
-    ["$"] = { "$", "End of page", opts = { nowait = true } },
-    ["o"] = { "o<Esc>", "New line", opts = { nowait = true } },
-    ["O"] = { "O<Esc>", "New line above", opts = { nowait = true } },
-    ["Y"] = { "y$", "Copy until the end of line", opts = { nowait = true } },
-    ["x"] = { "d", "Cut", opts = { nowait = true } },
-    ["xx"] = { "dd", "Cut line", opts = { nowait = true } },
-    ["X"] = { "D", "Cut until the end of line", opts = { nowait = true } },
-    ["s"] = { "<plug>(SubversiveSubstitute)", "Substitute", opts = { nowait = true } },
-    ["ss"] = { "<plug>(SubversiveSubstituteLine)", "Substitute line", opts = { nowait = true } },
-    ["S"] = { "<plug>(SubversiveSubstituteToEndOfLine)", "Substitute until the end of line", opts = { nowait = true } },
+    [";"] = { ":", "Enter command mode" },
+    ["H"] = { "^", "Beginning of line" },
+    ["L"] = { "$", "End of line" },
+    ["^"] = { "^", "Beginning of page" },
+    ["$"] = { "$", "End of page" },
+    ["o"] = { "o<Esc>", "New line" },
+    ["O"] = { "O<Esc>", "New line above" },
   },
   v = {
-    [ ">" ] = { ">gv", "Indent selection", opts = { nowait = true } },
-    [ "<" ] = { "<gv", "Deindent selection", opts = { nowait = true } },
+    [ ">" ] = { ">gv", "Indent selection" },
+    [ "<" ] = { "<gv", "Deindent selection" },
+  },
+}
+
+M.copypaste = {
+  n = {
+    ["Y"] = { "y$", "Copy until the end of line" },
+    ["x"] = { "d", "Cut" },
+    ["xx"] = { "dd", "Cut line" },
+    ["X"] = { "D", "Cut until the end of line" },
+    ["s"] = { "<plug>(SubversiveSubstitute)", "Substitute" },
+    ["ss"] = { "<plug>(SubversiveSubstituteLine)", "Substitute line" },
+    ["S"] = { "<plug>(SubversiveSubstituteToEndOfLine)", "Substitute until the end of line" },
   },
   x = {
-    ["x"] = { "d", "Cut", opts = { nowait = true } },
+    ["x"] = { "d", "Cut" },
   }
+}
+
+M.trouble = {
+  n = {
+    ["<leader>xx"] = { "<cmd>TroubleToggle<cr>", "Toggle" },
+    ["<leader>xd"] = { "<cmd>TroubleToggle document_diagnostics<cr>", "Toggle document" },
+    ["<leader>xq"] = { "<cmd>TroubleToggle quickfix<cr>", "Toggle quickfix" },
+    ["<leader>xl"] = { "<cmd>TroubleToggle loclist<cr>", "Toggle loclist" },
+  },
 }
 
 -- more keybinds!
