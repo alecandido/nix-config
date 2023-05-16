@@ -38,6 +38,7 @@ M.trouble = {
     ["<leader>xd"] = { "<cmd>TroubleToggle document_diagnostics<cr>", "Toggle document" },
     ["<leader>xq"] = { "<cmd>TroubleToggle quickfix<cr>", "Toggle quickfix" },
     ["<leader>xl"] = { "<cmd>TroubleToggle loclist<cr>", "Toggle loclist" },
+    ["<leader>xt"] = { "<cmd>TodoTrouble<cr>", "Toggle to do" },
   },
 }
 

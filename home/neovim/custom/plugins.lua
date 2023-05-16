@@ -24,6 +24,12 @@ local plugins = {
 
 	{
 		"folke/trouble.nvim",
+		requires = "nvim-tree/nvim-web-devicons",
+	},
+	{
+    -- TODO
+		"folke/todo-comments.nvim",
+		requires = "nvim-lua/plenary.nvim",
 	},
 
 	-- override plugin configs
@@ -51,7 +57,6 @@ local plugins = {
 		end,
 	},
 
-
 	-- Non-lua plugin can not be lazy-loaded, seems like
 	{
 		"tpope/vim-eunuch",
@@ -74,12 +79,15 @@ local plugins = {
 		lazy = false,
 	},
 
-  -- Language specific
+	-- Language specific
 	{
 		"rust-lang/rust.vim",
 		ft = "rust",
 	},
-
+	{
+    -- TODO
+		"simrat39/rust-tools.nvim",
+	},
 
 	-- To make a plugin not be loaded
 	-- {
