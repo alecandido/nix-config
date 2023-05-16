@@ -79,7 +79,19 @@ local plugins = {
 		lazy = false,
 	},
 
-	-- Language specific
+	-- Domain specific
+
+  -- Git
+	{
+		"tpope/vim-fugitive",
+		lazy = false,
+	},
+	{
+		"tpope/vim-git",
+		lazy = false,
+	},
+
+  --
 	{
 		"rust-lang/rust.vim",
 		ft = "rust",
