@@ -10,6 +10,7 @@
     ./rust.nix
     ./nix.nix
     ./tools.nix
+    ./zsh.nix
   ];
 
   programs.zsh.enable = true;
