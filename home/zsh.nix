@@ -1,6 +1,7 @@
 {
   programs.zsh = {
     enableAutosuggestions = true;
+    enableCompletion = true;
     enableSyntaxHighlighting = true;
     historySubstringSearch = {
       enable = true;
@@ -12,5 +13,10 @@
       "......" = "../../../../..";
     };
     autocd = true;
+    initExtra = ''
+      setopt auto_pushd
+      setopt pushd_ignore_dups
+      setopt pushdminus
+    '';
   };
 }
