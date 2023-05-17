@@ -9,6 +9,7 @@
     ./python.nix
     ./rust.nix
     ./nix.nix
+    ./tex.nix
     ./tools.nix
     ./zsh.nix
   ];
