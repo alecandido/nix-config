@@ -52,6 +52,12 @@
     };
   };
 
+  # Atuin
+  programs.atuin = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   # Direnv
   programs.direnv = {
     enable = true;
