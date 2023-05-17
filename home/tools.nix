@@ -58,6 +58,12 @@
     enableZshIntegration = true;
   };
 
+  # Zoxide
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   # Direnv
   programs.direnv = {
     enable = true;
