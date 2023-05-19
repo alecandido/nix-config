@@ -1,3 +1,7 @@
+-- Free mappings
+
+-- unmap
+
 ---@type MappingsTable
 local M = {}
 

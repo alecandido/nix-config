@@ -15,6 +15,8 @@
   # Add ability to used TouchID for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
 
+  environment.pathsToLink = [ "/share/zsh" ];
+
   system.stateVersion = 4;
 }
 
