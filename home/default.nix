@@ -19,5 +19,10 @@
   home.username = user;
   home.stateVersion = "23.05";
   # TODO: understand why the following is required
-  home.sessionPath = [ "$HOME/.nix-profile/bin" ];
+  home.sessionPath = [ 
+      # this should be there by default
+      "/run/current-system/sw/bin/"
+      # this should not be needed
+      "$HOME/.nix-profile/bin"
+  ];
 }
