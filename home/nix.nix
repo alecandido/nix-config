@@ -14,7 +14,7 @@
   # Useful nix related tools
   home.packages = with pkgs; [
     cachix
-    devenv
+    # devenv
     niv
   ];
 }
