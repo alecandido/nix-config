@@ -14,6 +14,8 @@
     amend = "commit --amend";
     last = "show --stat";
 
+    branch-name = "rev-parse --abbrev-ref HEAD";
+    branch-full-name = ''rev-parse --abbrev-ref --symbolic-full-name "@{u}"'';
     psuoc = "!git push -u origin $(git branch-name)";
 
     tree = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
