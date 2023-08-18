@@ -5,6 +5,7 @@
     ./aliases
     ./git
     ./neovim
+    ./zellij
     ./javascript.nix
     ./python.nix
     ./nix.nix
