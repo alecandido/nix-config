@@ -1,5 +1,5 @@
 {
-  scripts.fmt.exec = "nix fmt .";
+  scripts.format.exec = "nix fmt .";
 
   languages.nix.enable = true;
 

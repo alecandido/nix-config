@@ -14,6 +14,7 @@
       ripgrep
       fd
       ripgrep-all
+      duf
       gh
       ncdu
     ] ++ lib.optionals stdenv.isDarwin [ m-cli ];

@@ -4,5 +4,5 @@ extra:
 
 {
   config = { allowUnfree = true; };
-  overlays = [ ./devenv.nix ] ++ extra;
+  overlays = [ (import ./devenv.nix inputs) ] ++ extra;
 }

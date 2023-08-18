@@ -8,7 +8,7 @@ let
     home-manager.useUserPackages = true;
   };
 
-  nixpkgs = ((import ../overlays) inputs);
+  nixpkgs = ((import ../overlays_) inputs);
 
   userInfo = { user }: rec {
     home-manager.users.${user} = import ../home;
