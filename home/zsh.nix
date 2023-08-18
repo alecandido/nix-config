@@ -1,4 +1,8 @@
+{ pkgs, ... }:
+
 {
+  home.packages = with pkgs; [ zsh-fzf-tab ];
+
   programs.zsh = {
     enableAutosuggestions = true;
     enableCompletion = true;

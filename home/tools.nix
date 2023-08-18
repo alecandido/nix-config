@@ -17,6 +17,7 @@
       duf
       gh
       ncdu
+      fzf
     ] ++ lib.optionals stdenv.isDarwin [ m-cli ];
 
   # XDG
