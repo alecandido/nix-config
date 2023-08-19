@@ -18,6 +18,11 @@ return {
   'tpope/vim-git',
   'junegunn/gv.vim',
 
+  -- Copy, cut, and paste
+  'svermeulen/vim-subversive',
+  'svermeulen/vim-cutlass',
+  'svermeulen/vim-yoink',
+
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true }
