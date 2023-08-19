@@ -13,4 +13,7 @@ vim.opt.shada = "'1000,f1,<500"
 
 -- load plugins, and options before plugins
 require("before")
+require("minimal")
 -- require("plug")
+require("after")
+
