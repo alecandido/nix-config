@@ -1,6 +1,6 @@
 -- leader and local leader
-vim.g.mapleader = ",,"
-vim.g.maplocalleader = ";;"
+vim.g.mapleader = ","
+vim.g.maplocalleader = ";"
 
 -- increase memory for patter matching
 vim.opt.maxmempattern = 10000
@@ -14,6 +14,7 @@ vim.opt.shada = "'1000,f1,<500"
 -- load plugins, and options before plugins
 require("before")
 require("minimal")
+require("lazy-setup")
 -- require("plug")
 require("after")
 
