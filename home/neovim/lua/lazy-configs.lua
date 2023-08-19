@@ -12,3 +12,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
+
+local opts = {
+  root = vim.fn.stdpath("cache") .. "/lazy",
+  lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",
+}
+
+require("lazy").setup("plugins", opts)
