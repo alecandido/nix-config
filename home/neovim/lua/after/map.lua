@@ -1,0 +1,5 @@
+vim.keymap.set('n', 'H', '^')
+vim.keymap.set('n', 'L', '$')
+vim.keymap.set('n', '0', 'H')
+vim.keymap.set('n', '^', '0')
+vim.keymap.set('n', '$', 'L')
