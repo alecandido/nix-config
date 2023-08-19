@@ -1,0 +1,25 @@
+-- vim-cutlass
+vim.keymap.set('n', 'x', 'd')
+vim.keymap.set('n', 'xx', 'dd')
+vim.keymap.set('n', 'X', 'D')
+
+vim.keymap.set('x', 'x', 'd')
+
+vim.keymap.set('', '<C-x>', 'd')
+vim.keymap.set('n', '<C-x>', 'x')
+
+-- vim-subversive
+-- s for substitute
+vim.keymap.set('n', 's', '<plug>(SubversiveSubstitute)', { remap = true })
+vim.keymap.set('n', 'ss', '<plug>(SubversiveSubstituteLine)', { remap = true })
+vim.keymap.set('n', 'S', '<plug>(SubversiveSubstituteToEndOfLine)', { remap = true })
+
+-- vim-yoink
+vim.g.yoinkIncludeDeleteOperations = 1
+
+
+-- nmap <c-n> <plug>(YoinkPostPasteSwapBack)
+-- nmap <c-p> <plug>(YoinkPostPasteSwapForward)
+
+vim.keymap.set('n', 'p', '<plug>(YoinkPaste_p)', { remap = true })
+vim.keymap.set('n', 'P', '<plug>(YoinkPaste_P)', { remap = true })
