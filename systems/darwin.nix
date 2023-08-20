@@ -31,6 +31,8 @@ in
       home-manager.darwinModules.home-manager
       (homeCommons // (userInfo { user = "alessandro"; }))
     ] ++ singleton { nixpkgs = nixpkgs [ ]; };
+
+    specialArgs = { inherit inputs; };
     system = "aarch64-darwin";
   };
 

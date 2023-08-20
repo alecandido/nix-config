@@ -13,10 +13,10 @@
       jq
       ripgrep
       fd
-      ripgrep-all
+      # ripgrep-all
       duf
       gh
-      ncdu
+      ncdu_1
       fzf
     ] ++ lib.optionals stdenv.isDarwin [ m-cli ];
 
