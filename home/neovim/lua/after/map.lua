@@ -10,3 +10,6 @@ vim.keymap.set('', '$', 'J')
 
 vim.keymap.set('n', 'o', 'o<Esc>')
 vim.keymap.set('n', 'O', 'O<Esc>')
+
+-- Escape in terminal
+vim.keymap.set('t', '<Esc>', '<C-\><C-n>')
