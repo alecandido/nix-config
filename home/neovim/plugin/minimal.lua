@@ -7,8 +7,10 @@ opts = {
   list = true,
   listchars = "tab:-->,trail:·",
   clipboard = "unnamed",
+  undofile = true,
   ignorecase = true,
   smartcase = true,
+  breakindent = true,
   completeopt = 'menuone,noselect'
 }
 
