@@ -9,7 +9,7 @@ local big_steps = {
 }
 
 for _, map in ipairs(big_steps) do
-  vim.keymap.set({'n', 'v', 'o', 'c'}, map[1], map[2])
+  vim.keymap.set({'n', 'v', 'o'}, map[1], map[2])
 end
 
 -- Insert new lines
@@ -23,3 +23,9 @@ end
 
 -- Escape in terminal
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+
+vim.api.nvim_create_autocmd("WinEnter", {
+  callback = function()
+    os.execute(string.format("export COLUMNS=%s", vim.api.nvim_win_get_width(0))) 
+  end
+})
