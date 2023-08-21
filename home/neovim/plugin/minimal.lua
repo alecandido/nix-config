@@ -7,6 +7,9 @@ opts = {
   list = true,
   listchars = "tab:-->,trail:·",
   clipboard = "unnamed",
+  ignorecase = true,
+  smartcase = true,
+  completeopt = 'menuone,noselect'
 }
 
 for name, value in pairs(opts) do

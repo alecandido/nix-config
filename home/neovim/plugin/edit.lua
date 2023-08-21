@@ -23,3 +23,14 @@ vim.g.yoinkIncludeDeleteOperations = 1
 
 vim.keymap.set('n', 'p', '<plug>(YoinkPaste_p)', { remap = true })
 vim.keymap.set('n', 'P', '<plug>(YoinkPaste_P)', { remap = true })
+
+-- [[ Highlight on yank ]]
+-- See `:help vim.highlight.on_yank()`
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = '*',
+})

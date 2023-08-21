@@ -1,7 +1,8 @@
 -- Pure UI
 
 return { 
-  'arcticicestudio/nord-vim',
+  'shaunsingh/nord.nvim',
+  "rebelot/kanagawa.nvim",
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
@@ -36,11 +37,29 @@ return {
     },
   },
 
+
+  {
+    'lukas-reineke/headlines.nvim',
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    opts = {
+      markdown = {
+        headline_highlights = {
+          "Headline1",
+          "Headline2",
+          "Headline3",
+          "Headline4",
+          "Headline5",
+          "Headline6",
+        },
+        fat_headlines = false,
+      },
+    },
+  },
+
   -- Set lualine as statusline
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
-    -- See `:help lualine.txt`
     opts = {
       options = {
         icons_enabled = false,
@@ -48,6 +67,44 @@ return {
         component_separators = '|',
         section_separators = '',
       },
+    },
+  },
+
+  {
+    'romgrk/barbar.nvim',
+    dependencies = {
+      'lewis6991/gitsigns.nvim',
+      'nvim-tree/nvim-web-devicons',
+    },
+    keys = {
+      { '<A-,>', '<Cmd>BufferPrevious<CR>' },
+      { '<A-.>', '<Cmd>BufferNext<CR>' },
+      { '<A-<>', '<Cmd>BufferMovePrevious<CR>' },
+      { '<A->>', '<Cmd>BufferMoveNext<CR>' },
+      { '<A-1>', '<Cmd>BufferGoto 1<CR>' },
+      { '<A-2>', '<Cmd>BufferGoto 2<CR>' },
+      { '<A-3>', '<Cmd>BufferGoto 3<CR>' },
+      { '<A-4>', '<Cmd>BufferGoto 4<CR>' },
+      { '<A-0>', '<Cmd>BufferLast<CR>' },
+      { '<A-w>', '<Cmd>BufferClose<CR>' },
+      { '<A-q>', '<Cmd>q<CR>' },
+      { '<A-p>', '<Cmd>BufferPick<CR>' },
+    },
+    lazy = false,
+    version = '^1.0.0',
+  },
+
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
+    keys = {
+      { '<A-t>', '<Cmd>Neotree toggle<CR>' },
+      { '<A-g>s', '<Cmd>Neotree git_status float<CR>' },
     },
   },
 }
