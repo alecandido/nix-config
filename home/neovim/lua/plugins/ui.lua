@@ -88,7 +88,6 @@ return {
       { '<A-4>', '<Cmd>BufferGoto 4<CR>' },
       { '<A-0>', '<Cmd>BufferLast<CR>' },
       { '<A-w>', '<Cmd>BufferClose<CR>' },
-      { '<A-q>', '<Cmd>q<CR>' },
       { '<A-p>', '<Cmd>BufferPick<CR>' },
     },
     lazy = false,
