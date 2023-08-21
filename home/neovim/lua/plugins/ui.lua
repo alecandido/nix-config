@@ -3,6 +3,7 @@
 return { 
   'shaunsingh/nord.nvim',
   "rebelot/kanagawa.nvim",
+  "navarasu/onedark.nvim",
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
