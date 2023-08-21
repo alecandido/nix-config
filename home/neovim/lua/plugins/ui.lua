@@ -107,4 +107,11 @@ return {
       { '<A-g>s', '<Cmd>Neotree git_status float<CR>' },
     },
   },
+
+  {
+    'simrat39/symbols-outline.nvim',
+    keys = {
+      { '<A-s>', '<Cmd>SymbolsOutline<CR>' },
+    },
+  }
 }
