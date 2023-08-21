@@ -110,6 +110,7 @@ return {
 
   {
     'simrat39/symbols-outline.nvim',
+    config = true,
     keys = {
       { '<A-s>', '<Cmd>SymbolsOutline<CR>' },
     },
