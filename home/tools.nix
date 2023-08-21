@@ -19,6 +19,7 @@
       ncdu_1
       fzf
       btop
+      tldr
     ] ++ lib.optionals stdenv.isDarwin [ m-cli ];
 
   # XDG
