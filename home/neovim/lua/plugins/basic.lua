@@ -28,13 +28,6 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
   
-  -- Symbols & related
-  'simrat39/symbols-outline.nvim',
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate"
-  },
-
   -- Comments
   {
     'numToStr/Comment.nvim',

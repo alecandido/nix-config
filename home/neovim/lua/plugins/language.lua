@@ -1,12 +1,18 @@
 return {
+  -- Symbols & related
+  'simrat39/symbols-outline.nvim',
   {
-    -- LSP Configuration & Plugins
+    "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
+    build = ":TSUpdate"
+  },
+
+  -- LSP Configuration & Plugins
+  {
     'neovim/nvim-lspconfig',
     dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
-
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
@@ -16,8 +22,8 @@ return {
     },
   },
 
+  -- Autocompletion
   {
-    -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
@@ -41,15 +47,17 @@ return {
     },
   },
 
+  -- Debug
+  {
+    'mfussenegger/nvim-dap',
+    keys = {},
+  },
+
+  -- Diagnostics
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = { },
-  },
-
-  {
-    'mfussenegger/nvim-dap',
-    keys = {},
   },
 
   {
