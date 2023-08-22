@@ -112,6 +112,9 @@ return {
     keys = {
       { '<A-s>', '<Cmd>SymbolsOutline<CR>' },
     },
+    config = function(plugin, opts)
+        require("symbols-outline").setup(opts)
+      end,
     opts = {
       symbols = {
         File = { icon = " ", hl = "@text.uri" },

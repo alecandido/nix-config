@@ -1,3 +1,7 @@
+local parent = ...
+
+print(parent .. ".language")
+
 return {
   -- Symbols & related
   'simrat39/symbols-outline.nvim',
@@ -9,16 +13,29 @@ return {
     build = ":TSUpdate"
   },
 
-  -- LSP Configuration & Plugins
+  -- LSP Configuration
   {
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
+    },
+  },
+
+  {
+    'VonHeikemen/lsp-zero.nvim',
+    branch = 'v2.x',
+    dependencies = {
+      -- LSP Support
+      'neovim/nvim-lspconfig',
+
+      -- Autocompletion
+      'hrsh7th/nvim-cmp',
+      'hrsh7th/cmp-nvim-lsp',
+      'L3MON4D3/LuaSnip',
     },
   },
 
