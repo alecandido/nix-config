@@ -29,5 +29,8 @@
       setopt pushd_ignore_dups
       setopt pushdminus
     '';
+    envExtra = ''
+      export KEYTIMEOUT=1
+    '';
   };
 }
