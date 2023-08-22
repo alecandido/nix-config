@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  imports = with pkgs; [ universal-ctags ];
+  home.packages = with pkgs; [ universal-ctags ];
 
   programs.git.extraConfig = {
     core = {
