@@ -1,7 +1,11 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ zsh-fzf-tab ];
+  home.packages = with pkgs; [ 
+    zsh-fzf-tab
+    zsh-vi-mode
+    zsh-completions
+  ];
 
   programs.zsh = {
     enableAutosuggestions = true;
