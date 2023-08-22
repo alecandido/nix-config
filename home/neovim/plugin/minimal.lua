@@ -1,4 +1,4 @@
-opts = {
+local opts = {
   number = true,
   relativenumber = true,
   splitbelow = true,

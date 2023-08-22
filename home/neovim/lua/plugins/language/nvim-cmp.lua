@@ -1,18 +1,17 @@
 -- [[ Configure nvim-cmp ]]
 
-return function(plugin, opts)
-  local cmp = require('cmp')
-  local luasnip = require('luasnip')
-  require('luasnip.loaders.from_vscode').lazy_load()
-  luasnip.config.setup({})
-
+local function extra_opts(cmp)
   local has_words_before = function()
     unpack = unpack or table.unpack
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
   end
 
-  cmp.setup({
+  local luasnip = require('luasnip')
+  require('luasnip.loaders.from_vscode').lazy_load()
+  luasnip.config.setup({})
+
+  return {
     snippet = {
       expand = function(args)
         luasnip.lsp_expand(args.body)
@@ -73,7 +72,13 @@ return function(plugin, opts)
         keyword_length = 2,
       },
     },
-  })
+  }
+end
+
+return function(_, opts)
+  local cmp = require('cmp')
+
+  cmp.setup(vim.tbl_deep_extend("keep", opts, extra_opts(cmp)))
 
   cmp.setup.filetype('gitcommit', {
     sources = cmp.config.sources({
