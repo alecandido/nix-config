@@ -45,5 +45,5 @@ in
     };
   };
 
-  xdg.configFile."git/template".source = mkOutOfStoreSymlink "/Users/alessandro/.config/nixpkgs/config/git/template";
+  xdg.configFile."git/template".source = ./template;
 }
