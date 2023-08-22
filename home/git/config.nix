@@ -1,8 +1,5 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 
-let
-  inherit (config.lib.file) mkOutOfStoreSymlink;
-in
 {
   imports = with pkgs; [ universal-ctags ];
 
