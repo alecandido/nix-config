@@ -5,5 +5,5 @@
   programs.neovim.defaultEditor = true;
   programs.neovim.vimdiffAlias = true;
 
-  xdg.configFile."nvim".source = ./.;
+  xdg.configFile."nvim".source = ./nvim;
 }
