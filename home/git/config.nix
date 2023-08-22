@@ -1,9 +1,11 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
 in
 {
+  imports = with pkgs; [ universal-ctags ];
+
   programs.git.extraConfig = {
     core = {
       editor = "nvim";
