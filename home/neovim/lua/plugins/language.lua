@@ -1,10 +1,10 @@
 local parent = ...
 
-local lsp_zero_init = require(parent .. ".lsp-zero")
+local lsp_zero_config = require(parent .. ".lsp-zero")
+local nvim_cmp_config = require(parent .. ".nvim-cmp")
 
 return {
   -- Symbols & related
-  'simrat39/symbols-outline.nvim',
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
@@ -12,6 +12,7 @@ return {
     },
     build = ":TSUpdate"
   },
+  'simrat39/symbols-outline.nvim',
 
   -- LSP Configuration
   {
@@ -19,9 +20,6 @@ return {
     dependencies = {
       -- Useful status updates for LSP
       { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
-
-      -- Additional lua configuration, makes nvim stuff amazing!
-      'folke/neodev.nvim',
     },
   },
 
@@ -35,8 +33,11 @@ return {
       'hrsh7th/nvim-cmp',
       'hrsh7th/cmp-nvim-lsp',
       'L3MON4D3/LuaSnip',
+
+      -- Additional lua configuration for nvim
+      'folke/neodev.nvim',
     },
-    init = lsp_zero_init,
+    config = lsp_zero_config,
   },
 
   -- Autocompletion
@@ -62,6 +63,7 @@ return {
       'uga-rosa/cmp-dictionary',
       'hrsh7th/cmp-cmdline',
     },
+    config = nvim_cmp_config,
   },
 
   -- Debug
