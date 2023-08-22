@@ -1,7 +1,7 @@
 -- Pure UI
 
 return { 
-  'shaunsingh/nord.nvim',
+  { 'shaunsingh/nord.nvim', priority=1000 },
   "rebelot/kanagawa.nvim",
   "navarasu/onedark.nvim",
 
