@@ -1,6 +1,6 @@
 local parent = ...
 
-print(parent .. ".language")
+local lsp_zero_init = require(parent .. ".lsp-zero")
 
 return {
   -- Symbols & related
@@ -36,6 +36,7 @@ return {
       'hrsh7th/cmp-nvim-lsp',
       'L3MON4D3/LuaSnip',
     },
+    init = lsp_zero_init,
   },
 
   -- Autocompletion
