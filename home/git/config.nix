@@ -1,5 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
+let
+  xdg = config.xdg;
+in
 {
   home.packages = with pkgs; [ universal-ctags ];
 
@@ -13,7 +16,7 @@
     merge.log = true;
     init = {
       defaultBranch = "main";
-      templateDir = "$XDG_CONFIG_HOME/git/template";
+      templateDir = "${xdg.configHome}/git/template";
     };
     column.ui = "auto nodense";
     gpg.format = "ssh";
