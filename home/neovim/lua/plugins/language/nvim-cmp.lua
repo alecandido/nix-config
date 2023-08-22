@@ -1,5 +1,7 @@
 -- [[ Configure nvim-cmp ]]
 
+local M = {}
+
 local function extra_opts(cmp)
   local has_words_before = function()
     unpack = unpack or table.unpack
@@ -75,7 +77,7 @@ local function extra_opts(cmp)
   }
 end
 
-return function(_, opts)
+function M.config (_, opts)
   local cmp = require('cmp')
 
   cmp.setup(vim.tbl_deep_extend("keep", opts, extra_opts(cmp)))
@@ -112,3 +114,5 @@ return function(_, opts)
     })
   })
 end
+
+return M

@@ -1,5 +1,7 @@
+local M = {}
+
 --  This function gets run when an LSP connects to a particular buffer.
-function on_attach(_, bufnr)
+local function on_attach(_, bufnr)
   local function map(mode, keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -25,6 +27,8 @@ function on_attach(_, bufnr)
   nmap('<leader>td', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  nmap('[d', vim.diagnostic.goto_next(), 'Previous [D]iagnostic')
+  nmap(']d', vim.diagnostic.goto_prev(), 'Next [D]iagnostic')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -42,7 +46,7 @@ end
 
 local servers = { 'tsserver', 'eslint', 'pyright' }
 
-return function(plugin, opts)
+function M.config (_, opts)
   -- Setup neovim lua configuration
   require('neodev').setup()
 
@@ -55,3 +59,5 @@ return function(plugin, opts)
   -- (Optional) Configure lua language server for neovim
   require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 end
+
+return M

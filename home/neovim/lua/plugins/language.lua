@@ -1,7 +1,8 @@
 local parent = ...
 
-local lsp_zero_config = require(parent .. ".lsp-zero")
-local nvim_cmp_config = require(parent .. ".nvim-cmp")
+local lsp_zero = require(parent .. ".lsp-zero")
+local nvim_cmp = require(parent .. ".nvim-cmp")
+local trouble = require(parent .. ".trouble")
 
 return {
   -- Symbols & related
@@ -37,7 +38,7 @@ return {
       -- Additional lua configuration for nvim
       'folke/neodev.nvim',
     },
-    config = lsp_zero_config,
+    config = lsp_zero.config,
   },
 
   -- Autocompletion
@@ -63,7 +64,7 @@ return {
       'uga-rosa/cmp-dictionary',
       'hrsh7th/cmp-cmdline',
     },
-    config = nvim_cmp_config,
+    config = nvim_cmp.config,
   },
 
   -- Debug
@@ -76,10 +77,8 @@ return {
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = { },
-    keys = {
-      { '<A-r>', '<Cmd>TroubleToggle<CR>' },
-    },
+    opts = {},
+    keys = trouble.keys,
   },
 
   {
@@ -88,4 +87,8 @@ return {
       'nvim-lua/plenary.nvim',
     },
   },
+
+  -- Bunch of syntaxes for those languages which I do not bother installing a language
+  -- server for
+  "sheerun/vim-polyglot",
 }

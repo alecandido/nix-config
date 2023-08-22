@@ -11,7 +11,8 @@ local opts = {
   ignorecase = true,
   smartcase = true,
   breakindent = true,
-  completeopt = 'menuone,noselect'
+  completeopt = 'menuone,noselect',
+  textwidth = 88,
 }
 
 for name, value in pairs(opts) do
