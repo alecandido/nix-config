@@ -77,14 +77,15 @@ return {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = { },
+    keys = {
+      { '<A-r>', '<Cmd>TroubleToggle<CR>' },
+    },
   },
 
   {
     'jose-elias-alvarez/null-ls.nvim',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim', config = true },
     },
   },
 }
