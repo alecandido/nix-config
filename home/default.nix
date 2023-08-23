@@ -6,9 +6,10 @@
     ./git
     ./neovim
     ./zellij
+    ./build.nix
     ./javascript.nix
-    ./python.nix
     ./nix.nix
+    ./python.nix
     ./tex.nix
     ./tools.nix
     ./zsh.nix
