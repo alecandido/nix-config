@@ -28,11 +28,11 @@ in
       enabled = true;
       autoupdate = true;
     };
-    url = {
-      "ssh://git@github.com/" = {
-        insteadOf = "https://github.com/";
-      };
-    };
+    # url = {
+    #   "ssh://git@github.com/" = {
+    #     insteadOf = "https://github.com/";
+    #   };
+    # };
     color = {
       status = {
         changed = "yellow";
