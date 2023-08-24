@@ -1,5 +1,8 @@
 {
-  imports = [ ./servers.nix ];
+  imports = [
+    ./formatters.nix
+    ./servers.nix
+  ];
 
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
