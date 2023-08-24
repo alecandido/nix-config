@@ -11,7 +11,5 @@
     poppler_utils
     # render video thumbnails
     ffmpegthumbnailer
-    # preview fonts in terminal
-    fontpreview
   ];
 }
