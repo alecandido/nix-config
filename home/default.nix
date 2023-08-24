@@ -6,6 +6,7 @@
     ./git
     ./neovim
     ./zellij
+    ./amenities.nix
     ./build.nix
     ./javascript.nix
     ./nix.nix
