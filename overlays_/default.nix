@@ -1,8 +1,4 @@
-{ devenv, ... }@inputs:
-
-extra:
-
-{
-  config = { allowUnfree = true; };
-  overlays = [ (import ./devenv.nix inputs) ] ++ extra;
+{devenv, ...} @ inputs: extra: {
+  config = {allowUnfree = true;};
+  overlays = [(import ./devenv.nix inputs)] ++ extra;
 }

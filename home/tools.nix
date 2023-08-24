@@ -1,6 +1,8 @@
-{ pkgs, lib, ... }:
-
 {
+  pkgs,
+  lib,
+  ...
+}: {
   home.packages = with pkgs;
     [
       # Some basics
@@ -20,7 +22,8 @@
       fzf
       btop
       tldr
-    ] ++ lib.optionals stdenv.isDarwin [ m-cli ];
+    ]
+    ++ lib.optionals stdenv.isDarwin [m-cli];
 
   # XDG
   xdg.enable = true;
@@ -28,7 +31,10 @@
   # Starship
   programs.starship = {
     enable = true;
-    settings = { hostname.ssh_only = false; package.disabled = true; };
+    settings = {
+      hostname.ssh_only = false;
+      package.disabled = true;
+    };
   };
 
   # Atuin

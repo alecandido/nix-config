@@ -1,10 +1,5 @@
-{ devenv, ... }:
-
-_: super:
-
-let
+{devenv, ...}: _: super: let
   system = super.stdenv.system;
-in
-{
+in {
   devenv = devenv.packages.${system}.devenv;
 }

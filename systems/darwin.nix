@@ -1,6 +1,8 @@
-{ darwin, home-manager, ... }@inputs:
-
-let
+{
+  darwin,
+  home-manager,
+  ...
+} @ inputs: let
   inherit (inputs.nixpkgs.lib) singleton;
 
   homeCommons = {
@@ -8,12 +10,12 @@ let
     home-manager.useUserPackages = true;
   };
 
-  nixpkgs = ((import ../overlays_) inputs);
+  nixpkgs = (import ../overlays_) inputs;
 
-  userInfo = { user }: rec {
+  userInfo = {user}: rec {
     home-manager.users.${user} = import ../home;
     home-manager.sharedModules = singleton {
-      nixpkgs = nixpkgs [ ];
+      nixpkgs = nixpkgs [];
     };
     home-manager.extraSpecialArgs = {
       inherit user inputs;
@@ -21,19 +23,17 @@ let
     };
     users.users.${user}.home = home-manager.extraSpecialArgs.home;
   };
-
-in
-{
-
+in {
   donaldville = darwin.lib.darwinSystem {
-    modules = [
-      ../etc/darwin
-      home-manager.darwinModules.home-manager
-      (homeCommons // (userInfo { user = "alessandro"; }))
-    ] ++ singleton { nixpkgs = nixpkgs [ ]; };
+    modules =
+      [
+        ../etc/darwin
+        home-manager.darwinModules.home-manager
+        (homeCommons // (userInfo {user = "alessandro";}))
+      ]
+      ++ singleton {nixpkgs = nixpkgs [];};
 
-    specialArgs = { inherit inputs; };
+    specialArgs = {inherit inputs;};
     system = "aarch64-darwin";
   };
-
 }

@@ -1,10 +1,11 @@
-{ pkgs, config, ... }:
-
-let
-  xdg = config.xdg;
-in
 {
-  home.packages = with pkgs; [ universal-ctags ];
+  pkgs,
+  config,
+  ...
+}: let
+  xdg = config.xdg;
+in {
+  home.packages = with pkgs; [universal-ctags];
 
   programs.git.extraConfig = {
     core = {

@@ -18,14 +18,12 @@
     devenv.url = "github:cachix/devenv/latest";
   };
 
-  outputs = inputs:
-    let
-      sys = (import ./systems) inputs;
-      nixConfigs = (import ./top/nix.nix) inputs;
-    in
-    {
-      darwinConfigurations = sys.darwin;
+  outputs = inputs: let
+    sys = (import ./systems) inputs;
+    nixConfigs = (import ./top/nix.nix) inputs;
+  in {
+    darwinConfigurations = sys.darwin;
 
-      inherit (nixConfigs) formatter;
-    };
+    inherit (nixConfigs) formatter;
+  };
 }

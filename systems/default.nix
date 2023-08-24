@@ -1,5 +1,3 @@
-{ self, ... }@inputs:
-
-{
+{self, ...} @ inputs: {
   darwin = (import ./darwin.nix) inputs;
 }
