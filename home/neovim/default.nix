@@ -1,7 +1,11 @@
-{
+{pkgs, ...}: {
   imports = [
     ./formatters.nix
     ./servers.nix
+  ];
+
+  home.packages = with pkgs; [
+    tree-sitter
   ];
 
   programs.neovim.enable = true;
