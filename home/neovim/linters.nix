@@ -8,7 +8,6 @@
       selene
       sqlfluff
       vale
-      verilator
       yamllint
     ]
     ++ (with pkgs.nodePackages; [
