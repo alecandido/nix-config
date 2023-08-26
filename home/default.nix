@@ -3,6 +3,7 @@
     ./aliases
     ./git
     ./neovim
+    ./ssh
     ./zellij
     ./amenities.nix
     ./build.nix

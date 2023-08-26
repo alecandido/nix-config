@@ -63,8 +63,4 @@
     enable = true;
     settings.show_program_path = true;
   };
-
-  programs.ssh = {
-    enable = true;
-  };
 }
