@@ -14,5 +14,8 @@
       eslint
       stylelint
       jsonlint
+    ])
+    ++ (with pkgs.python311Packages; [
+      pydocstyle
     ]);
 }
