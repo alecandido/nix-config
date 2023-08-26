@@ -7,6 +7,12 @@
     userName = "Alessandro Candido";
     userEmail = "candido.ale@gmail.com";
 
-    ignores = [".DS_Store" ".direnv"];
+    ignores = [
+      ".DS_Store"
+      ".direnv"
+      "/tags"
+      ".gdb_history"
+      ".pnpm-debug.log"
+    ];
   };
 }
