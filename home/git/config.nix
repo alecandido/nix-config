@@ -3,11 +3,15 @@
   config,
   ...
 }: let
+  home = config.home;
   xdg = config.xdg;
 in {
   home.packages = with pkgs; [universal-ctags];
 
   programs.git.extraConfig = {
+    user = {
+      signingKey = "${home.homeDirectory}/.ssh/id_ed25519.pub";
+    };
     core = {
       editor = "nvim";
       quotepath = false;
@@ -29,11 +33,6 @@ in {
       enabled = true;
       autoupdate = true;
     };
-    # url = {
-    #   "ssh://git@github.com/" = {
-    #     insteadOf = "https://github.com/";
-    #   };
-    # };
     color = {
       status = {
         changed = "yellow";
