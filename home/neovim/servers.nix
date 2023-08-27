@@ -14,7 +14,6 @@
       sqls
       taplo
       texlab
-      verible
       vhdl-ls
     ]
     ++ (with pkgs.nodePackages; [
