@@ -10,7 +10,6 @@
       shfmt
       stylish-haskell
       stylua
-      taplo
       uncrustify
     ]
     ++ (with pkgs.nodePackages; [

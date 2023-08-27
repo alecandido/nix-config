@@ -4,7 +4,6 @@
       actionlint
       cppcheck
       revive
-      ruff
       selene
       sqlfluff
       vale
