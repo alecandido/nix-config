@@ -11,9 +11,10 @@
       nil
       rome
       rust-analyzer
-      sqls
+      # sqls
       taplo
       texlab
+      # verible
       vhdl-ls
     ]
     ++ (with pkgs.nodePackages; [
@@ -28,6 +29,6 @@
       dbaeumer.vscode-eslint
     ])
     ++ (with pkgs.python311Packages; [
-      ruff-lsp
+      # ruff-lsp
     ]);
 }
