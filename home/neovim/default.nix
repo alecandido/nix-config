@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   imports = [
+    ./linters
     ./formatters.nix
-    ./linters.nix
     ./servers.nix
   ];
 

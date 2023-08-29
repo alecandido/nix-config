@@ -18,4 +18,6 @@
     ++ (with pkgs.python311Packages; [
       pydocstyle
     ]);
+
+  xdg.configFile."vale".source = ./vale;
 }
