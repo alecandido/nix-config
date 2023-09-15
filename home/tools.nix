@@ -11,6 +11,8 @@
       wget
 
       # Tools
+      # TODO: exa is unmaintained, replace with
+      # [eza](https://github.com/eza-community/eza) (not yet available in nixpkgs 23.05)
       exa
       jq
       ripgrep
