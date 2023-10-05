@@ -24,7 +24,7 @@
     users.users.${user}.home = home-manager.extraSpecialArgs.home;
   };
 in {
-  donaldville = darwin.lib.darwinSystem {
+  ac-donaldville = darwin.lib.darwinSystem {
     modules =
       [
         ../etc/darwin

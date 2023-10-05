@@ -65,4 +65,10 @@
     enable = true;
     settings.show_program_path = true;
   };
+
+  # Bitwarden
+  programs.rbw = {
+    enable = true;
+    settings.email = "candido.ale@gmail.com";
+  };
 }

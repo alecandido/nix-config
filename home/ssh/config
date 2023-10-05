@@ -37,5 +37,10 @@ Host qrccluster
     User alessandro.candido
 
 Host lxplus
+    AddKeysToAgent yes
+    GSSAPIAuthentication yes
+    GSSAPIDelegateCredentials yes
+    StrictHostKeyChecking False
+    ChallengeResponseAuthentication no
     HostName lxplus9.cern.ch
     User candidal
