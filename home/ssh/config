@@ -1,42 +1,41 @@
- Host piero
-     HostName 131.114.142.201
-     User acandido
+Host piero
+    HostName 131.114.142.201
+    User acandido
 
- Host marco
-     HostName login.marconi.cineca.it
-     User acandido
+Host marco
+    HostName login.marconi.cineca.it
+    User acandido
 
- Host midefix
-     HostName idefix.mi.infn.it
-     User acandido
+Host midefix
+    HostName idefix.mi.infn.it
+    User acandido
 
- Host bastione
-     HostName bastione.mi.infn.it
-     User acandido
+Host bastione
+    HostName bastione.mi.infn.it
+    User acandido
 
- Host lcm
-     HostName lcm.mi.infn.it
-     User alessandrocandido
+Host lcm
+    HostName lcm.mi.infn.it
+    User alessandrocandido
 
- Host galileo
-     HostName galileo
-     User alessandrocandido
-     ProxyJump lcm
+Host galileo
+    HostName galileo
+    User alessandrocandido
+    ProxyJump lcm
 
- Host indaco
-     HostName login.indaco.unimi.it
-     User alessandro.candido1
+Host indaco
+    HostName login.indaco.unimi.it
+    User alessandro.candido1
 
- Host dom
-     HostName dom.mi.infn.it
-     User alessandro
-     ProxyJump bastione
+Host dom
+    HostName dom.mi.infn.it
+    User alessandro
+    ProxyJump bastione
 
- Host phantomblot
-     HostName phantomblot.mi.infn.it
-     User alessandro
-     ProxyJump bastione
+Host qrccluster
+    HostName login.qrccluster.com
+    User alessandro.candido
 
- Host qrccluster
-     HostName login.qrccluster.com
-     User alessandro.candido
+Host lxplus
+    HostName lxplus9.cern.ch
+    User candidal
