@@ -44,3 +44,8 @@ Host lxplus
     ChallengeResponseAuthentication no
     HostName lxplus9.cern.ch
     User candidal
+
+Host boogiepop
+    HostName boogiepop.mi.infn.it
+    Port 43123
+    User alessandro
