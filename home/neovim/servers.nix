@@ -9,7 +9,6 @@
       lua-language-server
       metals
       nil
-      rome
       rust-analyzer
       # sqls
       taplo

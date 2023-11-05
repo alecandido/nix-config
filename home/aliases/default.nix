@@ -1,6 +1,6 @@
 {
   home.shellAliases = {
-    ls = "exa";
+    ls = "eza";
     la = "ls -a";
     ll = "ls -l";
     nv = "nvim";
