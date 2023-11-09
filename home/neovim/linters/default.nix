@@ -19,5 +19,6 @@
       pydocstyle
     ]);
 
+  xdg.configFile."ltex".source = ./ltex;
   xdg.configFile."vale".source = ./vale;
 }
