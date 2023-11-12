@@ -2,6 +2,7 @@
   imports = [
     ./aliases
     ./git
+    ./kerberos
     ./neovim
     ./ssh
     ./zellij

@@ -15,5 +15,8 @@
     lxplus = ''
       sshpass -p $(rbw get CERN) ssh lxplus
     '';
+    kcern = ''
+      kinit --password-file=STDIN candidal@cern.ch <<< $(rbw get CERN)
+    '';
   };
 }
