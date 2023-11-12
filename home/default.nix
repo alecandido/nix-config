@@ -1,4 +1,4 @@
-{user, ...}: {
+{ user, ... }: {
   imports = [
     ./aliases
     ./git
@@ -16,15 +16,8 @@
     ./zsh.nix
   ];
 
-  programs.zsh.enable = true;
+  programs.home-manager.enable = true;
 
   home.username = user;
   home.stateVersion = "23.05";
-  # TODO: understand why the following is required
-  home.sessionPath = [
-    # this should be there by default
-    "/run/current-system/sw/bin/"
-    # this should not be needed
-    "$HOME/.nix-profile/bin"
-  ];
 }

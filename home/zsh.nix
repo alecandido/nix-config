@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     zsh-fzf-tab
     zsh-vi-mode
@@ -9,6 +9,7 @@
   ];
 
   programs.zsh = {
+    enable = true;
     enableAutosuggestions = true;
     enableCompletion = true;
     syntaxHighlighting.enable = true;

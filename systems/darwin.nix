@@ -1,39 +1,45 @@
-{
-  darwin,
-  home-manager,
-  ...
-} @ inputs: let
+{ darwin
+, home-manager
+, ...
+} @ inputs:
+let
   inherit (inputs.nixpkgs.lib) singleton;
-
-  homeCommons = {
-    home-manager.useGlobalPkgs = true;
-    home-manager.useUserPackages = true;
-  };
 
   nixpkgs = (import ../overlays_) inputs;
 
-  userInfo = {user}: rec {
-    home-manager.users.${user} = import ../home;
-    home-manager.sharedModules = singleton {
-      nixpkgs = nixpkgs [];
+  homeMods = { user }:
+    let
+      extraSpecialArgs = {
+        inherit user inputs;
+        home = "/Users/${user}";
+      };
+    in
+    {
+      home-manager.users.${user} = import ../home;
+      # Give `inputs` access to all home-manager modules,
+      # together with `home` and `user` specification
+      home-manager.extraSpecialArgs = extraSpecialArgs;
+      # Set home
+      users.users.${user}.home = extraSpecialArgs.home;
+
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
     };
-    home-manager.extraSpecialArgs = {
-      inherit user inputs;
-      home = "/Users/${user}";
-    };
-    users.users.${user}.home = home-manager.extraSpecialArgs.home;
-  };
-in {
+in
+{
   donaldville = darwin.lib.darwinSystem {
     modules =
       [
         ../etc/darwin
         home-manager.darwinModules.home-manager
-        (homeCommons // (userInfo {user = "alessandro";}))
+        (homeMods { user = "alessandro"; })
       ]
-      ++ singleton {nixpkgs = nixpkgs [];};
+      ++ singleton {
+        nixpkgs = nixpkgs [ ];
+      };
 
-    specialArgs = {inherit inputs;};
+    # Give `inputs` access to all nix-darwin modules
+    specialArgs = { inherit inputs; };
     system = "aarch64-darwin";
   };
 }

@@ -7,7 +7,9 @@
   #  '';
   #};
 
-  imports = [../fonts.nix ../keyboard.nix ../nix.nix];
+  imports = [ ../fonts.nix ../keyboard.nix ../nix.nix ];
+
+  programs.zsh.enable = true;
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
@@ -15,7 +17,7 @@
   # Add ability to used TouchID for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
 
-  environment.pathsToLink = ["/share/zsh"];
+  environment.pathsToLink = [ "/share/zsh" ];
 
   system.stateVersion = 4;
 }
