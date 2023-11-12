@@ -7,7 +7,7 @@
   #  '';
   #};
 
-  imports = [ ../fonts.nix ../keyboard.nix ../nix.nix ];
+  imports = [ ../nix.nix ];
 
   programs.zsh.enable = true;
 
