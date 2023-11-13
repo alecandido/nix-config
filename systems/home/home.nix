@@ -41,7 +41,6 @@
   };
   programs.ssh.enable = true;
   home.file.".ssh/config".text = "";
-  nix.package = pkgs.nix;
   nix.settings = { experimental-features = [ "nix-command" "flakes" ]; };
 
   targets.genericLinux.enable = true;
