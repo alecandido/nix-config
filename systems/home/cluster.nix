@@ -14,9 +14,13 @@ in
 	{
 		pkgs = nixpkgs.legacyPackages."x86_64-linux";
 		modules = [ 
-			((import ../../home) { inherit user; })  
+			./home.nix
+			# ((import ../../home) { inherit user; })  
 			{ 
 				home.homeDirectory = home ; 
+				home.shellAliases.upgrade = ''
+      home-manager switch --flake "$XDG_CONFIG_HOME/nixpkgs#lxplus" --show-trace
+    '';
 				_module.args = { inherit user home inputs; };
 			}
         		{ nixpkgs = nixpkgsOv [ ]; }
