@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{ pkgs
+, toggles
+, ...
+}:
+if builtins.elem "amenities" toggles
+then {
   home.packages = with pkgs; [
     # manipulate images
     imagemagick
@@ -10,3 +15,4 @@
     ffmpegthumbnailer
   ];
 }
+else { }

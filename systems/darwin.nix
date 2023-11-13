@@ -3,8 +3,8 @@
 , ...
 } @ inputs:
 let
-  homeMods = user: ((import ./home).lib.homeMods {
-    inherit inputs user;
+  homeMods = user: toggles: ((import ./home).lib.homeMods {
+    inherit inputs user toggles;
     home = "/Users/${user}";
   });
 
@@ -15,7 +15,7 @@ let
       modules = [
         ../etc/darwin
         home-manager.darwinModules.home-manager
-        (homeMods "alessandro")
+        (homeMods "alessandro" [ "amenities" ])
         { nixpkgs = nixpkgs [ ]; }
       ];
 

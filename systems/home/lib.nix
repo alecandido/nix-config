@@ -1,13 +1,14 @@
 {
   homeMods =
-    { inputs
-    , user
+    { user
     , home
+    , inputs
+    , toggles
     ,
     }:
     let
       extraSpecialArgs = {
-        inherit user inputs home;
+        inherit user home inputs toggles;
       };
     in
     {
