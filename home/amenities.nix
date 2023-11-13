@@ -2,7 +2,7 @@
 , toggles
 , ...
 }:
-if builtins.elem "amenities" toggles
+if false #builtins.elem "amenities" toggles
 then {
   home.packages = with pkgs; [
     # manipulate images

@@ -1,5 +1,5 @@
 { toggles, ... }:
-if builtins.elem "tex" toggles
+if false #builtins.elem "tex" toggles
 then {
   programs.texlive = {
     enable = true;
