@@ -1,14 +1,12 @@
-{
-  pkgs,
-  user,
-  ...
+{ pkgs
+, user
+, ...
 }: {
   nix.settings = {
     auto-optimise-store = true;
-    experimental-features = ["nix-command" "flakes" "repl-flake"];
-    trusted-users = ["root" user];
+    experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+    trusted-users = [ "root" user ];
   };
-  nix.package = pkgs.nix;
 
   # Useful nix related tools
   home.packages = with pkgs; [
