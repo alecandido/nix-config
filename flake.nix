@@ -23,6 +23,7 @@
     nixConfigs = (import ./top/nix.nix) inputs;
   in {
     darwinConfigurations = sys.darwin;
+    homeConfigurations = sys.home;
 
     inherit (nixConfigs) formatter;
   };
