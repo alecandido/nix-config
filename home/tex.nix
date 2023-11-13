@@ -1,4 +1,6 @@
-{
+{ toggles, ... }:
+if builtins.elem "tex" toggles
+then {
   programs.texlive = {
     enable = true;
     extraPackages = tpkgs: {
@@ -18,3 +20,4 @@
     };
   };
 }
+else { }
