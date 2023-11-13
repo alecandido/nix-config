@@ -8,9 +8,7 @@
     ./zellij
     ./amenities.nix
     ./build.nix
-    ./javascript.nix
     ./nix.nix
-    ./python.nix
     ./tex.nix
     ./tools.nix
     ./zsh.nix
