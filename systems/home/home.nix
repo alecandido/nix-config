@@ -40,6 +40,7 @@
 	};
   };
   programs.ssh.enable = true;
+  xdg.enable = true;
   home.file.".ssh/config".text = "";
   nix.settings = { experimental-features = [ "nix-command" "flakes" ]; };
 
