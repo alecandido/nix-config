@@ -1,13 +1,13 @@
-{pkgs, ...}: {
-  imports = [
-    ./linters
-    ./formatters.nix
-    ./servers.nix
-  ];
-
-  home.packages = with pkgs; [
-    tree-sitter
-  ];
+{ pkgs, ... }: {
+  # imports = [
+  #   ./linters
+  #   ./formatters.nix
+  #   ./servers.nix
+  # ];
+  #
+  # home.packages = with pkgs; [
+  #   tree-sitter
+  # ];
 
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
