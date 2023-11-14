@@ -3,17 +3,7 @@
 , ...
 }:
 let
-  lsp = false; #builtins.elem "neovim.lsp" toggles;
-  submodules = false; #builtins.elem "submodules" toggles;
-
-  imports =
-    if lsp
-    then [
-      ./linters
-      ./formatters.nix
-      ./servers.nix
-    ]
-    else [ ];
+  lsp = builtins.elem "neovim.lsp" toggles;
 
   hmpkgs =
     if lsp
@@ -23,8 +13,12 @@ let
       ])
     else [ ];
 in
-({
-  inherit imports;
+{
+  imports = [
+    ./linters
+    ./formatters.nix
+    ./servers.nix
+  ];
 
   home.packages = hmpkgs;
 
@@ -32,7 +26,10 @@ in
   programs.neovim.defaultEditor = true;
   programs.neovim.vimdiffAlias = true;
 
-  
-    } // (if submodules
-    then { xdg.configFile."nvim".source =./nvim; }
-    else {}))
+  xdg.configFile."nvim".source = pkgs.fetchFromGitHub {
+    owner = "AleCandido";
+    repo = "nvim";
+    rev = "main";
+    hash = "sha256-KHcqxlr//oSJH4TwlTxyh+xgtE7UBXEWyjRsCvw1VgI=";
+  };
+}
