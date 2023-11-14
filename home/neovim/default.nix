@@ -3,8 +3,8 @@
 , ...
 }:
 let
-  lsp = builtins.elem "neovim.lsp" toggles;
-  submodules = builtins.elem "submodules" toggles;
+  lsp = false; #builtins.elem "neovim.lsp" toggles;
+  submodules = false; #builtins.elem "submodules" toggles;
 
   imports =
     if lsp
@@ -23,7 +23,7 @@ let
       ])
     else [ ];
 in
-{
+({
   inherit imports;
 
   home.packages = hmpkgs;
@@ -32,8 +32,7 @@ in
   programs.neovim.defaultEditor = true;
   programs.neovim.vimdiffAlias = true;
 
-  xdg.configFile."nvim".source =
-    if submodules
-    then ./nvim
-    else null;
-}
+  
+    } // (if submodules
+    then { xdg.configFile."nvim".source =./nvim; }
+    else {}))
