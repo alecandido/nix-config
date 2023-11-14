@@ -15,26 +15,56 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     # Tools
-    devenv.url = "github:cachix/devenv/latest";
+    systems.url = "github:nix-systems/default";
+    devenv.url = "github:cachix/devenv";
   };
 
-  outputs = inputs: let
-    sys = (import ./systems) inputs;
-    nixConfigs = (import ./top/nix.nix) inputs;
-  in {
-    darwinConfigurations = sys.darwin;
-    homeConfigurations = sys.home;
+  outputs =
+    { nixpkgs
+    , systems
+    , devenv
+    , ...
+    } @ inputs:
+    let
+      sys = (import ./systems) inputs;
+      nixConfigs = (import ./top/nix.nix) inputs;
 
-    inherit (nixConfigs) formatter;
+      forEachSystem = nixpkgs.lib.genAttrs (import systems);
+    in
+    {
+      darwinConfigurations = sys.darwin;
+      homeConfigurations = sys.home;
+
+      inherit (nixConfigs) formatter;
+
+      devShells =
+        forEachSystem
+          (system:
+            let
+              pkgs = nixpkgs.legacyPackages.${system};
+            in
+            {
+              default = devenv.lib.mkShell {
+                inherit inputs pkgs;
+                modules = [
+                  {
+                    scripts.format.exec = "nix fmt .";
+
+                    languages.nix.enable = true;
+
+                    pre-commit.hooks = {
+                      deadnix.enable = true;
+                      markdownlint.enable = true;
+                      nixpkgs-fmt.enable = true;
+                    };
+                  }
+                ];
+              };
+            });
+    };
+
+  nixConfig = {
+    extra-trusted-public-keys = "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=";
+    extra-substituters = "https://devenv.cachix.org";
   };
 }
-
-#  scripts.format.exec = "nix fmt .";
-#
-#  languages.nix.enable = true;
-#
-#  pre-commit.hooks = {
-#    deadnix.enable = true;
-#    markdownlint.enable = true;
-#    nixpkgs-fmt.enable = true;
-#  };

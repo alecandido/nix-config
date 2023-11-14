@@ -4,7 +4,8 @@
 }:
 let
   amenities = builtins.elem "amenities" toggles;
-in {
+in
+{
   home.packages = with pkgs; if amenities then [
     # manipulate images
     imagemagick
@@ -14,5 +15,5 @@ in {
     poppler_utils
     # render video thumbnails
     ffmpegthumbnailer
-  ] else [];
+  ] else [ ];
 }

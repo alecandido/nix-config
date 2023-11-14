@@ -28,16 +28,15 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1688058187,
-        "narHash": "sha256-ipDcc7qrucpJ0+0eYNlwnE+ISTcq4m03qW+CWUshRXI=",
+        "lastModified": 1699541523,
+        "narHash": "sha256-Rv0ryuBC5KtA/3YqwIEe58Tabu71qSGnGcGRd67mMUY=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "c8778e3dc30eb9043e218aaa3861d42d4992de77",
+        "rev": "14fdefc0bb80c3d6f3a18a491e33429b4064c371",
         "type": "github"
       },
       "original": {
         "owner": "cachix",
-        "ref": "latest",
         "repo": "devenv",
         "type": "github"
       }
@@ -271,10 +270,26 @@
         "devenv": "devenv",
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "systems": "systems_2"
       }
     },
     "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_2": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",

@@ -1,6 +1,4 @@
-{ config, pkgs, ... }:
-
-{
+{ pkgs, ... }: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "candidal";
@@ -18,26 +16,26 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     SHELL = "/bin/zsh";
- };
+  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.neovim.enable = true;
   programs.zellij = {
-	  enable = true;
-	  settings = {
-		pane_frames = false;
-		default_layout = "compact";
-	  };
+    enable = true;
+    settings = {
+      pane_frames = false;
+      default_layout = "compact";
+    };
   };
   programs.zsh = {
-  	enable = true;
-	shellAliases = {
-		nv = "nvim";
-		ll = "ls -l";
-		la = "ls -a";
-		home-shell = "nix shell nixpkgs#home-manager";
-	};
+    enable = true;
+    shellAliases = {
+      nv = "nvim";
+      ll = "ls -l";
+      la = "ls -a";
+      home-shell = "nix shell nixpkgs#home-manager";
+    };
   };
   programs.ssh.enable = true;
   xdg.enable = true;

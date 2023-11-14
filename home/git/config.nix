@@ -1,12 +1,13 @@
-{
-  pkgs,
-  config,
-  ...
-}: let
+{ pkgs
+, config
+, ...
+}:
+let
   home = config.home;
   xdg = config.xdg;
-in {
-  home.packages = with pkgs; [universal-ctags];
+in
+{
+  home.packages = with pkgs; [ universal-ctags ];
 
   programs.git.extraConfig = {
     user = {

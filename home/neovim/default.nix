@@ -1,18 +1,20 @@
-{ pkgs, ... }: 
-let 
-  lsp = builtins.elem "neovim.lsp" []; #toggles;
+{ pkgs, ... }:
+let
+  lsp = builtins.elem "neovim.lsp" [ ]; #toggles;
 
   imports = (if lsp
-	  then [
-	   ./linters
-	   ./formatters.nix
-	   ./servers.nix
-	  ] else []);
-  
-  hmpkgs = (if lsp then (with pkgs; [
-    tree-sitter
-  ]) else []);
-in {
+  then [
+    ./linters
+    ./formatters.nix
+    ./servers.nix
+  ] else [ ]);
+
+  hmpkgs = (if lsp then
+    (with pkgs; [
+      tree-sitter
+    ]) else [ ]);
+in
+{
   inherit imports;
 
   home.packages = hmpkgs;
