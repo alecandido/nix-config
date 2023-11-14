@@ -15,7 +15,7 @@ let
       modules = [
         ../etc/darwin
         home-manager.darwinModules.home-manager
-        (homeMods "alessandro" [ "amenities" "tex" ])
+        (homeMods "alessandro" [ "amenities" "tex" "neovim.lsp" "submodules" ])
         { nixpkgs = nixpkgs [ ]; }
       ];
 

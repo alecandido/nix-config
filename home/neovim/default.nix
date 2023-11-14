@@ -1,18 +1,27 @@
-{ pkgs, ... }:
+{ pkgs
+, toggles
+, ...
+}:
 let
-  lsp = builtins.elem "neovim.lsp" [ ]; #toggles;
+  lsp = builtins.elem "neovim.lsp" toggles;
+  submodules = builtins.elem "submodules" toggles;
 
-  imports = (if lsp
-  then [
-    ./linters
-    ./formatters.nix
-    ./servers.nix
-  ] else [ ]);
+  imports =
+    if lsp
+    then [
+      ./linters
+      ./formatters.nix
+      ./servers.nix
+    ]
+    else [ ];
 
-  hmpkgs = (if lsp then
-    (with pkgs; [
-      tree-sitter
-    ]) else [ ]);
+  hmpkgs =
+    if lsp
+    then
+      (with pkgs; [
+        tree-sitter
+      ])
+    else [ ];
 in
 {
   inherit imports;
@@ -23,5 +32,8 @@ in
   programs.neovim.defaultEditor = true;
   programs.neovim.vimdiffAlias = true;
 
-  # xdg.configFile."nvim".source = ./nvim;
+  xdg.configFile."nvim".source =
+    if submodules
+    then ./nvim
+    else null;
 }
