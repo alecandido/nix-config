@@ -2,9 +2,10 @@
 , toggles
 , ...
 }:
-if builtins.elem "amenities" toggles
-then {
-  home.packages = with pkgs; [
+let
+  amenities = builtins.elem "amenities" toggles;
+in {
+  home.packages = with pkgs; if amenities then [
     # manipulate images
     imagemagick
     # render images in browser
@@ -13,6 +14,5 @@ then {
     poppler_utils
     # render video thumbnails
     ffmpegthumbnailer
-  ];
+  ] else [];
 }
-else { }
