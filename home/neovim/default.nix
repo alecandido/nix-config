@@ -9,13 +9,13 @@ let
 	   ./servers.nix
 	  ] else []);
   
-  hpkgs = (if lsp then (with pkgs; [
+  hmpkgs = (if lsp then (with pkgs; [
     tree-sitter
   ]) else []);
 in {
   inherit imports;
 
-  home.packages = hpkgs;
+  home.packages = hmpkgs;
 
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
