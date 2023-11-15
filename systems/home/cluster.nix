@@ -29,6 +29,9 @@ in
           home.shellAliases.upgrade = lib.mkForce ''
             home-manager switch --flake "$XDG_CONFIG_HOME/nixpkgs#lxplus" --show-trace
           '';
+          home.shellAliases.upgrade-hack = ''
+            home-manager switch --flake .config/home-manager && home-manager switch --flake .config/nixpkgs#lxplus --show-trace
+          '';
         })
         { nixpkgs = nixpkgsOv [ ]; }
       ];
