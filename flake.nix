@@ -54,7 +54,6 @@
 
                     pre-commit.hooks = {
                       deadnix.enable = true;
-                      markdownlint.enable = true;
                       nixpkgs-fmt.enable = true;
                     };
                   }
