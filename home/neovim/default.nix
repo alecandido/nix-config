@@ -26,10 +26,5 @@ in
   programs.neovim.defaultEditor = true;
   programs.neovim.vimdiffAlias = true;
 
-  xdg.configFile."nvim".source = pkgs.fetchFromGitHub {
-    owner = "AleCandido";
-    repo = "nvim";
-    rev = "main";
-    hash = "sha256-KHcqxlr//oSJH4TwlTxyh+xgtE7UBXEWyjRsCvw1VgI=";
-  };
+  xdg.configFile."nvim".source = ./nvim;
 }
