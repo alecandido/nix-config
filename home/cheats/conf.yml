@@ -1,10 +1,9 @@
 ---
-# Should 'cheat' always colorize output?
 colorize: true
 
 # Chroma settings
 #   https://github.com/alecthomas/chroma/
-style: monokai
+style: nord
 formatter: terminal256
 
 # 'less -FRX' is recommended on Unix systems
