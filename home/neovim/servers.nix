@@ -38,7 +38,7 @@ in
         dbaeumer.vscode-eslint
       ])
       ++ (with pkgs.python311Packages; [
-        # ruff-lsp
+        ruff-lsp
       ]))
     else [ ];
 }
