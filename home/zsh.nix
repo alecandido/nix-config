@@ -27,9 +27,15 @@
       setopt auto_pushd
       setopt pushd_ignore_dups
       setopt pushdminus
+
+      source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
     '';
     envExtra = ''
       export KEYTIMEOUT=1
     '';
+    dirHashes = {
+      vids = "$HOME/Videos";
+      downl = "$HOME/Downloads";
+    };
   };
 }
