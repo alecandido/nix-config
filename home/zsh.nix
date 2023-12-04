@@ -1,4 +1,11 @@
-{ pkgs, ... }: {
+{ pkgs
+, config
+, ...
+}:
+let
+  home = config.home;
+in
+{
   home.packages = with pkgs; [
     zsh-fzf-tab
     zsh-vi-mode
@@ -34,8 +41,8 @@
       export KEYTIMEOUT=1
     '';
     dirHashes = {
-      vids = "$HOME/Videos";
-      downl = "$HOME/Downloads";
+      vids = "${home.homeDirectory}/Videos";
+      downl = "${home.homeDirectory}/Downloads";
     };
   };
 }
