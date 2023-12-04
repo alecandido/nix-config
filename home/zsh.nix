@@ -41,8 +41,8 @@ in
       export KEYTIMEOUT=1
     '';
     dirHashes = {
-      vids = "${home.homeDirectory}/Videos";
-      downl = "${home.homeDirectory}/Downloads";
+      vid = "${home.homeDirectory}/Videos";
+      dl = "${home.homeDirectory}/Downloads";
     };
   };
 }
