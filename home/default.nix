@@ -1,9 +1,9 @@
 { user, ... }: {
   imports = [
     ./aliases
+    ./cheats
     ./git
     ./kerberos
-    ./navi
     ./neovim
     ./ssh
     ./zellij
