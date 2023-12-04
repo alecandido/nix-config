@@ -3,6 +3,7 @@
     ./aliases
     ./git
     ./kerberos
+    ./navi
     ./neovim
     ./ssh
     ./zellij

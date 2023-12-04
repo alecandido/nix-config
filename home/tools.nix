@@ -23,7 +23,6 @@
       fzf
       btop
       tldr
-      cheat
     ]
     ++ lib.optionals stdenv.isDarwin [ m-cli ];
 
