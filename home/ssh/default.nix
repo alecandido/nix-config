@@ -5,5 +5,5 @@
   };
 
   home.file.".ssh/config".source = ./config;
-  home.packages = with pkgs; [ sshpass ];
+  home.packages = with pkgs; [ sshpass sshfs ];
 }
