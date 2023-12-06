@@ -36,6 +36,10 @@ Host qrccluster
     HostName login.qrccluster.com
     User alessandro.candido
 
+Host qrclab
+    HostName 192.168.2.66
+    User alessandro.candido
+
 Host lxplus
     AddKeysToAgent yes
     GSSAPIAuthentication yes
