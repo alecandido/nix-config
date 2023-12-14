@@ -1,5 +1,4 @@
-{ darwin
-, home-manager
+{ home-manager
 , nixpkgs
 , ...
 } @ inputs:
@@ -13,6 +12,7 @@ let
     ocopoli = nixpkgs.lib.nixosSystem {
       modules = [
         ../etc/nixos
+        ./nixos/ocopoli
         home-manager.nixosModules.home-manager
         (homeMods "alessandro" [ "amenities" "tex" "neovim.lsp" ])
         { nixpkgs = (import ../overlays_) inputs [ ]; }
@@ -27,4 +27,3 @@ in
 {
   ocopoli = instances.ocopoli;
 }
-
