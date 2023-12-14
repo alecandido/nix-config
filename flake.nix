@@ -34,6 +34,7 @@
     {
       darwinConfigurations = sys.darwin;
       homeConfigurations = sys.home;
+      nixosConfigurations = sys.nixos;
 
       inherit (nixConfigs) formatter;
 
