@@ -23,6 +23,9 @@
       fzf
       btop
       tldr
+
+      #
+      fira-code-nerdfont
     ]
     ++ lib.optionals stdenv.isDarwin [ m-cli ];
 
