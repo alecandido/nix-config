@@ -76,6 +76,12 @@
     thunderbird
   ];
 
+  environment.shellAliases = {
+    upgrade = ''
+      sudo nixos-rebuild switch --flake "$XDG_CONFIG_HOME/nixpkgs" --show-trace
+    '';
+  };
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
