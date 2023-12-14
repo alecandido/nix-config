@@ -40,7 +40,7 @@ M.config = function(_, opts)
     nix = { require("formatter.filetypes.nix").alejandra },
     python = {
       require("formatter.filetypes.python").black,
-      require("formatter.filetypes.python").isort,
+      -- require("formatter.filetypes.python").isort,
       require("formatter.filetypes.python").docformatter,
     },
     rust = { require("formatter.filetypes.rust").rustfmt },
@@ -53,7 +53,7 @@ M.config = function(_, opts)
     vue = { require("formatter.filetypes.vue").prettier },
     yaml = { require("formatter.filetypes.yaml").prettier },
 
-    -- ["*"] = require("formatter.filetypes.any"),
+    ["*"] = { require("formatter.filetypes.any") },
   }
 
   require("formatter").setup(opts)
