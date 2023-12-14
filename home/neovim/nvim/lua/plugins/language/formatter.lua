@@ -53,7 +53,7 @@ M.config = function(_, opts)
     vue = { require("formatter.filetypes.vue").prettier },
     yaml = { require("formatter.filetypes.yaml").prettier },
 
-    ["*"] = require("formatter.filetypes.any"),
+    -- ["*"] = require("formatter.filetypes.any"),
   }
 
   require("formatter").setup(opts)
