@@ -26,6 +26,9 @@
 
       #
       fira-code-nerdfont
+
+      #
+      nodejs_21
     ]
     ++ lib.optionals stdenv.isDarwin [ m-cli ];
 
