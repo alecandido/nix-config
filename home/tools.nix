@@ -26,6 +26,7 @@
 
       #
       fira-code-nerdfont
+      meslo-lgs-nf
 
       #
       nodejs_21
