@@ -77,4 +77,18 @@
     enable = true;
     settings.email = "candido.ale@gmail.com";
   };
+
+  # Kitty
+  programs.kitty = {
+    enable = true;
+    font = {
+      name = "MesloLGS NF";
+      size = 8;
+    };
+    settings = {
+      hide_window_decorations = "yes";
+    };
+    theme = "Nord";
+    shellIntegration.enableZshIntegration = true;
+  };
 }
