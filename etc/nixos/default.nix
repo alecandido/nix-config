@@ -74,6 +74,7 @@
     git
     firefox
     thunderbird
+    kitty
   ];
 
   environment.shellAliases = {
