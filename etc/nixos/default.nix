@@ -77,6 +77,7 @@
     kitty
     wl-clipboard
     gnome-browser-connector
+    gnome-extension-manager
   ];
 
   environment.shellAliases = {
