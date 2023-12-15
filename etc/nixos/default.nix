@@ -75,6 +75,7 @@
     firefox
     thunderbird
     kitty
+    wl-clipboard
   ];
 
   environment.shellAliases = {
