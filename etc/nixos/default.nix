@@ -76,6 +76,7 @@
     thunderbird
     kitty
     wl-clipboard
+    gnome-browser-connector
   ];
 
   environment.shellAliases = {
