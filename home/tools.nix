@@ -16,6 +16,7 @@
       jq
       ripgrep
       fd
+      sd
       # ripgrep-all
       duf
       gh
