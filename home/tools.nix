@@ -50,9 +50,13 @@
   programs.atuin = {
     enable = true;
     enableZshIntegration = true;
-    flags = [
-      "--disable-up-arrow"
-    ];
+    settings = {
+      enter_accept = true;
+      keymap_mode = "vim-insert";
+      search_mode_shell_up_key_binding = "prefix";
+      style = "compact";
+      update_check = false;
+    };
   };
 
   # Zoxide
