@@ -20,6 +20,9 @@ in
     enableAutosuggestions = true;
     enableCompletion = true;
     syntaxHighlighting.enable = true;
+    historySubstringSearch = {
+      enable = true;
+    };
     shellGlobalAliases = {
       "..." = "../..";
       "...." = "../../..";
