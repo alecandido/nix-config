@@ -5,6 +5,7 @@
     ./git
     ./kerberos
     ./neovim
+    ./python
     ./ssh
     ./zellij
     ./amenities.nix
