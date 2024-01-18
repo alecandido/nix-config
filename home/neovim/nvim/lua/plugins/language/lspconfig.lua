@@ -46,8 +46,8 @@ local function on_attach(client, bufnr)
   end
 
   -- See `:help K` for why this keymap
-  nmap("<A-k>", vim.lsp.buf.hover, "Hover Documentation")
-  nmap("<A-K>", vim.lsp.buf.signature_help, "Signature Documentation")
+  nmap("<A-i>", vim.lsp.buf.hover, "Hover Documentation ([i]nfo)")
+  nmap("<A-I>", vim.lsp.buf.signature_help, "Signature Documentation ([I]nfo)")
 
   nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
   nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
