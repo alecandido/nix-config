@@ -143,4 +143,10 @@ return {
       library = { plugins = { "nvim-dap-ui" }, types = true },
     },
   },
+
+  -- Tex
+  {
+    "lervag/vimtex",
+    ft = "tex",
+  },
 }
