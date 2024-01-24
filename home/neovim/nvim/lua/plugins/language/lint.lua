@@ -10,8 +10,8 @@ M.config = function(_, opts)
 end
 
 M.opts = {
-  c = { "cppcheck" },
-  cpp = { "cppcheck" },
+  -- c = { "cppcheck" },
+  -- cpp = { "cppcheck" },
   css = { "stylelint" },
   fennel = { "fennel" },
   gh_workflows = { "actionlint" },
@@ -47,6 +47,10 @@ M.init = function()
     "--config",
     os.getenv("XDG_CONFIG_HOME") .. "/vale/vale.ini",
   }
+
+  -- local cppcheck = require("lint.linters.cppcheck")
+  -- -- https://stackoverflow.com/a/19779624/8653979
+  -- cppcheck.args = { "--suppress=missingIncludeSystem", unpack(cppcheck.args) }
 end
 
 M.event = "BufWritePost"
