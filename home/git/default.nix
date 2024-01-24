@@ -1,5 +1,5 @@
 {
-  imports = [ ./aliases.nix ./delta.nix ./config.nix ];
+  imports = [ ./aliases.nix ./config.nix ];
 
   programs.git = {
     enable = true;
@@ -14,5 +14,18 @@
       ".gdb_history"
       ".pnpm-debug.log"
     ];
+  };
+
+  # programs.git.delta = {
+  #   enable = true;
+  #   options = {
+  #     features = "decorations";
+  #     side-by-side = true;
+  #   };
+  # };
+
+  programs.git.difftastic = {
+    enable = true;
+    background = "dark";
   };
 }
