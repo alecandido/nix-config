@@ -29,4 +29,6 @@ in
         docformatter
       ]))
     else [ ];
+
+  xdg.configFile."uncrustify.cfg".text = "";
 }

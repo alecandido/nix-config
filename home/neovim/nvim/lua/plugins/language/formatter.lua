@@ -18,10 +18,26 @@ local function fnlfmt()
   }
 end
 
+local function uncrustify(lang)
+  return {
+    exe = "uncrustify",
+    args = { "-q", "-l " .. lang, "-c $XDG_CONFIG_HOME/uncrustify.cfg" },
+    stdin = true,
+  }
+end
+
 M.config = function(_, opts)
   opts.filetype = {
-    c = { require("formatter.filetypes.c").uncrustify },
-    cpp = { require("formatter.filetypes.cpp").uncrustify },
+    c = {
+      function()
+        return uncrustify("C")
+      end,
+    },
+    cpp = {
+      function()
+        return uncrustify("CPP")
+      end,
+    },
     css = { require("formatter.filetypes.css").prettier },
     fennel = { fnlfmt },
     go = {
