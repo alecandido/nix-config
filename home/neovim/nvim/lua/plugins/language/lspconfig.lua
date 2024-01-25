@@ -8,9 +8,9 @@ M.opts = {
     golangci_lint_ls = {},
     gopls = {},
     hls = { filetypes = { "haskell", "lhaskell", "cabal" } },
-    ltex = {
-      settings = { ltex = { language = "en-US", dictionary = ":~/.config/ltex/dictionary.json" } },
-    },
+    -- ltex = {
+    --   settings = { ltex = { language = "en-US", dictionary = ":~/.config/ltex/dictionary.json" } },
+    -- },
     lua_ls = {},
     metals = {},
     nil_ls = {},
