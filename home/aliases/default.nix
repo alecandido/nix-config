@@ -9,9 +9,6 @@
     dev-flake = ''
       nix flake init --template github:cachix/devenv
     '';
-    lxplus = ''
-      sshpass -p $(rbw get CERN) ssh lxplus
-    '';
     kcern = ''
       echo $(rbw get CERN) | kinit candidal@CERN.CH
     '';
