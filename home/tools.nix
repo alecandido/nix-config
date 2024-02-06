@@ -31,6 +31,9 @@
 
       #
       nodejs_21
+
+      #
+      certbot
     ]
     ++ lib.optionals stdenv.isDarwin [ m-cli ];
 
