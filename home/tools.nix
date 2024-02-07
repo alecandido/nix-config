@@ -17,6 +17,7 @@
       ripgrep
       fd
       sd
+      rename
       # ripgrep-all
       duf
       gh
