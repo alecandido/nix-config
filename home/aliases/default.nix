@@ -6,6 +6,7 @@
     nv = "nvim";
     py = "python";
     ipy = "ipython";
+    rename = "rnr";
     dev-flake = ''
       nix flake init --template github:cachix/devenv
     '';
