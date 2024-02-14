@@ -78,6 +78,7 @@
     wl-clipboard
     gnome-browser-connector
     gnome-extension-manager
+    brave
   ];
 
   environment.shellAliases = {
