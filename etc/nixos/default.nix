@@ -9,8 +9,6 @@
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
-  networking.hostName = "ocopoli"; # Define your hostname.
-
   # Enable networking
   networking.networkmanager.enable = true;
 
