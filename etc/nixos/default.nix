@@ -77,6 +77,7 @@
     gnome-browser-connector
     gnome-extension-manager
     brave
+    telegram-desktop
   ];
 
   environment.shellAliases = {
