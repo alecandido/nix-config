@@ -32,22 +32,28 @@ Host dom
     User alessandro
     ProxyJump bastione
 
+Host qrc*
+    User alessandro.candido
+
 Host qrccluster
     HostName login.qrccluster.com
-    User alessandro.candido
 
 Host qrclab
     HostName 192.168.2.66
-    User alessandro.candido
 
-Host lxplus
+Host lxplus*
     AddKeysToAgent yes
     GSSAPIAuthentication yes
     GSSAPIDelegateCredentials yes
     StrictHostKeyChecking False
     ChallengeResponseAuthentication no
-    HostName lxplus9.cern.ch
     User candidal
+
+Host lxplus
+    HostName lxplus9.cern.ch
+
+Host lxplus7
+    HostName lxplus7.cern.ch
 
 Host boogiepop
     HostName boogiepop.mi.infn.it
