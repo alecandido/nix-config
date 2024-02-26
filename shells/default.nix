@@ -27,4 +27,14 @@ forEachSystem
         }
       ];
     };
+
+    python = devenv.lib.mkShell {
+      inherit inputs pkgs;
+
+      modules = [
+        {
+          languages.python.enable = true;
+        }
+      ];
+    };
   })
