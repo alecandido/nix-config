@@ -19,17 +19,10 @@
     devenv.url = "github:cachix/devenv";
   };
 
-  outputs =
-    { nixpkgs
-    , systems
-    , devenv
-    , ...
-    } @ inputs:
+  outputs = inputs:
     let
       sys = (import ./systems) inputs;
       nixConfigs = (import ./top/nix.nix) inputs;
-
-      forEachSystem = nixpkgs.lib.genAttrs (import systems);
     in
     {
       darwinConfigurations = sys.darwin;
@@ -38,29 +31,7 @@
 
       inherit (nixConfigs) formatter;
 
-      devShells =
-        forEachSystem
-          (system:
-            let
-              pkgs = nixpkgs.legacyPackages.${system};
-            in
-            {
-              default = devenv.lib.mkShell {
-                inherit inputs pkgs;
-                modules = [
-                  {
-                    scripts.format.exec = "nix fmt .";
-
-                    languages.nix.enable = true;
-
-                    pre-commit.hooks = {
-                      deadnix.enable = true;
-                      nixpkgs-fmt.enable = true;
-                    };
-                  }
-                ];
-              };
-            });
+      devShells = (import ./shells) inputs;
     };
 
   nixConfig = {
