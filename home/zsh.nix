@@ -4,6 +4,7 @@
 }:
 let
   home = config.home;
+  xdg = config.xdg;
 in
 {
   home.packages = with pkgs; [
@@ -36,6 +37,16 @@ in
       setopt pushdminus
 
       source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
+      develop () {
+        nix develop ${xdg.configHome}/nixpkgs#$1 --impure -c $SHELL
+      }
+      flake-init () {
+        nix flake init --template github:alecandido/flakes
+      };
+      kcern () {
+        echo $(rbw get CERN) | kinit candidal@CERN.CH
+      }
     '';
     envExtra = ''
       export KEYTIMEOUT=1
