@@ -25,6 +25,7 @@
       fzf
       btop
       tldr
+      delta
 
       #
       fira-code-nerdfont
