@@ -29,7 +29,7 @@ forEachSystem
 
           pre-commit.hooks = {
             deadnix.enable = true;
-            nixpkgs-fmt.enable = true;
+            alejandra.enable = true;
           };
         }
       ];
