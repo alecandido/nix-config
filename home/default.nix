@@ -1,4 +1,4 @@
-{ user, ... }: {
+{user, ...}: {
   imports = [
     ./aliases
     ./cheats

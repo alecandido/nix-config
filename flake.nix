@@ -19,20 +19,18 @@
     devenv.url = "github:cachix/devenv";
   };
 
-  outputs = inputs:
-    let
-      sys = (import ./systems) inputs;
-      nixConfigs = (import ./top/nix.nix) inputs;
-    in
-    {
-      darwinConfigurations = sys.darwin;
-      homeConfigurations = sys.home;
-      nixosConfigurations = sys.nixos;
+  outputs = inputs: let
+    sys = (import ./systems) inputs;
+    nixConfigs = (import ./top/nix.nix) inputs;
+  in {
+    darwinConfigurations = sys.darwin;
+    homeConfigurations = sys.home;
+    nixosConfigurations = sys.nixos;
 
-      inherit (nixConfigs) formatter;
+    inherit (nixConfigs) formatter;
 
-      devShells = (import ./shells) inputs;
-    };
+    devShells = (import ./shells) inputs;
+  };
 
   nixConfig = {
     extra-trusted-public-keys = "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=";

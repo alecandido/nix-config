@@ -7,7 +7,7 @@
   #  '';
   #};
 
-  imports = [ ../nix.nix ];
+  imports = [../nix.nix];
 
   programs.zsh.enable = true;
 
@@ -17,7 +17,7 @@
   # Add ability to used TouchID for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
 
-  environment.pathsToLink = [ "/share/zsh" ];
+  environment.pathsToLink = ["/share/zsh"];
 
   environment.shellAliases = {
     upgrade = ''

@@ -1,12 +1,11 @@
-{ pkgs
-, config
-, ...
-}:
-let
+{
+  pkgs,
+  config,
+  ...
+}: let
   home = config.home;
   xdg = config.xdg;
-in
-{
+in {
   home.packages = with pkgs; [
     zsh-fzf-tab
     zsh-vi-mode

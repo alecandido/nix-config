@@ -1,14 +1,13 @@
-{ nixpkgs
-, devenv
-, systems
-, ...
-} @ inputs:
-let
+{
+  nixpkgs,
+  devenv,
+  systems,
+  ...
+} @ inputs: let
   forEachSystem = nixpkgs.lib.genAttrs (import systems);
 in
-forEachSystem
-  (system:
-  let
+  forEachSystem
+  (system: let
     pkgs = nixpkgs.legacyPackages.${system};
     devenvDisclaimer = ''
       devenv_dir=$PWD/.devenv
@@ -16,8 +15,7 @@ forEachSystem
         echo "Creating devenv dir at '$devenv_dir'"
       fi
     '';
-  in
-  {
+  in {
     # a shell for this repo
     default = devenv.lib.mkShell {
       inherit inputs pkgs;

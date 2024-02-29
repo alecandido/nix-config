@@ -1,8 +1,8 @@
-{ home-manager
-, nixpkgs
-, ...
-} @ inputs:
-let
+{
+  home-manager,
+  nixpkgs,
+  ...
+} @ inputs: let
   homeMods = user: toggles: ((import ./home).lib.homeMods {
     inherit inputs user toggles;
     home = "/home/${user}";
@@ -14,13 +14,13 @@ let
         ../etc/nixos
         ./nixos/ocopoli
         home-manager.nixosModules.home-manager
-        (homeMods "alessandro" [ "amenities" "tex" "neovim.lsp" ])
-        { nixpkgs = (import ../overlays_) inputs [ ]; }
-        { networking.hostName = "ocopoli"; }
+        (homeMods "alessandro" ["amenities" "tex" "neovim.lsp"])
+        {nixpkgs = (import ../overlays_) inputs [];}
+        {networking.hostName = "ocopoli";}
       ];
 
       # Give `inputs` access to all nix-darwin modules
-      specialArgs = { inherit inputs; };
+      specialArgs = {inherit inputs;};
       system = "x86_64-linux";
     };
 
@@ -29,18 +29,17 @@ let
         ../etc/nixos
         ./nixos/klondike
         home-manager.nixosModules.home-manager
-        (homeMods "alessandro" [ "amenities" "tex" "neovim.lsp" ])
-        { nixpkgs = (import ../overlays_) inputs [ ]; }
-        { networking.hostName = "klondike"; }
+        (homeMods "alessandro" ["amenities" "tex" "neovim.lsp"])
+        {nixpkgs = (import ../overlays_) inputs [];}
+        {networking.hostName = "klondike";}
       ];
 
       # Give `inputs` access to all nix-darwin modules
-      specialArgs = { inherit inputs; };
+      specialArgs = {inherit inputs;};
       system = "x86_64-linux";
     };
   };
-in
-{
+in {
   ocopoli = instances.ocopoli;
   klondike = instances.klondike;
 }

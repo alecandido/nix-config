@@ -1,6 +1,6 @@
 # To first enable flake, follow
 # https://nixos-and-flakes.thiscute.world/nixos-with-flakes/nixos-with-flakes-enabled
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -60,7 +60,7 @@
   users.users.alessandro = {
     isNormalUser = true;
     description = "Alessandro Candido";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
   };
 
   # Allow unfree packages

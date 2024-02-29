@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "candidal";
@@ -40,8 +40,8 @@
   programs.ssh.enable = true;
   xdg.enable = true;
   home.file.".ssh/config".text = "";
-  nix.settings = { experimental-features = [ "nix-command" "flakes" ]; };
+  nix.settings = {experimental-features = ["nix-command" "flakes"];};
 
   targets.genericLinux.enable = true;
-  home.sessionPath = [ "$HOME/.nix-profile/etc/profile.d/nix.sh" ];
+  home.sessionPath = ["$HOME/.nix-profile/etc/profile.d/nix.sh"];
 }

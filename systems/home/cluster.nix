@@ -1,25 +1,23 @@
-{ home-manager
-, nixpkgs
-, ...
-} @ inputs:
-let
-  nixpkgsOv = (import ../../overlays_) inputs;
-in
 {
+  home-manager,
+  nixpkgs,
+  ...
+} @ inputs: let
+  nixpkgsOv = (import ../../overlays_) inputs;
+in {
   lxplus = home-manager.lib.homeManagerConfiguration (
     let
       user = "candidal";
       home = "/afs/cern.ch/user/c/candidal";
       pkgs = nixpkgs.legacyPackages."x86_64-linux";
-      toggles = [ ];
-    in
-    {
+      toggles = [];
+    in {
       inherit pkgs;
       modules = [
         # ./home.nix
-        ((import ../../home) { inherit user; })
-        ({ lib, ... }: {
-          _module.args = { inherit user home inputs toggles; };
+        ((import ../../home) {inherit user;})
+        ({lib, ...}: {
+          _module.args = {inherit user home inputs toggles;};
           programs.zsh.enable = true;
           nix.package = pkgs.nix;
           home.homeDirectory = home;
@@ -33,7 +31,7 @@ in
             home-manager switch --flake .config/home-manager && home-manager switch --flake .config/nixpkgs#lxplus --show-trace
           '';
         })
-        { nixpkgs = nixpkgsOv [ ]; }
+        {nixpkgs = nixpkgsOv [];}
       ];
     }
   );

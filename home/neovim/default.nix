@@ -1,8 +1,8 @@
-{ pkgs
-, toggles
-, ...
-}:
-let
+{
+  pkgs,
+  toggles,
+  ...
+}: let
   lsp = builtins.elem "neovim.lsp" toggles;
 
   hmpkgs =
@@ -11,9 +11,8 @@ let
       (with pkgs; [
         tree-sitter
       ])
-    else [ ];
-in
-{
+    else [];
+in {
   imports = [
     ./linters
     ./formatters.nix

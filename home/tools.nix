@@ -1,6 +1,7 @@
-{ pkgs
-, lib
-, ...
+{
+  pkgs,
+  lib,
+  ...
 }: {
   home.packages = with pkgs;
     [
@@ -37,7 +38,7 @@
       #
       certbot
     ]
-    ++ lib.optionals stdenv.isDarwin [ m-cli ];
+    ++ lib.optionals stdenv.isDarwin [m-cli];
 
   # XDG
   xdg.enable = true;

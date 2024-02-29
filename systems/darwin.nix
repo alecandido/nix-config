@@ -1,8 +1,8 @@
-{ darwin
-, home-manager
-, ...
-} @ inputs:
-let
+{
+  darwin,
+  home-manager,
+  ...
+} @ inputs: let
   homeMods = user: toggles: ((import ./home).lib.homeMods {
     inherit inputs user toggles;
     home = "/Users/${user}";
@@ -15,17 +15,16 @@ let
       modules = [
         ../etc/darwin
         home-manager.darwinModules.home-manager
-        (homeMods "alessandro" [ "amenities" "tex" "neovim.lsp" ])
-        { nixpkgs = nixpkgs [ ]; }
+        (homeMods "alessandro" ["amenities" "tex" "neovim.lsp"])
+        {nixpkgs = nixpkgs [];}
       ];
 
       # Give `inputs` access to all nix-darwin modules
-      specialArgs = { inherit inputs; };
+      specialArgs = {inherit inputs;};
       system = "aarch64-darwin";
     };
   };
-in
-{
+in {
   donaldville = instances.donaldville;
   ac-donaldville = instances.donaldville;
 }
