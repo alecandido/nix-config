@@ -2,6 +2,8 @@ local M = {}
 
 local parser_path = vim.fn.stdpath("cache") .. "/tree-sitter"
 
+M.event = { "BufReadPre", "BufNewFile" }
+
 M.config = function(_, opts)
   vim.opt.runtimepath:prepend(parser_path)
   require("nvim-treesitter.configs").setup(opts)
@@ -159,6 +161,43 @@ M.opts = {
         ["<leader>sA"] = { query = "@parameter.inner", desc = "[S]wap with previous [a]rgument" },
       },
     },
+  },
+}
+
+local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+
+M.keys = {
+  -- vim way: ; goes to the direction you were moving.
+  {
+    ";",
+    ts_repeat_move.repeat_last_move,
+    mode = { "n", "x", "o" },
+  },
+  {
+    ",",
+    ts_repeat_move.repeat_last_move_opposite,
+    mode = { "n", "x", "o" },
+  },
+  -- Make builtin f, F, t, T also repeatable with ; and ,
+  {
+    "f",
+    ts_repeat_move.builtin_f,
+    mode = { "n", "x", "o" },
+  },
+  {
+    "F",
+    ts_repeat_move.builtin_F,
+    mode = { "n", "x", "o" },
+  },
+  {
+    "t",
+    ts_repeat_move.builtin_t,
+    mode = { "n", "x", "o" },
+  },
+  {
+    "T",
+    ts_repeat_move.builtin_T,
+    mode = { "n", "x", "o" },
   },
 }
 

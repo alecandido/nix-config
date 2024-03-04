@@ -19,6 +19,8 @@ return {
     build = ":TSUpdate",
     config = tree_sitter.config,
     opts = tree_sitter.opts,
+    event = tree_sitter.event,
+    keys = tree_sitter.keys,
   },
   "simrat39/symbols-outline.nvim",
 
