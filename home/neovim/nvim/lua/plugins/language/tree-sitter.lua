@@ -164,39 +164,53 @@ M.opts = {
   },
 }
 
-local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+function ts_repeat_move()
+  return require("nvim-treesitter.textobjects.repeatable_move")
+end
 
 M.keys = {
   -- vim way: ; goes to the direction you were moving.
   {
     ";",
-    ts_repeat_move.repeat_last_move,
+    function()
+      ts_repeat_move().repeat_last_move()
+    end,
     mode = { "n", "x", "o" },
   },
   {
     ",",
-    ts_repeat_move.repeat_last_move_opposite,
+    function()
+      ts_repeat_move().repeat_last_move_opposite()
+    end,
     mode = { "n", "x", "o" },
   },
   -- Make builtin f, F, t, T also repeatable with ; and ,
   {
     "f",
-    ts_repeat_move.builtin_f,
+    function()
+      ts_repeat_move().builtin_f()
+    end,
     mode = { "n", "x", "o" },
   },
   {
     "F",
-    ts_repeat_move.builtin_F,
+    function()
+      ts_repeat_move().builtin_F()
+    end,
     mode = { "n", "x", "o" },
   },
   {
     "t",
-    ts_repeat_move.builtin_t,
+    function()
+      ts_repeat_move().builtin_t()
+    end,
     mode = { "n", "x", "o" },
   },
   {
     "T",
-    ts_repeat_move.builtin_T,
+    function()
+      ts_repeat_move().builtin_T()
+    end,
     mode = { "n", "x", "o" },
   },
 }
