@@ -1,9 +1,9 @@
 {toggles, ...}: let
   enable = builtins.elem "tex" toggles;
-in {
-  programs.texlive =
-    if enable
-    then {
+in
+  if enable
+  then {
+    programs.texlive = {
       enable = true;
       extraPackages = tpkgs: {
         inherit
@@ -20,6 +20,6 @@ in {
           collection-pictures
           ;
       };
-    }
-    else {};
-}
+    };
+  }
+  else {}

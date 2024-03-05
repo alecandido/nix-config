@@ -1,5 +1,3 @@
-# To first enable flake, follow
-# https://nixos-and-flakes.thiscute.world/nixos-with-flakes/nixos-with-flakes-enabled
 {pkgs, ...}: {
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

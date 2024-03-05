@@ -14,7 +14,7 @@
         ../etc/nixos
         ./nixos/ocopoli
         home-manager.nixosModules.home-manager
-        (homeMods "alessandro" ["amenities" "tex" "neovim.lsp"])
+        (homeMods "alessandro" ["amenities" "tex" "neovim.lsp" "gnome"])
         {nixpkgs = (import ../overlays_) inputs [];}
         {networking.hostName = "ocopoli";}
       ];
@@ -59,7 +59,7 @@
         ../etc/nixos
         ./nixos/yukon
         home-manager.nixosModules.home-manager
-        (homeMods "alessandro" ["amenities" "neovim.lsp"])
+        (homeMods "alessandro" ["amenities" "neovim.lsp" "gnome"])
         {nixpkgs = (import ../overlays_) inputs [];}
         {networking.hostName = "yukon";}
       ];

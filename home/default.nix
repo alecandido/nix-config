@@ -10,6 +10,7 @@
     ./zellij
     ./amenities.nix
     ./build.nix
+    ./gnome.nix
     ./nix.nix
     ./tex.nix
     ./tools.nix
