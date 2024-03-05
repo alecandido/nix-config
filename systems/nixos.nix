@@ -38,7 +38,7 @@
       specialArgs = {inherit inputs;};
       system = "x86_64-linux";
     };
-    
+
     villarose = nixpkgs.lib.nixosSystem {
       modules = [
         ../etc/nixos
@@ -53,9 +53,25 @@
       specialArgs = {inherit inputs;};
       system = "x86_64-linux";
     };
+
+    yukon = nixpkgs.lib.nixosSystem {
+      modules = [
+        ../etc/nixos
+        ./nixos/yukon
+        home-manager.nixosModules.home-manager
+        (homeMods "alessandro" ["amenities" "neovim.lsp"])
+        {nixpkgs = (import ../overlays_) inputs [];}
+        {networking.hostName = "yukon";}
+      ];
+
+      # Give `inputs` access to all nix-darwin modules
+      specialArgs = {inherit inputs;};
+      system = "x86_64-linux";
+    };
   };
 in {
   ocopoli = instances.ocopoli;
   klondike = instances.klondike;
   villarose = instances.villarose;
+  yukon = instances.yukon;
 }
