@@ -46,7 +46,7 @@
         ../../etc/nixos
         ./villarose
         home-manager.nixosModules.home-manager
-        (homeMods "alessandro" ["amenities" "neovim.lsp" "server"])
+        (homeMods "alessandro" ["amenities" "neovim.lsp" "gnome" "server"])
         {nixpkgs = overlays_ [];}
         {networking.hostName = "villarose";}
       ];
