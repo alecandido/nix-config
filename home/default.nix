@@ -11,6 +11,7 @@
     ./amenities.nix
     ./build.nix
     ./gnome.nix
+    ./mail.nix
     ./nix.nix
     ./tex.nix
     ./tools.nix

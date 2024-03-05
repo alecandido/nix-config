@@ -69,7 +69,6 @@
   environment.systemPackages = with pkgs; [
     git
     firefox
-    thunderbird
     kitty
     wl-clipboard
     gnome-browser-connector
