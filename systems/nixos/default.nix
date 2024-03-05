@@ -61,7 +61,7 @@
         ../../etc/nixos
         ./yukon
         home-manager.nixosModules.home-manager
-        (homeMods "alessandro" ["amenities" "neovim.lsp" "gnome" "thunderbird"])
+        (homeMods "alessandro" ["amenities" "neovim.lsp" "gnome" "server" "thunderbird"])
         {nixpkgs = overlays_ [];}
         {networking.hostName = "yukon";}
       ];
