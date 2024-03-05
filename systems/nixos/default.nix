@@ -3,19 +3,21 @@
   nixpkgs,
   ...
 } @ inputs: let
-  homeMods = user: toggles: ((import ./home).lib.homeMods {
+  homeMods = user: toggles: ((import ../home).lib.homeMods {
     inherit inputs user toggles;
     home = "/home/${user}";
   });
 
+  overlays_ = extra: (import ../../overlays_) inputs extra;
+
   instances = {
     ocopoli = nixpkgs.lib.nixosSystem {
       modules = [
-        ../etc/nixos
-        ./nixos/ocopoli
+        ../../etc/nixos
+        ./ocopoli
         home-manager.nixosModules.home-manager
         (homeMods "alessandro" ["amenities" "tex" "neovim.lsp" "gnome" "thunderbird"])
-        {nixpkgs = (import ../overlays_) inputs [];}
+        {nixpkgs = overlays_ [];}
         {networking.hostName = "ocopoli";}
       ];
 
@@ -26,11 +28,11 @@
 
     klondike = nixpkgs.lib.nixosSystem {
       modules = [
-        ../etc/nixos
-        ./nixos/klondike
+        ../../etc/nixos
+        ./klondike
         home-manager.nixosModules.home-manager
         (homeMods "alessandro" ["amenities" "tex" "neovim.lsp"])
-        {nixpkgs = (import ../overlays_) inputs [];}
+        {nixpkgs = [];}
         {networking.hostName = "klondike";}
       ];
 
@@ -41,11 +43,11 @@
 
     villarose = nixpkgs.lib.nixosSystem {
       modules = [
-        ../etc/nixos
-        ./nixos/villarose
+        ../../etc/nixos
+        ./villarose
         home-manager.nixosModules.home-manager
         (homeMods "alessandro" ["amenities" "neovim.lsp"])
-        {nixpkgs = (import ../overlays_) inputs [];}
+        {nixpkgs = overlays_ [];}
         {networking.hostName = "villarose";}
       ];
 
@@ -56,11 +58,11 @@
 
     yukon = nixpkgs.lib.nixosSystem {
       modules = [
-        ../etc/nixos
-        ./nixos/yukon
+        ../../etc/nixos
+        ./yukon
         home-manager.nixosModules.home-manager
         (homeMods "alessandro" ["amenities" "neovim.lsp" "gnome" "thunderbird"])
-        {nixpkgs = (import ../overlays_) inputs [];}
+        {nixpkgs = overlays_ [];}
         {networking.hostName = "yukon";}
       ];
 
