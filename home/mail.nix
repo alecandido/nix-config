@@ -4,7 +4,7 @@
   ...
 }: let
   enableTb = builtins.elem "thunderbird" toggles;
-  user = config.user;
+  user = config.home.username;
 in {
   programs.thunderbird =
     if enableTb
