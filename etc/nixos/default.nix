@@ -75,6 +75,7 @@
     gnome-extension-manager
     brave
     telegram-desktop
+    waypipe
   ];
 
   environment.shellAliases = {
