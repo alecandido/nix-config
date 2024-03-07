@@ -24,7 +24,10 @@ in {
                 edge-tiling = true;
                 workspaces-only-on-primary = true;
               };
-              "org/gnome/app-switcher" = {
+              "org/gnome/shell" = {
+                enabled-extensions = ["appindicatorsupport@rgcjonas.gmail.com"];
+              };
+              "org/gnome/shell/app-switcher" = {
                 current-workspace-only = true;
               };
             }

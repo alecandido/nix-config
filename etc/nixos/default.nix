@@ -73,6 +73,7 @@
     wl-clipboard
     gnome-browser-connector
     gnome-extension-manager
+    gnomeExtensions.appindicator
     brave
     telegram-desktop
     waypipe
