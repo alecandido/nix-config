@@ -1,5 +1,8 @@
-inputs: {
-  darwin = (import ./darwin.nix) inputs;
-  home = (import ./home).systems inputs;
-  nixos = (import ./nixos) inputs;
-}
+inputs: (let
+  lib = import ./lib;
+  args = {inherit inputs lib;};
+in {
+  darwin = (import ./darwin.nix) args;
+  home = (import ./home) args;
+  nixos = (import ./nixos) args;
+})
