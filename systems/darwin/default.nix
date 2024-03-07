@@ -3,28 +3,39 @@
   inputs,
   ...
 }: let
-  inherit (inputs) darwin home-manager;
+  inherit (inputs) darwin home-manager self;
 
-  homeMods = user: toggles: (lib.homeMods {
-    inherit inputs user toggles;
-    home = "/Users/${user}";
-  });
+  nixpkgs = (import "${self}/overlays_") inputs;
 
-  nixpkgs = (import ../overlays_) inputs;
-
-  instances = {
-    donaldville = darwin.lib.darwinSystem {
+  mkDarwin = name: (let
+    path = ./. + ("/" + name);
+    homeMods = lib.homeMods (let
+      config = import "${path}/home";
+      user = config.user;
+    in {
+      inherit inputs;
+      homeRoot = "${self}/home";
+      config = config // {home = "/Users/${user}";};
+    });
+  in
+    darwin.lib.darwinSystem {
       modules = [
-        ../etc/darwin
+        {networking.hostName = name;}
+        "${self}/etc/darwin"
+        path
         home-manager.darwinModules.home-manager
-        (homeMods "alessandro" ["amenities" "tex" "neovim.lsp"])
+        homeMods
+        inputs.agenix.darwinModules.default
         {nixpkgs = nixpkgs [];}
       ];
 
       # Give `inputs` access to all nix-darwin modules
       specialArgs = {inherit inputs;};
       system = "aarch64-darwin";
-    };
+    });
+
+  instances = {
+    donaldville = mkDarwin "donaldville";
   };
 in {
   donaldville = instances.donaldville;
