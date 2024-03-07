@@ -64,3 +64,10 @@ Host villarose
     HostName villarose.annibale.dev
     User alessandro
     ForwardAgent yes
+
+Host yukon
+    HostName localhost
+    Port 22001
+    ProxyJump villarose
+    User alessandro
+    ForwardAgent yes
