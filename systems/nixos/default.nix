@@ -5,7 +5,7 @@
 }: let
   inherit (inputs) home-manager nixpkgs self;
 
-  overlays_ = extra: (import ../../overlays_) inputs extra;
+  overlays_ = extra: (import "${self}/overlays_") inputs extra;
 
   mkNixos = name: (let
     path = ./. + ("/" + name);
