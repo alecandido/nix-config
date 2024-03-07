@@ -21,6 +21,11 @@ in {
               };
               "org/gnome/mutter" = {
                 dynamic-workspaces = true;
+                edge-tiling = true;
+                workspaces-only-on-primary = true;
+              };
+              "org/gnome/app-switcher" = {
+                current-workspace-only = true;
               };
             }
             // (
