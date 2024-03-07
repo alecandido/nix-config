@@ -1,9 +1,6 @@
-{
-  home-manager,
-  nixpkgs,
-  ...
-} @ inputs: let
-  nixpkgsOv = (import ../../overlays_) inputs;
+{inputs, ...}: let
+  inherit (inputs) home-manager nixpkgs self;
+  nixpkgsOv = (import "${self}/overlays_}") inputs;
 in {
   lxplus = home-manager.lib.homeManagerConfiguration (
     let

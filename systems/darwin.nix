@@ -1,9 +1,11 @@
 {
-  darwin,
-  home-manager,
+  lib,
+  inputs,
   ...
-} @ inputs: let
-  homeMods = user: toggles: ((import ./home).lib.homeMods {
+}: let
+  inherit (inputs) darwin home-manager;
+
+  homeMods = user: toggles: (lib.homeMods {
     inherit inputs user toggles;
     home = "/Users/${user}";
   });

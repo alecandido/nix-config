@@ -1,15 +1,15 @@
 {
-  self,
-  home-manager,
-  nixpkgs,
+  inputs,
+  lib,
   ...
-} @ inputs: let
+}: let
+  inherit (inputs) home-manager nixpkgs self;
   commonMods = [
     ../../etc/nixos
     home-manager.nixosModules.home-manager
     inputs.agenix.nixosModules.default
   ];
-  homeMods = config: ((import ../home).lib.homeMods (let
+  homeMods = config: (lib.homeMods (let
     user = config.user;
   in {
     inherit inputs;
@@ -19,7 +19,7 @@
 
   mkNixos = name: (let
     path = ./. + ("/" + name);
-    homeMods = (import ../home).lib.homeMods (let
+    homeMods = lib.homeMods (let
       config = import "${path}/home";
       user = config.user;
     in {
