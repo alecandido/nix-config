@@ -17,6 +17,7 @@
     # Tools
     systems.url = "github:nix-systems/default";
     devenv.url = "github:cachix/devenv";
+    agenix.url = "github:ryantm/agenix";
   };
 
   outputs = inputs: let
