@@ -7,7 +7,6 @@
   xdg = config.xdg;
 in {
   home.packages = with pkgs; [
-    zsh-fzf-tab
     zsh-vi-mode
     zsh-autopair
     zsh-system-clipboard
