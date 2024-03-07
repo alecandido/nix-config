@@ -6,18 +6,15 @@ in
   then {
     dconf = {
       enable = true;
-      settings =
+      settings.org.gnome =
         {
-          "org/gnome/desktop/interface" = {
-            color-scheme = "prefer-dark";
-          };
+          desktop.interface.color-scheme = "prefer-dark";
+          mutter.dynamic-workspaces = true;
         }
         // (
           if server
           then {
-            "org/gnome/settings-daemon/plugins/power" = {
-              sleep-inactive-ac-type = "nothing";
-            };
+            settings-daemon.plugins.power.sleep-inactive-ac-type = "nothing";
           }
           else {}
         );
