@@ -77,21 +77,7 @@
       system = "x86_64-linux";
     };
 
-    villarose = nixpkgs.lib.nixosSystem {
-      modules =
-        commonMods
-        ++ [
-          ./villarose
-          (homeMods "alessandro" ["amenities" "neovim.lsp" "gnome" "server"])
-          {nixpkgs = overlays_ [];}
-          {networking.hostName = "villarose";}
-        ];
-
-      # Give `inputs` access to all nix-darwin modules
-      specialArgs = {inherit inputs;};
-      system = "x86_64-linux";
-    };
-
+    villarose = mkNixos "villarose";
     yukon = mkNixos "yukon";
   };
 in {
