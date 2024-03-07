@@ -102,7 +102,7 @@
     enable = true;
     font = {
       name = "MesloLGS NF";
-      size = 8;
+      size = lib.mkDefault 8;
     };
     settings = {
       hide_window_decorations = "yes";
