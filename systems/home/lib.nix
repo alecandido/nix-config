@@ -1,20 +1,22 @@
 {
   homeMods = {
-    user,
-    home,
+    config,
+    homeRoot,
     inputs,
-    toggles,
   }: let
-    extraSpecialArgs = {
-      inherit user home inputs toggles;
-    };
+    user = config.user;
+    home = config.home;
   in {
-    home-manager.users.${user} = import ../../home;
-    # Give `inputs` access to all home-manager modules,
-    # together with `home` and `user` specification
-    home-manager.extraSpecialArgs = extraSpecialArgs;
+    home-manager.users.${user} = import homeRoot;
+    # Give `inputs` access to all home-manager modules, together with `home` and `user`
+    # specification
+    home-manager.extraSpecialArgs = {
+      inherit inputs;
+      inherit (config) user home toggles extraHomeModules;
+    };
+
     # Set home
-    users.users.${user}.home = extraSpecialArgs.home;
+    users.users.${user}.home = home;
 
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;

@@ -1,4 +1,5 @@
 {
+  self,
   home-manager,
   nixpkgs,
   ...
@@ -8,10 +9,40 @@
     home-manager.nixosModules.home-manager
     inputs.agenix.nixosModules.default
   ];
-  homeMods = user: toggles: ((import ../home).lib.homeMods {
-    inherit inputs user toggles;
-    home = "/home/${user}";
-  });
+  homeMods = config: ((import ../home).lib.homeMods (let
+    user = config.user;
+  in {
+    inherit inputs;
+    homeRoot = "${self}/home";
+    config = config // {home = "/home/${user}";};
+  }));
+
+  mkNixos = name: (let
+    path = ./. + ("/" + name);
+    homeMods = (import ../home).lib.homeMods (let
+      config = import "${path}/home";
+      user = config.user;
+    in {
+      inherit inputs;
+      homeRoot = "${self}/home";
+      config = config // {home = "/home/${user}";};
+    });
+  in
+    nixpkgs.lib.nixosSystem {
+      modules = [
+        "${self}/etc/nixos"
+        home-manager.nixosModules.home-manager
+        path
+        homeMods
+        inputs.agenix.nixosModules.default
+        {nixpkgs = overlays_ [];}
+        {networking.hostName = name;}
+      ];
+
+      # Give `inputs` access to all nix-darwin modules
+      specialArgs = {inherit inputs;};
+      system = "x86_64-linux";
+    });
 
   overlays_ = extra: (import ../../overlays_) inputs extra;
 
@@ -61,20 +92,7 @@
       system = "x86_64-linux";
     };
 
-    yukon = nixpkgs.lib.nixosSystem {
-      modules =
-        commonMods
-        ++ [
-          ./yukon
-          (homeMods "alessandro" ["amenities" "neovim.lsp" "gnome" "server" "thunderbird"])
-          {nixpkgs = overlays_ [];}
-          {networking.hostName = "yukon";}
-        ];
-
-      # Give `inputs` access to all nix-darwin modules
-      specialArgs = {inherit inputs;};
-      system = "x86_64-linux";
-    };
+    yukon = mkNixos "yukon";
   };
 in {
   ocopoli = instances.ocopoli;
