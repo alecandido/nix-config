@@ -6,13 +6,14 @@
   }: let
     user = config.user;
     home = config.home;
+    extraHomeModules = config.extraHomeModules ++ [./modules];
   in {
     home-manager.users.${user} = import homeRoot;
     # Give `inputs` access to all home-manager modules, together with `home` and `user`
     # specification
     home-manager.extraSpecialArgs = {
-      inherit inputs;
-      inherit (config) user home toggles extraHomeModules;
+      inherit inputs extraHomeModules;
+      inherit (config) user home toggles;
     };
 
     # Set home
