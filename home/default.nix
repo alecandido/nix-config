@@ -15,7 +15,7 @@
       ./zellij
       ./amenities.nix
       ./build.nix
-      ./gnome.nix
+      ./dconf.nix
       ./mail.nix
       ./nix.nix
       ./tex.nix
