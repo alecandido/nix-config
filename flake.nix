@@ -22,6 +22,13 @@
     systems.url = "github:nix-systems/default";
     devenv.url = "github:cachix/devenv";
     agenix.url = "github:ryantm/agenix";
+
+    # Overlays
+    nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
+    rycee-nur = {
+      url = "sourcehut:~rycee/nur-expressions";
+      flake = false;
+    };
   };
 
   outputs = inputs: let

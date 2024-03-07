@@ -16,6 +16,7 @@
       ./amenities.nix
       ./build.nix
       ./dconf.nix
+      ./firefox.nix
       ./mail.nix
       ./nix.nix
       ./tex.nix
