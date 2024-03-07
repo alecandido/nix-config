@@ -93,9 +93,6 @@
     '';
   };
 
-  # Enable flatpak, for applications unavailable on Nix
-  services.flatpak.enable = true;
-
   system.stateVersion = "23.11";
 
   hardware.keyboard.zsa.enable = true;
