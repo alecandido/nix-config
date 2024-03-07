@@ -13,6 +13,7 @@ in {
       signingKey = "${home.homeDirectory}/.ssh/id_ed25519.pub";
     };
     commit.gpgSign = true;
+    tag.gpgSign = true;
     core = {
       editor = "nvim";
       quotepath = false;
