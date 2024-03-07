@@ -20,7 +20,7 @@ in {
                 color-scheme = "prefer-dark";
               };
               "org/gnome/mutter" = {
-                dynamic-workspaces = false;
+                dynamic-workspaces = true;
               };
             }
             // (
