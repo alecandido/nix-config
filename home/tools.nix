@@ -43,6 +43,11 @@
   # XDG
   xdg.enable = true;
 
+  # default programs
+  home.sessionVariables = {
+    BROWSER = "firefox";
+  };
+
   # Starship
   programs.starship = {
     enable = true;
