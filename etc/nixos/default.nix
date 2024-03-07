@@ -85,7 +85,13 @@
   };
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    extraConfig = ''
+      Match All
+        AllowAgentForwarding yes
+    '';
+  };
 
   # Enable flatpak, for applications unavailable on Nix
   services.flatpak.enable = true;
