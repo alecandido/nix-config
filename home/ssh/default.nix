@@ -2,14 +2,16 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  isLinux = lib.strings.hasInfix "linux" pkgs.system;
+in {
   programs.ssh = {
     enable = true;
     package = pkgs.openssh;
     forwardAgent = true;
   };
 
-  services.ssh-agent.enable = lib.strings.hasInfix "linux" pkgs.system;
+  services.ssh-agent.enable = isLinux;
 
   home.file.".ssh/config".source = ./config;
   home.packages = with pkgs; [sshfs];
