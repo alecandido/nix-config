@@ -59,3 +59,8 @@ Host boogiepop
     HostName boogiepop.mi.infn.it
     Port 43123
     User alessandro
+
+Host villarose
+    HostName villarose.annibale.dev
+    User alessandro
+    ForwardAgent yes
