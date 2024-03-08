@@ -1,4 +1,22 @@
-{pkgs, ...}: {
+{
+  config,
+  lib,
+  ...
+}: let
+  # TODO: lift to systems/lib, it could be useful even for other machines
+  autosshRestarts = builtins.listToAttrs (builtins.map (session: {
+      name = "autossh-${session.name}";
+      value = {
+        serviceConfig = {
+          Restart = lib.mkForce "always";
+          RestartSec =
+            lib.mkForce
+            "5min";
+        };
+      };
+    })
+    config.services.autossh.sessions);
+in {
   networking = {
     nftables.enable = true;
 
@@ -8,15 +26,14 @@
     };
   };
 
-  systemd.services.villarose-tunnel = {
-    enable = true;
-    wantedBy = ["multi-user.target"];
-    after = ["network.target" "systemd-networkd-wait-online.service"];
-    description = "Connect to villarose.";
-    script = "${pkgs.openssh}/bin/ssh -N -R 22001:localhost:22 villarose";
-    serviceConfig = {
-      Restart = "on-failure";
-      RestartSec = "5min";
-    };
-  };
+  services.autossh.sessions = [
+    {
+      extraArguments = "-N -R 22001:localhost:22 villarose";
+      monitoringPort = 20000;
+      name = "villarose";
+      user = "alessandro";
+    }
+  ];
+
+  systemd.services = autosshRestarts;
 }
