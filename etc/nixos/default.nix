@@ -68,8 +68,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
-    firefox
-    kitty
     wl-clipboard
     gnome-browser-connector
     gnome-extension-manager
