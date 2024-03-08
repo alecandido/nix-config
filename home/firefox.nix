@@ -3,7 +3,12 @@
   inputs,
   ...
 }: let
-  addons = ((import inputs.rycee-nur) {inherit pkgs;}).firefox-addons;
+  # FIXME: dirty trick
+  # since the flake depend directly on nixpkgs, it has its own `config.allowUnfree`, and
+  # I didn't find any way to set it to true (required for `languagetool`) - thus I'm
+  # importing the content of `default.nix`, and repeating the same line present in the
+  # flake
+  addons = (import inputs.firefox-addons) {inherit (pkgs) fetchurl lib stdenv;};
 in {
   programs.firefox = {
     enable = true;
@@ -24,7 +29,7 @@ in {
         id = 0;
         isDefault = true;
         extensions = with addons; [
-          # "10ten-ja-reader"
+          addons."10ten-ja-reader"
           bitwarden
           languagetool
           notifier-for-github

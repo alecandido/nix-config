@@ -27,6 +27,8 @@
 
   programs.home-manager.enable = true;
 
+  nixpkgs.config.allowUnfree = true;
+
   home.username = user;
   home.stateVersion = "23.11";
 }

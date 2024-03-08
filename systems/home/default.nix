@@ -9,7 +9,6 @@ in {
       pkgs = nixpkgs.legacyPackages."x86_64-linux";
       toggles = [];
     in {
-      inherit pkgs;
       modules = [
         ./lxplus
         ((import ../../home) {inherit user;})
