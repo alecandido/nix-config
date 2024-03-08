@@ -37,6 +37,8 @@ in {
         search = {
           force = true;
           order = ["Google" "Wikipedia"];
+          # builtin ones are found here:
+          # https://searchfox.org/mozilla-central/source/browser/components/search/extensions
           engines = {
             "Google".metaData.alias = "@g";
 
@@ -63,6 +65,7 @@ in {
 
             "Bing".metaData.hidden = true;
             "DuckDuckGo".metaData.hidden = true;
+            "eBay".metaData.hidden = true;
           };
         };
       };
