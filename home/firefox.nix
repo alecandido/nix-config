@@ -3,12 +3,7 @@
   inputs,
   ...
 }: let
-  # FIXME: dirty trick
-  # since the flake depend directly on nixpkgs, it has its own `config.allowUnfree`, and
-  # I didn't find any way to set it to true (required for `languagetool`) - thus I'm
-  # importing the content of `default.nix`, and repeating the same line present in the
-  # flake
-  addons = (import inputs.firefox-addons) {inherit (pkgs) fetchurl lib stdenv;};
+  addons = builtins.getAttr pkgs.system inputs.firefox-addons.packages;
 in {
   programs.firefox = {
     enable = true;
@@ -31,7 +26,10 @@ in {
         extensions = with addons; [
           addons."10ten-ja-reader"
           bitwarden
-          languagetool
+          # FIXME: this is just a lie, since I did not find a way to `allowUnfree` for
+          # the flake dependency
+          # https://discourse.nixos.org/t/how-to-allowunfree-in-dependant-flake/41015
+          (languagetool.overrideAttrs {meta.license.free = true;})
           notifier-for-github
           refined-github
           tab-session-manager
