@@ -4,4 +4,6 @@
     ./hardware-configuration.nix
     ./networking.nix
   ];
+
+  powerManagement.enable = false;
 }
