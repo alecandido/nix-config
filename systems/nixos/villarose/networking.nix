@@ -39,9 +39,9 @@
       # Supplying password files like this will make your credentials world-readable
       # in the Nix store. This is for demonstration purpose only, do not use this in production.
       credentialsFile = let
-        token-file = config.age.secrets.villarose-https.path;
+        token = builtins.readFile config.age.secrets.villarose-https.path;
       in "${pkgs.writeText "googledomains-creds" ''
-        GOOGLE_DOMAINS_ACCESS_TOKEN_FILE=${token-file}
+        GOOGLE_DOMAINS_ACCESS_TOKEN_FILE=${token}
       ''}";
     };
   };
