@@ -14,6 +14,7 @@
   };
 
   age.secrets.villarose-annibale-ddns.file = inputs.secrets.villarose-annibale-ddns;
+  age.secrets.villarose-https.file = inputs.secrets.villarose-https;
 
   systemd.services.dynamic-dns = {
     enable = true;
