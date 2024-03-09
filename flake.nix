@@ -29,6 +29,9 @@
       url = "sourcehut:~rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Secrets
+    secrets.url = "git+ssh://git@github.com/alecandido/secrets.git?shallow=1";
   };
 
   outputs = inputs: let
