@@ -18,7 +18,8 @@
   systemd.services.dynamic-dns = {
     enable = true;
     wantedBy = ["multi-user.target"];
-    after = ["network.target"];
+    after = ["network-online.target"];
+    requires = ["network-online.target"];
     description = "Update villarose.annibale.dev dynamic DNS entry.";
     path = with pkgs; [curl jq];
     serviceConfig = {
