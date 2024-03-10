@@ -28,15 +28,13 @@
       tldr
       delta
 
-      #
+      #network
+      dnsutils
+      dogdns
+
+      # fonts
       fira-code-nerdfont
       meslo-lgs-nf
-
-      #
-      nodejs_21
-
-      #
-      certbot
     ]
     ++ lib.optionals stdenv.isDarwin [m-cli];
 
