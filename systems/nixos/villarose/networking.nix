@@ -11,6 +11,7 @@ in {
   networking = {
     nftables.enable = true;
 
+    tempAddresses = "disabled";
     firewall = {
       enable = true;
       allowedTCPPorts = [80 443 8000];
