@@ -3,7 +3,11 @@
   inputs,
   config,
   ...
-}: {
+}: let
+  www-villarose = "villarose.annibale.dev";
+  www-villarose-certs = "/var/lib/acme/${www-villarose}";
+  sws-root = "/home/alessandro/.local/share/www/";
+in {
   networking = {
     nftables.enable = true;
 
@@ -14,7 +18,6 @@
   };
 
   age.secrets.villarose-annibale-ddns.file = inputs.secrets.villarose-annibale-ddns;
-  age.secrets.villarose-https.file = inputs.secrets.villarose-https;
 
   systemd.services.dynamic-dns = {
     enable = true;
@@ -31,14 +34,35 @@
     startAt = "*:00/15:00"; # every 15 minutes
   };
 
+  age.secrets.villarose-https.file = inputs.secrets.villarose-https;
+
   security.acme = {
     acceptTerms = true;
     defaults.email = "candido.ale@gmail.com";
-    certs."villarose.annibale.dev" = {
+    certs."${www-villarose}" = {
       dnsProvider = "googledomains";
-      # Supplying password files like this will make your credentials world-readable
-      # in the Nix store. This is for demonstration purpose only, do not use this in production.
       environmentFile = config.age.secrets.villarose-https.path;
+      reloadServices = ["static-web-server"];
+      group = "www";
     };
+  };
+
+  services.static-web-server = {
+    enable = true;
+    root = sws-root;
+    listen = "[::]:443";
+    configuration = {
+      general = {
+        http2 = true;
+        http2-tls-cert = "${www-villarose-certs}/fullchain.pem";
+        http2-tls-key = "${www-villarose-certs}/key.pem";
+      };
+    };
+  };
+
+  users.groups.www = {};
+  systemd.services.static-web-server.serviceConfig = {
+    SupplementaryGroups = pkgs.lib.mkForce ["" "www"];
+    BindReadOnlyPaths = pkgs.lib.mkForce [sws-root www-villarose-certs];
   };
 }
