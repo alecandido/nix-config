@@ -40,6 +40,13 @@
       # fonts
       fira-code-nerdfont
       meslo-lgs-nf
+
+      # system tools
+      sysstat
+      lm_sensors # for `sensors` command
+      ethtool
+      pciutils # lspci
+      usbutils # lsusb
     ]
     ++ lib.optionals stdenv.isDarwin [m-cli];
 

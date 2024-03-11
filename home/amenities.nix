@@ -17,6 +17,8 @@ in {
       poppler_utils
       # render video thumbnails
       ffmpegthumbnailer
+      # record terminal sessions
+      vhs
     ]
     else [];
 }
