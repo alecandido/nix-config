@@ -7,7 +7,7 @@
   autosshRestarts = builtins.listToAttrs (builtins.map (session: {
       name = "autossh-${session.name}";
       value = {
-        after = ["network-online.target"];
+        after = lib.mkForce ["network-online.target"];
         requires = ["network-online.target"];
         serviceConfig = {
           Restart = lib.mkForce "always";
