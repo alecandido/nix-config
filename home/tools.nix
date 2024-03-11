@@ -30,7 +30,12 @@
 
       #network
       dnsutils
+      ldns
       dogdns
+      socat
+      nmap
+      mtr
+      wakeonlan
 
       # fonts
       fira-code-nerdfont
