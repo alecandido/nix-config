@@ -1,4 +1,8 @@
-{inputs, ...}: let
+{
+  inputs,
+  lib,
+  ...
+}: let
   inherit (inputs) home-manager nixpkgs;
 in {
   lxplus = home-manager.lib.homeManagerConfiguration (
@@ -26,6 +30,7 @@ in {
             home-manager switch --flake .config/home-manager && home-manager switch --flake .config/nixpkgs#lxplus --show-trace
           '';
         })
+        lib.commonMods
       ];
     }
   );

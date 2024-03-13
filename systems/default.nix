@@ -3,6 +3,6 @@ inputs: (let
   args = {inherit inputs lib;};
 in {
   darwin = (import ./darwin) args;
-  home = (import ./home) args;
+  user = (import ./user) args;
   nixos = (import ./nixos) args;
 })

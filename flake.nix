@@ -38,9 +38,9 @@
     sys = (import ./systems) inputs;
     nixConfigs = (import ./top/nix.nix) inputs;
   in {
-    darwinConfigurations = sys.darwin;
-    homeConfigurations = sys.home;
     nixosConfigurations = sys.nixos;
+    darwinConfigurations = sys.darwin;
+    homeConfigurations = sys.user;
 
     inherit (nixConfigs) formatter;
 
