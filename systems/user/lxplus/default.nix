@@ -1,10 +1,9 @@
-{pkgs, ...}: {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
-  home.username = "candidal";
-  home.homeDirectory = "/afs/cern.ch/user/c/candidal";
-
-  home.stateVersion = "23.05";
+{
+  pkgs,
+  lib,
+  ...
+}: {
+  toggles = [];
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -44,4 +43,12 @@
 
   targets.genericLinux.enable = true;
   home.sessionPath = ["$HOME/.nix-profile/etc/profile.d/nix.sh"];
+
+  nix.package = pkgs.nix;
+  home.shellAliases.upgrade = lib.mkForce ''
+    home-manager switch --flake "$XDG_CONFIG_HOME/nixpkgs#lxplus" --show-trace
+  '';
+  home.shellAliases.upgrade-hack = ''
+    home-manager switch --flake .config/home-manager && home-manager switch --flake .config/nixpkgs#lxplus --show-trace
+  '';
 }
