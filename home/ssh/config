@@ -71,3 +71,9 @@ Host yukon
     ProxyJump villarose
     User alessandro
     ForwardAgent yes
+
+Host klondike
+    HostName ac-klondike
+    ProxyJump yukon
+    User alessandro
+    ForwardAgent yes
