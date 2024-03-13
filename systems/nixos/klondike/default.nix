@@ -9,4 +9,6 @@
     enable = true;
     policy = ["magic" "phy"];
   };
+
+  services.xserver.displayManager.gdm.autoSuspend = false;
 }
