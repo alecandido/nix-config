@@ -24,6 +24,8 @@
         home-manager.darwinModules.home-manager
         homeMods
         inputs.agenix.darwinModules.default
+        lib.commonMods
+        {nixpkgs.overlays = [inputs.nixpkgs-firefox-darwin.overlay];}
       ];
 
       # Give `inputs` access to all nix-darwin modules

@@ -23,6 +23,7 @@
         path
         home-manager.nixosModules.home-manager
         homeMods
+        lib.commonMods
         inputs.agenix.nixosModules.default
       ];
 

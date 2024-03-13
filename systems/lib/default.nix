@@ -6,7 +6,7 @@
   }: let
     user = config.user;
     home = config.home;
-    extraHomeModules = config.extraHomeModules ++ [./modules];
+    extraHomeModules = config.extraHomeModules ++ [./home-modules];
   in {
     home-manager.users.${user} = import homeRoot;
     # Give `inputs` access to all home-manager modules, together with `home` and `user`
@@ -22,4 +22,6 @@
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
   };
+
+  commonMods = {nixpkgs.config.allowUnfree = true;};
 }
