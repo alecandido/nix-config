@@ -5,7 +5,7 @@
   ...
 }: let
   system = pkgs.system;
-  devenv = inputs.devenv.packages."${system}".default;
+  devenv = inputs.devenv.packages.${system}.default;
 in {
   nix.settings = {
     auto-optimise-store = true;
