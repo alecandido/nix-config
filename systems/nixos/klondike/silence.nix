@@ -7,6 +7,6 @@
     serviceConfig = {
       ExecStart = "sudo shutdown now";
     };
-    startAt = "*:00/01:00"; # every minute
+    startAt = "*:00/10:00"; # every minute
   };
 }
