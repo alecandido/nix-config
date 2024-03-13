@@ -1,8 +1,12 @@
 {
   pkgs,
   user,
+  inputs,
   ...
-}: {
+}: let
+  system = pkgs.system;
+  devenv = inputs.devenv.packages."${system}".default;
+in {
   nix.settings = {
     auto-optimise-store = true;
     experimental-features = ["nix-command" "flakes" "repl-flake"];
@@ -10,9 +14,10 @@
   };
 
   # Useful nix related tools
-  home.packages = with pkgs; [
-    cachix
-    devenv
-    niv
-  ];
+  home.packages =
+    (with pkgs; [
+      cachix
+      niv
+    ])
+    ++ [devenv];
 }

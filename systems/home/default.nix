@@ -1,6 +1,5 @@
 {inputs, ...}: let
-  inherit (inputs) home-manager nixpkgs self;
-  nixpkgsOv = (import "${self}/overlays_}") inputs;
+  inherit (inputs) home-manager nixpkgs;
 in {
   lxplus = home-manager.lib.homeManagerConfiguration (
     let
@@ -27,7 +26,6 @@ in {
             home-manager switch --flake .config/home-manager && home-manager switch --flake .config/nixpkgs#lxplus --show-trace
           '';
         })
-        {nixpkgs = nixpkgsOv [];}
       ];
     }
   );

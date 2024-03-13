@@ -5,8 +5,6 @@
 }: let
   inherit (inputs) home-manager nixpkgs self;
 
-  overlays_ = extra: (import "${self}/overlays_") inputs extra;
-
   mkNixos = name: (let
     path = ./. + ("/" + name);
     homeMods = lib.homeMods (let
@@ -26,7 +24,6 @@
         home-manager.nixosModules.home-manager
         homeMods
         inputs.agenix.nixosModules.default
-        {nixpkgs = overlays_ [];}
       ];
 
       # Give `inputs` access to all nix-darwin modules
