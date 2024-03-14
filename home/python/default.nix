@@ -3,4 +3,6 @@
   home.sessionVariables = {
     IPYTHONDIR = "${config.xdg.configHome}/ipython";
   };
+
+  xdg.configFile."pypoetry/config.toml".source = ./poetry.toml;
 }
