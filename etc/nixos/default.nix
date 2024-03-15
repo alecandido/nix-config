@@ -78,6 +78,7 @@
       gnomeExtensions.appindicator
       brave
       telegram-desktop
+      element-desktop
       waypipe
     ];
 
