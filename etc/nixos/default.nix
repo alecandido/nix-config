@@ -69,21 +69,23 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    git
-    wl-clipboard
-    gnome-browser-connector
-    gnome-extension-manager
-    gnomeExtensions.appindicator
-    brave
-    telegram-desktop
-    waypipe
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      git
+      wl-clipboard
+      gnome-browser-connector
+      gnome-extension-manager
+      gnomeExtensions.appindicator
+      brave
+      telegram-desktop
+      waypipe
+    ];
 
-  environment.shellAliases = {
-    upgrade = ''
-      sudo nixos-rebuild switch --flake "$HOME/Projects/nixpkgs" --show-trace
-    '';
+    shellAliases = {
+      upgrade = ''
+        sudo nixos-rebuild switch --flake "$HOME/Projects/nixpkgs" --show-trace
+      '';
+    };
   };
 
   # Enable the OpenSSH daemon.

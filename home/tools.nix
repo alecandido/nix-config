@@ -56,6 +56,7 @@
   # default programs
   home.sessionVariables = {
     BROWSER = "firefox";
+    EDITOR = "nvim";
   };
 
   # Starship
