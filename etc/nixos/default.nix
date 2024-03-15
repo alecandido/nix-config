@@ -82,7 +82,7 @@
 
   environment.shellAliases = {
     upgrade = ''
-      sudo nixos-rebuild switch --flake "$XDG_CONFIG_HOME/nixpkgs" --show-trace
+      sudo nixos-rebuild switch --flake "$HOME/Projects/nixpkgs" --show-trace
     '';
   };
 
