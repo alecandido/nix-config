@@ -10,6 +10,9 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Enable firmware udpates
+  services.fwupd.enable = true;
+
   # Set your time zone.
   time.timeZone = "Europe/Rome";
 
