@@ -82,6 +82,7 @@ return {
     config = function(_, opts)
       require("symbols-outline").setup(opts)
     end,
+    cmd = symbols_outline.cmd,
     opts = symbols_outline.opts,
   },
 }

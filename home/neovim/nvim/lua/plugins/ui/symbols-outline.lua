@@ -37,4 +37,6 @@ M.opts = {
   },
 }
 
+M.cmd = { "SymbolsOutline" }
+
 return M
