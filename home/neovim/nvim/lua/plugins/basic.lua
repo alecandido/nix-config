@@ -41,4 +41,7 @@ return {
     config = true,
     cmd = "Octo",
   },
+
+  -- Lark
+  "lark-parser/vim-lark-syntax",
 }
