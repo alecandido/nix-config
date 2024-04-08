@@ -37,10 +37,13 @@
     klondike = mkNixos "klondike";
     villarose = mkNixos "villarose";
     yukon = mkNixos "yukon";
+    PCTH275 = mkNixos "PCTH275";
   };
 in {
   ocopoli = instances.ocopoli;
   klondike = instances.klondike;
   villarose = instances.villarose;
   yukon = instances.yukon;
+  PCTH275 = instances.PCTH275;
+  killmotor = instances.PCTH275;
 }
