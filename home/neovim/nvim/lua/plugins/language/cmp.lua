@@ -19,8 +19,8 @@ local function extra_opts(cmp)
     mapping = cmp.mapping.preset.insert({
       ["<C-n>"] = cmp.mapping.select_next_item(),
       ["<C-p>"] = cmp.mapping.select_prev_item(),
-      ["<A-k>"] = cmp.mapping.scroll_docs(-1),
-      ["<A-j>"] = cmp.mapping.scroll_docs(1),
+      ["<A-u>"] = cmp.mapping.scroll_docs(-1),
+      ["<A-d>"] = cmp.mapping.scroll_docs(1),
       ["<A-b>"] = cmp.mapping.scroll_docs(-8),
       ["<A-f>"] = cmp.mapping.scroll_docs(8),
       ["<C-Space>"] = cmp.mapping.complete({}),
