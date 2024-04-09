@@ -16,6 +16,7 @@ in {
           isort
           ktlint
           pgformatter
+          rustfmt
           shfmt
           stylish-haskell
           stylua
