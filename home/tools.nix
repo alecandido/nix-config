@@ -41,6 +41,9 @@
       fira-code-nerdfont
       meslo-lgs-nf
 
+      #
+      nodejs_21
+
       # system tools
       # sysstat
       # lm_sensors # for `sensors` command
