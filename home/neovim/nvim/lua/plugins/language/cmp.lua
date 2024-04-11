@@ -25,23 +25,25 @@ local function extra_opts(cmp)
       ["<A-f>"] = cmp.mapping.scroll_docs(8),
       ["<C-Space>"] = cmp.mapping.complete({}),
 
-      ["<CR>"] = cmp.mapping({
-        i = function(fallback)
-          if cmp.visible() and cmp.get_active_entry() then
-            cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+      ["<CR>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          if luasnip.expandable() then
+            luasnip.expand()
           else
-            fallback()
+            cmp.confirm({
+              select = true,
+            })
           end
-        end,
-        s = cmp.mapping.confirm({ select = true }),
-        c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-      }),
+        else
+          fallback()
+        end
+      end),
 
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
-        elseif luasnip.expand_or_locally_jumpable() then
-          luasnip.expand_or_jump()
+        elseif luasnip.locally_jumpable(1) then
+          luasnip.jump(1)
         elseif has_words_before() then
           cmp.complete()
         else
