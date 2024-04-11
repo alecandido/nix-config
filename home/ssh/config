@@ -77,3 +77,10 @@ Host klondike
     ProxyJump yukon
     User alessandro
     ForwardAgent yes
+
+Host killmotor
+    HostName localhost
+    Port 22003
+    ProxyJump villarose
+    User alessandro
+    ForwardAgent yes
