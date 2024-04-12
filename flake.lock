@@ -736,10 +736,10 @@
         "systems": "systems_6"
       },
       "locked": {
-        "lastModified": 1710010199,
-        "narHash": "sha256-8Y1752+S62qW691H1BlnvWNsMDyLrV07N7CDs0hi2Ek=",
+        "lastModified": 1712919837,
+        "narHash": "sha256-/IRnTU+eFuNlRXnej5aL69rqz354cZtzHk73CBgLJ7E=",
         "ref": "refs/heads/main",
-        "rev": "b1641db3041f5fc2cf4d770a955cbd4f7a07581e",
+        "rev": "f049b29714177ec3e05c7ce9fe3d8c5b95c3b387",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/alecandido/secrets.git"

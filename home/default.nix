@@ -1,6 +1,7 @@
 {
   user,
   extraHomeModules,
+  inputs,
   ...
 }: {
   imports =
@@ -9,6 +10,7 @@
       ./cheats
       ./git
       ./kerberos
+      ./mail
       ./neovim
       ./python
       ./ssh
@@ -17,11 +19,11 @@
       ./build.nix
       ./dconf.nix
       ./firefox.nix
-      ./mail.nix
       ./nix.nix
       ./tex.nix
       ./tools.nix
       ./zsh.nix
+      inputs.agenix.homeManagerModules.age
     ]
     ++ extraHomeModules;
 
