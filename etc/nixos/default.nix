@@ -80,6 +80,7 @@
       telegram-desktop
       fractal
       waypipe
+      thunderbird
     ];
 
     shellAliases = {
