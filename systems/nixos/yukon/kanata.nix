@@ -29,7 +29,7 @@
                 _    _    _    _    _    _    _    _    _    _    _    _    _    _
                 _    _    _    @msu _    _    @mwl @mwd @mwu @mwr pp   _    _    _
                 _    _    @msl @msd @msr _    _    mlft mrgt mmid prev next _
-                _    _    _    _    _    _    _    _    _    _    _    _
+                _    _    _    _    _    _    _    mute vold volu del  _
               )
 
               (defalias
