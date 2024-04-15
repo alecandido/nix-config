@@ -14,7 +14,7 @@
               (deflayer base
                 esc  1    2    3    4    5    6    7    8    9    0    -    =    bspc
                 tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-                esc  @mou s    d    f    g    h    j    k    l    @sym '   ret
+                esc  @mou s    d    f    g    h    j    k    l    @sym @alq ret
                 lsft z    x    c    v    b    n    m    ,    .    /    rsft
               )
 
@@ -49,6 +49,7 @@
 
                 sym (tap-hold-press 200 200 ; (layer-while-held symbols))
                 mou (tap-hold-release 200 200 a (layer-while-held mouse))
+                alq (tap-hold-release 200 200 ' alt)
 
                 msu (movemouse-accel-up 3 1000 1 5)
                 msd (movemouse-accel-down 3 1000 1 5)
