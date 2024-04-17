@@ -7,6 +7,7 @@
     [
       # Some basics
       coreutils
+      killall
       curl
       wget
 
