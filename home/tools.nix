@@ -28,6 +28,7 @@
       btop
       tldr
       delta
+      just
 
       #network
       dnsutils
