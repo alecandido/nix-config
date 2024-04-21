@@ -81,6 +81,7 @@
       fractal
       waypipe
       thunderbird
+      usbutils
     ];
 
     shellAliases = {
