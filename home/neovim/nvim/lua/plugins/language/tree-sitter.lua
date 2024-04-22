@@ -45,6 +45,7 @@ M.opts = {
     "json",
     "jsonc",
     "julia",
+    "just",
     "kdl",
     "kotlin",
     "latex",
