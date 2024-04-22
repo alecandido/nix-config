@@ -72,6 +72,7 @@
   environment = {
     systemPackages = with pkgs; [
       git
+      usbutils
       wl-clipboard
       gnome-browser-connector
       gnome-extension-manager
@@ -81,7 +82,7 @@
       fractal
       waypipe
       thunderbird
-      usbutils
+      zoom-us
     ];
 
     shellAliases = {
