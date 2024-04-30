@@ -1,5 +1,9 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [carapace];
+  home.packages = with pkgs;
+    [carapace]
+    ++ (with pkgs.nushellPlugins; [
+      net
+    ]);
 
   programs.nushell = {
     enable = true;
@@ -7,6 +11,9 @@
 
     envFile.source = ./env.nu;
     configFile.source = ./config.nu;
+    extraConfig = ''
+      register ${pkgs.nushellPlugins.net}/bin/nu_plugin_net
+    '';
 
     shellAliases = {
       xs = "eza";
