@@ -4,6 +4,10 @@
   ...
 }: let
   lsp = builtins.elem "neovim.lsp" toggles;
+  nufmt-in = pkgs.writeScriptBin "nufmt-in" ''
+    #!/usr/bin/env -S nu --stdin
+    nufmt --stdin $in | tail -n +2
+  '';
 in {
   home.packages =
     if lsp
@@ -15,6 +19,8 @@ in {
           fnlfmt
           isort
           ktlint
+          nufmt
+          nufmt-in
           pgformatter
           rustfmt
           shfmt

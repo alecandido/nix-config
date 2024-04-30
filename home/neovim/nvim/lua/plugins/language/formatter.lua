@@ -18,6 +18,14 @@ local function fnlfmt()
   }
 end
 
+local function nufmt()
+  return {
+    exe = "nufmt-in",
+    stdin = true,
+    args = {},
+  }
+end
+
 local function uncrustify(lang)
   return {
     exe = "uncrustify",
@@ -53,6 +61,7 @@ M.config = function(_, opts)
     kotlin = { require("formatter.filetypes.kotlin").ktlint },
     lua = { require("formatter.filetypes.lua").stylua },
     markdown = { require("formatter.filetypes.markdown").prettier },
+    nu = { nufmt },
     nix = { require("formatter.filetypes.nix").alejandra },
     python = {
       require("formatter.filetypes.python").black,
