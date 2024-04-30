@@ -61,6 +61,7 @@ M.opts = {
     "mlir",
     "ninja",
     "nix",
+    "nu",
     "passwd",
     "perl",
     "python",
