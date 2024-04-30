@@ -44,7 +44,7 @@
       meslo-lgs-nf
 
       #
-      nodejs_21
+      # nodejs_21
 
       # system tools
       # sysstat

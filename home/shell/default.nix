@@ -1,4 +1,9 @@
 {
+  imports = [
+    ./nushell.nix
+    ./zsh.nix
+  ];
+
   home.shellAliases = {
     ls = "eza";
     la = "ls -a";

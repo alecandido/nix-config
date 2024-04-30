@@ -6,13 +6,13 @@
 }: {
   imports =
     [
-      ./aliases
       ./cheats
       ./git
       ./kerberos
       ./mail
       ./neovim
       ./python
+      ./shell
       ./ssh
       ./zellij
       ./amenities.nix
@@ -22,7 +22,6 @@
       ./nix.nix
       ./tex.nix
       ./tools.nix
-      ./zsh.nix
       inputs.agenix.homeManagerModules.age
     ]
     ++ extraHomeModules;

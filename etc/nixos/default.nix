@@ -5,7 +5,7 @@
 
   # Shell
   programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
+  users.defaultUserShell = pkgs.nushellFull;
 
   # Enable networking
   networking.networkmanager.enable = true;
