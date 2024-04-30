@@ -112,19 +112,6 @@
   programs.rbw = {
     enable = true;
     settings.email = "candido.ale@gmail.com";
-    package = pkgs.rbw.overrideAttrs (oldAttrs: {
-      patches =
-        oldAttrs.patches
-        ++ [
-          (
-            pkgs.fetchpatch {
-              name = "add-useragent.patch";
-              url = "https://github.com/doy/rbw/files/14921243/patch.txt";
-              sha256 = "sha256-SS+PTWA1UTsluts9Qtv+q3LJ22PTRUZ+usOB0aqz3Rk=";
-            }
-          )
-        ];
-    });
   };
 
   # Kitty
