@@ -29,6 +29,7 @@
       tldr
       delta
       just
+      jc
 
       #network
       dnsutils
