@@ -19,8 +19,6 @@ in {
           fnlfmt
           isort
           ktlint
-          nufmt
-          nufmt-in
           pgformatter
           rustfmt
           shfmt
@@ -28,10 +26,11 @@ in {
           stylua
           uncrustify
         ]
-        ++ (with pkgs.nodePackages; [
+        ++ (lib.optionals (!stdenv.isDarwin) [nufmt nufmt-in])
+        ++ (with nodePackages; [
           prettier
         ])
-        ++ (with pkgs.python311Packages; [
+        ++ (with python311Packages; [
           docformatter
         ]))
     else [];
