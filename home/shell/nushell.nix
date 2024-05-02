@@ -17,8 +17,8 @@
 
     shellAliases = {
       xs = "eza";
-      xa = "ls -a";
-      xl = "ls -l";
+      xa = "eza -a";
+      xl = "eza -l";
       nv = "nvim";
       py = "python";
       ipy = "ipython";
