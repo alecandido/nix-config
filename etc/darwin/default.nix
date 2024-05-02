@@ -21,7 +21,7 @@
 
   environment.shellAliases = {
     upgrade = ''
-      darwin-rebuild switch --flake "$XDG_CONFIG_HOME/nixpkgs?submodules=1" --show-trace
+      darwin-rebuild switch --flake "$HOME/Projects/nixpkgs" --show-trace
     '';
   };
 
