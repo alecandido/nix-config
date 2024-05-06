@@ -43,4 +43,5 @@ $env.config = {
             completer: $external_completer
         }
     }
+    edit_mode: vi
 }
