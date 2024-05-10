@@ -29,7 +29,7 @@ end
 local function uncrustify(lang)
   return {
     exe = "uncrustify",
-    args = { "-q", "-l " .. lang, "-c $XDG_CONFIG_HOME/uncrustify.cfg" },
+    args = { "-q", "-l " .. lang, "-c " .. os.getenv("XDG_CONFIG_HOME") .. "/uncrustify.cfg" },
     stdin = true,
   }
 end
