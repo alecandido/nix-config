@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   home.packages = with pkgs;
     [carapace]
     ++ (with pkgs.nushellPlugins; [
@@ -14,6 +18,8 @@
     extraConfig = ''
       register ${pkgs.nushellPlugins.net}/bin/nu_plugin_net
     '';
+
+    environmentVariables = config.home.sessionVariables;
 
     shellAliases = {
       xs = "eza";
