@@ -22,9 +22,8 @@
     environmentVariables = config.home.sessionVariables;
 
     shellAliases = {
-      xs = "eza";
-      xa = "eza -a";
-      xl = "eza -l";
+      la = "ls -a";
+      ll = "ls -l";
       nv = "nvim";
       py = "python";
       ipy = "ipython";
