@@ -31,7 +31,7 @@
       just
       jc
 
-      #network
+      # Network
       dnsutils
       ldns
       dogdns
@@ -40,12 +40,14 @@
       mtr
       wakeonlan
 
-      # fonts
+      # Fonts
       fira-code-nerdfont
       meslo-lgs-nf
 
-      #
-      # nodejs_21
+      # Node JS
+      # mainly to support some neovim plugins...
+      # slim = no NPM
+      nodejs-slim_22
 
       # system tools
       # sysstat
