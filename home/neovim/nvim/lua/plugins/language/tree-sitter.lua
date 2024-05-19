@@ -82,7 +82,6 @@ M.opts = {
     "typescript",
     "verilog",
     "vim",
-    "vimdoc",
     "vue",
     "xml",
     "yaml",
