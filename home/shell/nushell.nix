@@ -6,17 +6,18 @@
   home.packages = with pkgs;
     [carapace]
     ++ (with pkgs.nushellPlugins; [
-      net
+      # net
     ]);
 
   programs.nushell = {
     enable = true;
-    package = pkgs.nushellFull;
 
     envFile.source = ./env.nu;
     configFile.source = ./config.nu;
     extraConfig = ''
-      register ${pkgs.nushellPlugins.net}/bin/nu_plugin_net
+      # plugin add ${pkgs.nushellPlugins.net}/bin/nu_plugin_net
+      # plugin add <polars>
+      # TODO:  ^^^^^^^^^^^^
     '';
 
     environmentVariables = config.home.sessionVariables;
