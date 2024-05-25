@@ -85,4 +85,14 @@ return {
     cmd = symbols_outline.cmd,
     opts = symbols_outline.opts,
   },
+
+  {
+    "ojroques/vim-oscyank",
+    branch = "main",
+    keys = {
+      { "<leader>y", "<Plug>OSCYankOperator", desc = "Cop[y] through OSC52" },
+      { "<leader>yy", "<leader>y_", desc = "Cop[y] line through OSC52" },
+      { "<leader>y", "<Plug>OSCYankVisual", "v", desc = "Cop[y] through OSC52" },
+    },
+  },
 }
