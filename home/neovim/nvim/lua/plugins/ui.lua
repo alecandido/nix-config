@@ -87,12 +87,27 @@ return {
   },
 
   {
-    "ojroques/vim-oscyank",
+    "ojroques/nvim-osc52",
     branch = "main",
     keys = {
-      { "<leader>y", "<Plug>OSCYankOperator", desc = "Cop[y] through OSC52" },
-      { "<leader>yy", "<leader>y_", desc = "Cop[y] line through OSC52" },
-      { "<leader>y", "<Plug>OSCYankVisual", "v", desc = "Cop[y] through OSC52" },
+      {
+        "<leader>y",
+        require("osc52").copy_operator,
+        expr = true,
+        desc = "Cop[y] through OSC52",
+      },
+      {
+        "<leader>yy",
+        "<leader>y_",
+        remap = true,
+        desc = "Cop[y] line through OSC52",
+      },
+      {
+        "<leader>y",
+        require("osc52").copy_visual,
+        mode = "v",
+        desc = "Cop[y] through OSC52",
+      },
     },
   },
 }
