@@ -7,6 +7,7 @@ local gitsigns = require(parent .. ".gitsigns")
 local headlines = require(parent .. ".headlines")
 local noice = require(parent .. ".noice")
 local notify = require(parent .. ".notify")
+local osc52 = require(parent .. ".osc52")
 local symbols_outline = require(parent .. ".symbols-outline")
 
 return {
@@ -88,26 +89,7 @@ return {
 
   {
     "ojroques/nvim-osc52",
-    branch = "main",
-    keys = {
-      {
-        "<leader>y",
-        require("osc52").copy_operator,
-        expr = true,
-        desc = "Cop[y] through OSC52",
-      },
-      {
-        "<leader>yy",
-        "<leader>y_",
-        remap = true,
-        desc = "Cop[y] line through OSC52",
-      },
-      {
-        "<leader>y",
-        require("osc52").copy_visual,
-        mode = "v",
-        desc = "Cop[y] through OSC52",
-      },
-    },
+    branch = osc52.branch,
+    keys = osc52.keys,
   },
 }
