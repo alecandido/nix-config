@@ -35,5 +35,5 @@ in {
         ]))
     else [];
 
-  xdg.configFile."uncrustify.cfg".text = "";
+  xdg.configFile."uncrustify.cfg".source = ./uncrustify.cfg;
 }

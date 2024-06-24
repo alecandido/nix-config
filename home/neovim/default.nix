@@ -15,7 +15,7 @@
 in {
   imports = [
     ./linters
-    ./formatters.nix
+    ./formatters
     ./servers.nix
   ];
 
