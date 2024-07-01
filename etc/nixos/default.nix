@@ -83,6 +83,7 @@
       waypipe
       thunderbird
       zoom-us
+      xournalpp
     ];
 
     shellAliases = {
