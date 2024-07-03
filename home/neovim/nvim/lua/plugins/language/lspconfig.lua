@@ -16,7 +16,7 @@ M.opts = {
     nil_ls = {},
     pyright = {},
     ruff_lsp = {},
-    rust_analyzer = {},
+    rust_analyzer = { cargo = { features = "all" } },
     -- sqls = {},
     svelte = {},
     taplo = {},
