@@ -14,6 +14,7 @@
       ./python
       ./shell
       ./ssh
+      ./xournalpp
       ./zellij
       ./amenities.nix
       ./build.nix
