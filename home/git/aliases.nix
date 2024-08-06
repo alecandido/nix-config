@@ -19,5 +19,7 @@
     psuoc = "!git push -u origin $(git branch-name)";
 
     tree = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
+
+    aliases = "config --get-regexp ^alias";
   };
 }
