@@ -1,6 +1,6 @@
 -- Interface improvements
 
-local parent = ...
+local parent = "plugins.ui"
 
 local barbar = require(parent .. ".barbar")
 local gitsigns = require(parent .. ".gitsigns")

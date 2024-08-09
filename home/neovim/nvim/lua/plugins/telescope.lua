@@ -1,6 +1,6 @@
 -- Fuzzy Finder (files, lsp, etc)
 
-local parent = ...
+local parent = "plugins.telescope"
 
 local telescope = require(parent .. ".builtin")
 local fzf = require(parent .. ".fzf")

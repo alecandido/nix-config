@@ -1,4 +1,4 @@
-local parent = ...
+local parent = "plugins.language"
 
 local cmp = require(parent .. ".cmp")
 local dap = require(parent .. ".dap")
