@@ -4,45 +4,61 @@ M.keys = {
   {
     "<leader>xx",
     function()
-      require("trouble").toggle()
+      require("trouble").toggle({ mode = "diagnostics" })
     end,
     desc = "Toggle troubles :[x] window :[x]",
   },
   {
-    "<leader>xw",
+    "]x",
     function()
-      require("trouble").open("workspace_diagnostics")
+      require("trouble").next({})
+      require("trouble").jump({})
     end,
-    desc = "Open troubles :[x] with [W]orkspace diagnostics",
+    desc = "Jump to next trouble",
   },
   {
-    "<leader>xd",
+    "[x",
     function()
-      require("trouble").open("document_diagnostics")
+      require("trouble").prev({})
+      require("trouble").jump({})
     end,
-    desc = "Open troubles :[x] with [D]ocument diagnostics",
+    desc = "Jump to previous trouble",
   },
-  {
-    "<leader>xq",
-    function()
-      require("trouble").open("quickfix")
-    end,
-    desc = "Open troubles :[x] with [Q]uickfix",
-  },
-  {
-    "<leader>xl",
-    function()
-      require("trouble").open("loclist")
-    end,
-    desc = "Open troubles :[x] with [L]oclist",
-  },
-  {
-    "gR",
-    function()
-      require("trouble").open("lsp_references")
-    end,
-    desc = "Open troubles lsp references",
-  },
+  -- {
+  --   "<leader>xw",
+  --   function()
+  --     require("trouble").open("workspace_diagnostics")
+  --   end,
+  --   desc = "Open troubles :[x] with [W]orkspace diagnostics",
+  -- },
+  -- {
+  --   "<leader>xd",
+  --   function()
+  --     require("trouble").open("document_diagnostics")
+  --   end,
+  --   desc = "Open troubles :[x] with [D]ocument diagnostics",
+  -- },
+  -- {
+  --   "<leader>xq",
+  --   function()
+  --     require("trouble").open("quickfix")
+  --   end,
+  --   desc = "Open troubles :[x] with [Q]uickfix",
+  -- },
+  -- {
+  --   "<leader>xl",
+  --   function()
+  --     require("trouble").open("loclist")
+  --   end,
+  --   desc = "Open troubles :[x] with [L]oclist",
+  -- },
+  -- {
+  --   "gR",
+  --   function()
+  --     require("trouble").open("lsp_references")
+  --   end,
+  --   desc = "Open troubles lsp references",
+  -- },
 }
 
 return M
