@@ -29,7 +29,7 @@ in {
           # FIXME: this is just a lie, since I did not find a way to `allowUnfree` for
           # the flake dependency
           # https://discourse.nixos.org/t/how-to-allowunfree-in-dependant-flake/41015
-          # (languagetool.overrideAttrs {meta.license.free = true;})
+          (languagetool.overrideAttrs {meta.license.free = true;})
           notifier-for-github
           refined-github
           tab-session-manager
