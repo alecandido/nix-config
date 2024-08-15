@@ -11,9 +11,6 @@
       curl
       wget
 
-      # Tools
-      # TODO: exa is unmaintained, replace with
-      # [eza](https://github.com/eza-community/eza) (not yet available in nixpkgs 23.05)
       eza
       jq
       ripgrep
@@ -27,7 +24,7 @@
       fzf
       btop
       tldr
-      delta
+      # delta # https://github.com/NixOS/nixpkgs/pull/334814
       just
       jc
 
