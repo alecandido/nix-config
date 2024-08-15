@@ -13,6 +13,7 @@
     drop = "stash drop";
     amend = "commit --amend";
     last = "show --stat";
+    stat = "diff --stat";
 
     branch-name = "rev-parse --abbrev-ref HEAD";
     branch-full-name = ''rev-parse --abbrev-ref --symbolic-full-name "@{u}"'';
