@@ -43,8 +43,6 @@ Host qrclab
 
 Host lxplus*
     AddKeysToAgent yes
-    GSSAPIAuthentication yes
-    GSSAPIDelegateCredentials yes
     StrictHostKeyChecking False
     ChallengeResponseAuthentication no
     User candidal
