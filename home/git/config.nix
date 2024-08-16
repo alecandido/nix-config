@@ -14,27 +14,32 @@ in {
     };
     commit.gpgSign = true;
     tag.gpgSign = true;
+    gpg.format = "ssh";
     core = {
       editor = "nvim";
       quotepath = false;
     };
     web.browser = "firefox";
-    pull.rebase = "interactive";
-    merge.log = true;
+    status.submoduleSummary = true;
+    submodule.recurse = true;
     init = {
       defaultBranch = "main";
       templateDir = "${xdg.configHome}/git/template";
     };
-    column.ui = "auto nodense";
-    gpg.format = "ssh";
+    # commit ops
+    pull.rebase = "interactive";
+    merge.log = true;
     diff = {
       renames = "copies";
       tool = "vimdiff";
+      submodules = "log";
     };
     rerere = {
       enabled = true;
       autoupdate = true;
     };
+    # ui
+    column.ui = "auto nodense";
     color = {
       status = {
         changed = "yellow";
