@@ -14,6 +14,7 @@
     amend = "commit --amend";
     last = "show --stat";
     stat = "diff --stat";
+    sup = "submodule update";
 
     branch-name = "rev-parse --abbrev-ref HEAD";
     branch-full-name = ''rev-parse --abbrev-ref --symbolic-full-name "@{u}"'';
