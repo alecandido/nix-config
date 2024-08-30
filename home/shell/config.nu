@@ -45,3 +45,14 @@ $env.config = {
     }
     edit_mode: vi
 }
+
+export def pypath [
+    version: string,
+    --external: list<string> = ["pre-commit", "poethepoet"]
+]: nothing -> string {
+    let retain = [$"python(version)"] ++ $external
+
+    $env.PYTHONPATH | split row ":"
+                    | filter {$in =~ ($retain | str join "|")}
+                    | str join ":"
+}
