@@ -11,6 +11,7 @@ in
           scheme-basic
           latexmk
           amsmath
+          lacheck
           collection-publishers
           collection-fontsrecommended
           collection-fontsextra
