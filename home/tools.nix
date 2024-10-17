@@ -123,7 +123,7 @@
     settings = {
       hide_window_decorations = "yes";
     };
-    theme = "Nord";
+    themeFile = "Nord";
     shellIntegration.enableZshIntegration = true;
   };
 }
