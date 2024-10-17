@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: {
   home.packages = with pkgs;
@@ -60,8 +61,8 @@
 
   # default programs
   home.sessionVariables = {
-    BROWSER = "firefox";
-    EDITOR = "nvim";
+    BROWSER = "${config.programs.firefox.package}/bin/firefox";
+    EDITOR = lib.mkForce "${config.programs.neovim.package}/bin/nvim";
   };
 
   # Starship
