@@ -28,7 +28,7 @@
     shells = with pkgs; [nushell];
     shellAliases = {
       upgrade = ''
-        darwin-rebuild switch --flake "$HOME/Projects/nixpkgs" --show-trace
+        darwin-rebuild switch --flake "$HOME/Projects/nix-config" --show-trace
       '';
     };
     variables = {SHELL = shell;};

@@ -87,7 +87,7 @@
 
     shellAliases = {
       upgrade = ''
-        sudo nixos-rebuild switch --flake "$HOME/Projects/nixpkgs" --fast --show-trace
+        sudo nixos-rebuild switch --flake "$HOME/Projects/nix-config" --fast --show-trace
       '';
     };
   };
