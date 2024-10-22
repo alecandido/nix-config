@@ -1,4 +1,4 @@
-# Nixpkgs
+# Nix configuration
 
 My own nix settings.
 
