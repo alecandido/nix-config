@@ -6,7 +6,7 @@ data=$(
 {
   "comment": "Domain verification record",
   "name": "villarose.annibale.dev",
-  "proxied": true,
+  "proxied": false,
   "settings": {},
   "tags": [],
   "ttl": 3600,
