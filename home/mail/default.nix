@@ -1,7 +1,7 @@
 {
   imports = [
-    ./personal.nix
-    ./sns.nix
-    ./cern.nix
+    # ./personal.nix
+    # ./sns.nix
+    # ./cern.nix
   ];
 }
