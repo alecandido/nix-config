@@ -41,7 +41,7 @@ in {
     acceptTerms = true;
     defaults.email = "candido.ale@gmail.com";
     certs."${www-villarose}" = {
-      dnsProvider = "googledomains";
+      dnsProvider = "cloudflare";
       environmentFile = config.age.secrets.villarose-https.path;
       reloadServices = ["static-web-server"];
       group = "www";
