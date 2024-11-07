@@ -3,5 +3,5 @@ let
 in {
   inherit user;
   toggles = ["amenities" "neovim.lsp" "gnome" "server"];
-  extraHomeModules = [];
+  extraHomeModules = [./www.nix];
 }
