@@ -42,6 +42,9 @@ in {
     defaults.email = "candido.ale@gmail.com";
     certs."${www-villarose}" = {
       dnsProvider = "cloudflare";
+      # refer to https://go-acme.github.io/lego/dns/cloudflare/ for the content of the
+      # following (it will be just a file with multiple `ENV_VAR=value` as described in
+      # https://go-acme.github.io/lego/dns/)
       environmentFile = config.age.secrets.villarose-https.path;
       reloadServices = ["static-web-server"];
       group = "www";
