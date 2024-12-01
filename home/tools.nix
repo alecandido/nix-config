@@ -63,6 +63,7 @@
   home.sessionVariables = {
     BROWSER = "${config.programs.firefox.package}/bin/firefox";
     EDITOR = lib.mkForce "${config.programs.neovim.package}/bin/nvim";
+    MANPAGER = "${config.programs.neovim.package}/bin/nvim +Man!";
   };
 
   # Starship
