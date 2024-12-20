@@ -21,10 +21,6 @@
     shell = "${pkgs.nushell}/bin/nu";
   in {
     pathsToLink = ["/share/zsh"];
-    # the following is only used by the tmux module, but it's not possible to set nu as
-    # login shell unless it is managed by Nix, since the package might change, and I'd
-    # not be able to login any longer to change the shell
-    loginShell = shell + " -l";
     shells = with pkgs; [nushell];
     shellAliases = {
       upgrade = ''
