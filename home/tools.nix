@@ -39,7 +39,7 @@
       wakeonlan
 
       # Fonts
-      fira-code-nerdfont
+      nerd-fonts.fira-code
       meslo-lgs-nf
 
       # Node JS

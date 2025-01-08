@@ -104,4 +104,11 @@
   system.stateVersion = "23.11";
 
   hardware.keyboard.zsa.enable = true;
+
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-emoji
+    mplus-outline-fonts.githubRelease
+  ];
 }
