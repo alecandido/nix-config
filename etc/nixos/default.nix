@@ -74,7 +74,7 @@
       usbutils
       wl-clipboard
       gnome-browser-connector
-      gnome-extension-manager
+      # gnome-extension-manager
       gnomeExtensions.appindicator
       brave
       telegram-desktop
@@ -90,6 +90,15 @@
         sudo nixos-rebuild switch --flake "$HOME/Projects/nix-config" --fast --show-trace
       '';
     };
+
+    gnome.excludePackages = with pkgs; [
+      epiphany
+      gnome-contacts
+      gnome-maps
+      gnome-music
+      geary
+      seahorse
+    ];
   };
 
   # Enable the OpenSSH daemon.
