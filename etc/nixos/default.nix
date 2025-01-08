@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  options,
+  ...
+}: {
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -120,4 +124,9 @@
     noto-fonts-emoji
     mplus-outline-fonts.githubRelease
   ];
+
+  programs.nix-ld = {
+    enable = true;
+    libraries = options.programs.nix-ld.libraries.default;
+  };
 }
