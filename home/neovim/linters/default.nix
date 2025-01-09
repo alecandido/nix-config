@@ -31,4 +31,5 @@ in {
 
   xdg.configFile."ltex".source = ./ltex;
   xdg.configFile."vale".source = ./vale;
+  xdg.configFile."yamllint".source = ./yamllint;
 }
