@@ -1,9 +1,17 @@
-{toggles, ...}: let
-  enable = builtins.elem "tex" toggles;
-in
-  if enable
-  then {
-    programs.texlive = {
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib) mkIf mkEnableOption;
+  cfg = config.plan.tex;
+in {
+  options.plan.tex = {
+    enable = mkEnableOption "tex";
+  };
+
+  config = {
+    programs.texlive = mkIf cfg.enable {
       enable = true;
       extraPackages = tpkgs: {
         inherit
@@ -22,5 +30,5 @@ in
           ;
       };
     };
-  }
-  else {}
+  };
+}
