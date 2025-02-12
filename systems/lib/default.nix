@@ -13,7 +13,7 @@
     # specification
     home-manager.extraSpecialArgs = {
       inherit inputs extraHomeModules;
-      inherit (config) user home toggles;
+      inherit (config) user home;
     };
 
     # Set home

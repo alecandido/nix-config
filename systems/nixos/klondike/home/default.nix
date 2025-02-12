@@ -1,7 +1,14 @@
-let
+{
   user = "alessandro";
-in {
-  inherit user;
-  toggles = ["amenities" "tex" "neovim.lsp" "server"];
-  extraHomeModules = [];
+
+  extraHomeModules = [
+    {
+      plan = {
+        neovim = {
+          enable = true;
+          lsp = true;
+        };
+      };
+    }
+  ];
 }

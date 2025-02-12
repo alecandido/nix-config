@@ -1,7 +1,20 @@
-let
+{
   user = "alessandro";
-in {
-  inherit user;
-  toggles = ["amenities" "tex" "neovim.lsp" "gnome" "thunderbird"];
-  extraHomeModules = [./tools.nix];
+
+  extraHomeModules = [
+    ./tools.nix
+    {
+      plan = {
+        amenities.enable = true;
+        dconf = {
+          enable = true;
+        };
+        neovim = {
+          enable = true;
+          lsp = true;
+        };
+        tex.enable = true;
+      };
+    }
+  ];
 }
