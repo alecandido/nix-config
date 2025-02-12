@@ -1,35 +1,35 @@
 {
+  config,
+  lib,
   pkgs,
-  toggles,
   ...
 }: let
-  lsp = builtins.elem "neovim.lsp" toggles;
+  inherit (lib) mkIf;
+  cfg = config.plan.neovim;
 in {
-  home.packages =
-    if lsp
-    then
-      (with pkgs;
-        [
-          actionlint
-          cppcheck
-          revive
-          ruff
-          selene
-          sqlfluff
-          vale
-          yamllint
-        ]
-        ++ (with pkgs.nodePackages; [
-          eslint
-          stylelint
-          jsonlint
-        ])
-        ++ (with pkgs.python311Packages; [
-          pydocstyle
-        ]))
-    else [];
+  config = mkIf (cfg.enable && cfg.lsp) {
+    home.packages = with pkgs;
+      [
+        actionlint
+        cppcheck
+        revive
+        ruff
+        selene
+        sqlfluff
+        vale
+        yamllint
+      ]
+      ++ (with pkgs.nodePackages; [
+        eslint
+        stylelint
+        jsonlint
+      ])
+      ++ (with pkgs.python311Packages; [
+        pydocstyle
+      ]);
 
-  xdg.configFile."ltex".source = ./ltex;
-  xdg.configFile."vale".source = ./vale;
-  xdg.configFile."yamllint".source = ./yamllint;
+    xdg.configFile."ltex".source = ./ltex;
+    xdg.configFile."vale".source = ./vale;
+    xdg.configFile."yamllint".source = ./yamllint;
+  };
 }

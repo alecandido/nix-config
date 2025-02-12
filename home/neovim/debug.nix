@@ -1,26 +1,26 @@
 {
+  config,
+  lib,
   pkgs,
-  toggles,
   ...
 }: let
-  lsp = builtins.elem "neovim.lsp" toggles;
+  inherit (lib) mkIf;
+  cfg = config.plan.neovim;
 in {
-  home.packages =
-    if lsp
-    then
-      (with pkgs;
-        [
-          delve
-        ]
-        ++ (with pkgs.vscode-extensions; [
-          firefox-devtools.vscode-firefox-debug
-          ms-vscode.cpptools
-        ])
-        ++ (with pkgs.python311Packages; [
-          debugpy
-        ])
-        ++ (with pkgs.haskellPackages; [
-          haskell-debug-adapter
-        ]))
-    else [];
+  config = mkIf (cfg.enable && cfg.lsp) {
+    home.packages = with pkgs;
+      [
+        delve
+      ]
+      ++ (with pkgs.vscode-extensions; [
+        firefox-devtools.vscode-firefox-debug
+        ms-vscode.cpptools
+      ])
+      ++ (with pkgs.python311Packages; [
+        debugpy
+      ])
+      ++ (with pkgs.haskellPackages; [
+        haskell-debug-adapter
+      ]);
+  };
 }

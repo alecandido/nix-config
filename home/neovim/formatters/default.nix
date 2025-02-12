@@ -6,6 +6,7 @@
 }: let
   inherit (lib) mkIf;
   cfg = config.plan.neovim;
+
   nufmt-in = pkgs.writeScriptBin "nufmt-in" ''
     #!/usr/bin/env -S nu --stdin
     nufmt --stdin $in | tail -n +2
