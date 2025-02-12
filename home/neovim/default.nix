@@ -1,17 +1,11 @@
 {
+  config,
+  lib,
   pkgs,
-  toggles,
   ...
 }: let
-  lsp = builtins.elem "neovim.lsp" toggles;
-
-  hmpkgs =
-    if lsp
-    then
-      (with pkgs; [
-        tree-sitter
-      ])
-    else [];
+  inherit (lib) mkIf mkEnableOption;
+  cfg = config.plan.neovim;
 in {
   imports = [
     ./linters
@@ -19,11 +13,18 @@ in {
     ./servers.nix
   ];
 
-  home.packages = hmpkgs;
+  options.plan.neovim = {
+    enable = mkEnableOption "neovim";
+    lsp = mkEnableOption "neovim lsp";
+  };
 
-  programs.neovim.enable = true;
-  programs.neovim.defaultEditor = true;
-  programs.neovim.vimdiffAlias = true;
+  config = mkIf cfg.enable {
+    home.packages = mkIf cfg.lsp (with pkgs; [tree-sitter]);
 
-  xdg.configFile."nvim".source = ./nvim;
+    programs.neovim.enable = true;
+    programs.neovim.defaultEditor = true;
+    programs.neovim.vimdiffAlias = true;
+
+    xdg.configFile."nvim".source = ./nvim;
+  };
 }
