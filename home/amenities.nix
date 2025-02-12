@@ -1,13 +1,18 @@
 {
+  config,
+  lib,
   pkgs,
-  toggles,
   ...
 }: let
-  amenities = builtins.elem "amenities" toggles;
+  inherit (lib) mkIf mkEnableOption;
+  cfg = config.plan.amenities;
 in {
-  home.packages = with pkgs;
-    if amenities
-    then [
+  options.plan.amenities = {
+    enable = mkEnableOption "amenities";
+  };
+
+  config = {
+    home.packages = mkIf cfg.enable (with pkgs; [
       # manipulate images
       imagemagick
       ghostscript
@@ -19,6 +24,6 @@ in {
       ffmpegthumbnailer
       # record terminal sessions
       vhs
-    ]
-    else [];
+    ]);
+  };
 }

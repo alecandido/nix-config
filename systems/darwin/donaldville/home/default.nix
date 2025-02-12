@@ -2,8 +2,13 @@ let
   user = "alessandro";
 in {
   inherit user;
-  toggles = ["amenities" "neovim.lsp"];
-  extraHomeModules = [];
-
-  plan.tex.enable = true;
+  toggles = ["neovim.lsp"];
+  extraHomeModules = [
+    {
+      plan = {
+        amenities.enable = true;
+        tex.enable = true;
+      };
+    }
+  ];
 }
