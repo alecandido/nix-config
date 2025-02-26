@@ -9,6 +9,8 @@
       # net
     ]);
 
+  home.shell.enableNushellIntegration = true;
+
   programs.nushell = {
     enable = true;
 

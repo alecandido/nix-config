@@ -78,7 +78,6 @@
   # Atuin
   programs.atuin = {
     enable = true;
-    enableZshIntegration = true;
     flags = [
       "--disable-up-arrow"
     ];
@@ -94,7 +93,6 @@
   # Zoxide
   programs.zoxide = {
     enable = true;
-    enableZshIntegration = true;
   };
 
   # Direnv
@@ -126,6 +124,5 @@
       hide_window_decorations = "yes";
     };
     themeFile = "Nord";
-    shellIntegration.enableZshIntegration = true;
   };
 }

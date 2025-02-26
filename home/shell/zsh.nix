@@ -14,6 +14,8 @@ in {
     nix-zsh-completions
   ];
 
+  home.shell.enableZshIntegration = true;
+
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
