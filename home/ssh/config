@@ -50,9 +50,6 @@ Host lxplus*
 Host lxplus
     HostName lxplus9.cern.ch
 
-Host lxplus7
-    HostName lxplus7.cern.ch
-
 Host boogiepop
     HostName boogiepop.mi.infn.it
     Port 43123
