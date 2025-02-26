@@ -7,7 +7,7 @@
 in {
   programs.ssh = {
     enable = true;
-    package = pkgs.openssh;
+    package = pkgs.openssh_gssapi;
     forwardAgent = true;
   };
 

@@ -42,6 +42,9 @@ Host qrclab
     HostName 192.168.2.66
 
 Host lxplus*
+    GSSAPITrustDns yes
+    GSSAPIAuthentication yes
+    GSSAPIDelegateCredentials yes
     AddKeysToAgent yes
     StrictHostKeyChecking False
     ChallengeResponseAuthentication no
