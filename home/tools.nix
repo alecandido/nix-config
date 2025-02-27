@@ -125,4 +125,13 @@
     };
     themeFile = "Nord";
   };
+
+  # Broot
+  programs.broot.enable = true;
+
+  # Nix helper
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+  };
 }

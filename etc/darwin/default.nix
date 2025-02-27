@@ -27,5 +27,8 @@
     variables = {SHELL = shell;};
   };
 
-  system.stateVersion = 4;
+  # FIXME: attempt removing the following, reinstalling Nix on donaldville
+  ids.gids.nixbld = 501;
+
+  system.stateVersion = 6;
 }
