@@ -23,7 +23,7 @@ in {
       default = {
         id = 0;
         isDefault = true;
-        extensions = with addons; [
+        extensions.packages = with addons; [
           addons."10ten-ja-reader"
           bitwarden
           # FIXME: this is just a lie, since I did not find a way to `allowUnfree` for
