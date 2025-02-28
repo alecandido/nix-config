@@ -4,8 +4,13 @@
   ...
 }: {
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot = {
+      enable = true;
+      configurationLimit = 20;
+    };
+    efi.canTouchEfiVariables = true;
+  };
 
   # Shell
   programs.zsh.enable = true;
