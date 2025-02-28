@@ -6,19 +6,21 @@
   inherit (inputs) darwin home-manager self;
 
   mkDarwin = name: (let
+    config = import "${path}/home";
+    user = config.user;
     path = ./. + ("/" + name);
-    homeMods = lib.homeMods (let
-      config = import "${path}/home";
-      user = config.user;
-    in {
+    homeMods = lib.homeMods {
       inherit inputs;
       homeRoot = "${self}/home";
       config = config // {home = "/Users/${user}";};
-    });
+    };
   in
     darwin.lib.darwinSystem {
       modules = [
-        {networking.hostName = name;}
+        {
+          networking.hostName = name;
+          nix.settings.trusted-users = [user];
+        }
         "${self}/etc/darwin"
         path
         home-manager.darwinModules.home-manager

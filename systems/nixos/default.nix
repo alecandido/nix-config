@@ -6,19 +6,21 @@
   inherit (inputs) home-manager nixpkgs self;
 
   mkNixos = name: (let
+    config = import "${path}/home";
+    user = config.user;
     path = ./. + ("/" + name);
-    homeMods = lib.homeMods (let
-      config = import "${path}/home";
-      user = config.user;
-    in {
+    homeMods = lib.homeMods {
       inherit inputs;
       homeRoot = "${self}/home";
       config = config // {home = "/home/${user}";};
-    });
+    };
   in
     nixpkgs.lib.nixosSystem {
       modules = [
-        {networking.hostName = name;}
+        {
+          networking.hostName = name;
+          nix.settings.trusted-users = [user];
+        }
         "${self}/etc/nixos"
         path
         home-manager.nixosModules.home-manager

@@ -1,6 +1,5 @@
 {
   pkgs,
-  user,
   inputs,
   ...
 }: let
@@ -9,7 +8,6 @@
 in {
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
-    trusted-users = [user];
   };
 
   # Useful nix related tools
