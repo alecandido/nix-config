@@ -28,11 +28,24 @@ in {
     };
     # commit ops
     pull.rebase = "interactive";
+    fetch = {
+      prune = true;
+      pruneTags = true;
+      all = true;
+    };
+    push = {
+      autoSetupRemote = true;
+      followTags = true;
+    };
     merge.log = true;
     diff = {
       renames = "copies";
       tool = "vimdiff";
       submodules = "log";
+      # --- in case of default diff
+      algorithm = "histogram";
+      colorMoved = "plain";
+      mnemonicPrefix = true;
     };
     rerere = {
       enabled = true;
@@ -40,6 +53,8 @@ in {
     };
     # ui
     column.ui = "auto nodense";
+    branch.sort = "-committerdate";
+    tag.sort = "version:refname";
     color = {
       status = {
         changed = "yellow";
