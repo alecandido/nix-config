@@ -59,9 +59,13 @@
   # XDG
   xdg.enable = true;
 
-  # default programs
+  # common variables
   home.sessionVariables = {
-    BROWSER = "${config.programs.firefox.package}/bin/firefox";
+    # default programs
+    BROWSER =
+      if !pkgs.stdenv.isDarwin
+      then "${config.programs.firefox.package}/bin/firefox"
+      else "${config.programs.firefox.package}/Applications/Firefox.app/Contents/MacOS/firefox";
     EDITOR = lib.mkForce "${config.programs.neovim.package}/bin/nvim";
     MANPAGER = "${config.programs.neovim.package}/bin/nvim +Man!";
   };

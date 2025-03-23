@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: {
   home.packages = with pkgs;
@@ -31,6 +32,11 @@
       py = "python";
       ipy = "ipython";
       upgrade = "bash -ic upgrade";
+      # FIX: workaround for browser issues
+      # https://github.com/bandithedoge/nixpkgs-firefox-darwin/issues/14
+      # https://github.com/nix-community/home-manager/issues/3323
+      # https://github.com/nix-community/home-manager/issues/5717
+      browser = lib.mkIf pkgs.stdenv.isDarwin ''bash -c "MOZ_LEGACY_PROFILES=1 nohup $BROWSER >/dev/null 2>&1 &"'';
     };
   };
 }
