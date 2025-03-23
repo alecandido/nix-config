@@ -20,6 +20,16 @@
         {
           networking.hostName = name;
           nix.settings.trusted-users = [user];
+          # FIX: required to support determinate Nix distribution
+          # https://github.com/LnL7/nix-darwin/issues/1349
+          # https://github.com/LnL7/nix-darwin/pull/1367
+          environment.etc."nix/nix.custom.conf" = {
+            enable = true;
+            text = ''
+              extra-trusted-substituters = https://devenv.cachix.org
+              extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
+            '';
+          };
         }
         "${self}/etc/darwin"
         path
