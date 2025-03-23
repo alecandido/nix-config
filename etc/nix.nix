@@ -1,8 +1,13 @@
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}: {
   nix = {
     registry.nixpkgs.flake = inputs.nixpkgs;
 
-    gc = {
+    gc = lib.mkIf (!pkgs.stdenv.isDarwin) {
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 1w";

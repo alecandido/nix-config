@@ -7,6 +7,7 @@
   #  '';
   #};
 
+  nix.enable = false;
   imports = [../nix.nix];
 
   programs.zsh.enable = true;
@@ -26,9 +27,6 @@
     };
     variables = {SHELL = shell;};
   };
-
-  # FIXME: attempt removing the following, reinstalling Nix on donaldville
-  ids.gids.nixbld = 501;
 
   system.stateVersion = 6;
 }
