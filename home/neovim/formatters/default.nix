@@ -30,9 +30,6 @@ in {
       ++ (lib.optionals (!stdenv.isDarwin) [nufmt nufmt-in])
       ++ (with nodePackages; [
         prettier
-      ])
-      ++ (with python311Packages; [
-        docformatter
       ]);
 
     xdg.configFile."uncrustify.cfg".source = ./uncrustify.cfg;

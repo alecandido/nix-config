@@ -7,6 +7,23 @@ end
 
 M.config = function(_, opts)
   require("lint").linters_by_ft = opts
+
+  -- customize linter options
+  local linters = require("lint").linters
+  local ruff = linters.ruff
+  ruff.args = {
+    "check",
+    "--force-exclude",
+    "--quiet",
+    "--stdin-filename",
+    linters.ruff.get_file_name,
+    "--no-fix",
+    "--extend-select",
+    "D",
+    "--output-format",
+    "json",
+    "-",
+  }
 end
 
 M.opts = {
@@ -21,7 +38,7 @@ M.opts = {
   lua = { "selene" },
   -- markdown = { "vale" },
   nix = { "nix" },
-  python = { "ruff", "pydocstyle" },
+  python = { "ruff" },
   -- rst = { "vale" },
   sql = { "sqlfluff" },
   tex = { "lacheck" },

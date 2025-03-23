@@ -23,9 +23,6 @@ in {
         eslint
         stylelint
         jsonlint
-      ])
-      ++ (with pkgs.python311Packages; [
-        pydocstyle
       ]);
 
     xdg.configFile."ltex".source = ./ltex;

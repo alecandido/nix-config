@@ -64,9 +64,7 @@ M.config = function(_, opts)
     -- nu = { nufmt },
     nix = { require("formatter.filetypes.nix").alejandra },
     python = {
-      -- require("formatter.filetypes.python").black,
-      -- require("formatter.filetypes.python").isort,
-      require("formatter.filetypes.python").docformatter,
+      require("formatter.filetypes.python").iruff,
     },
     rust = { require("formatter.filetypes.rust").rustfmt },
     sh = { require("formatter.filetypes.sh").shfmt },
