@@ -36,11 +36,11 @@ in {
         ];
         search = {
           force = true;
-          order = ["Google" "Wikipedia"];
+          order = ["google" "wikipedia"];
           # builtin ones are found here:
           # https://searchfox.org/mozilla-central/source/browser/components/search/extensions
           engines = {
-            "Google".metaData.alias = "@g";
+            "google".metaData.alias = "@g";
 
             "Nix Packages" = {
               urls = [
@@ -63,9 +63,9 @@ in {
               definedAliases = ["@np"];
             };
 
-            "Bing".metaData.hidden = true;
-            "DuckDuckGo".metaData.hidden = true;
-            "eBay".metaData.hidden = true;
+            "bing".metaData.hidden = true;
+            "ddg".metaData.hidden = true;
+            "ebay".metaData.hidden = true;
           };
         };
       };
