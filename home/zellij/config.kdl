@@ -219,3 +219,6 @@ theme "nord"
 // Default: "default"
 //
 default_layout "compact"
+
+// Disable startup tips
+show_startup_tips false
