@@ -26,11 +26,15 @@
     "qrc*" = {
       user = "alessandro.candido";
     };
-    "qrccluster" = {
+    "qrc" = {
       hostname = "login.qrccluster.com";
     };
     "qrcfromlab" = {
       hostname = "192.168.2.66";
+    };
+    "qrcws" = {
+      hostname = "192.168.2.85";
+      proxyJump = "qrc";
     };
     "lxplus*" = {
       user = "candidal";
