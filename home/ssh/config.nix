@@ -33,7 +33,7 @@
       hostname = "192.168.2.66";
     };
     "qrcws" = {
-      hostname = "192.168.2.85";
+      hostname = "workspace";
       proxyJump = "qrc";
     };
     "lxplus*" = {
