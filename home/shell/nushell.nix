@@ -39,4 +39,7 @@
       browser = lib.mkIf pkgs.stdenv.isDarwin ''bash -c "MOZ_LEGACY_PROFILES=1 nohup $BROWSER >/dev/null 2>&1 &"'';
     };
   };
+
+  # TODO: explicitly activate until the zoxide nushell init patch will be available
+  xdg.cacheFile."zoxide/init.nu".source = ./zoxide-init.nu;
 }

@@ -43,3 +43,7 @@ export def pypath [
                     | filter {$in =~ ($retain | str join "|")}
                     | str join ":"
 }
+
+
+# TODO: explicitly activate until the zoxide nushell init patch will be available
+source ~/.cache/zoxide/init.nu
