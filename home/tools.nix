@@ -97,6 +97,8 @@
   # Zoxide
   programs.zoxide = {
     enable = true;
+    # TODO: disable until the zoxide nushell init patch will be available
+    enableNushellIntegration = false;
   };
 
   # Direnv

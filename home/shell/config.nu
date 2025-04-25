@@ -4,12 +4,6 @@ let carapace_completer = {|spans: list<string>|
     | if ($in | default [] | where value =~ '^-.*ERR$' | is-empty) { $in } else { null }
 }
 
-let zoxide_completer = {|spans: list<string>|
-    $spans | skip 1 | zoxide query -l ...$in | lines | where {|x| $x != $env.PWD}
-    | if ($in | is-not-empty) { $in } else { null }
-}
-
-
 # This completer will use carapace by default
 let external_completer = {|spans|
     let expanded_alias = scope aliases
@@ -25,8 +19,6 @@ let external_completer = {|spans|
     }
 
     match $spans.0 {
-        # use zoxide completions for zoxide commands
-        __zoxide_z | __zoxide_zi => $zoxide_completer
         _ => $carapace_completer
     } | do $in $spans
 }
