@@ -9,7 +9,7 @@
           enable = true;
           lsp = true;
         };
-        tex.enable = true;
+        # tex.enable = true;
       };
     }
   ];
