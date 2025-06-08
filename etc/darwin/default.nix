@@ -22,11 +22,14 @@
     shells = with pkgs; [nushell];
     shellAliases = {
       upgrade = ''
-        darwin-rebuild switch --flake "$HOME/Projects/nix-config" --show-trace
+        sudo darwin-rebuild switch --flake "$HOME/Projects/nix-config" --show-trace
       '';
     };
     variables = {SHELL = shell;};
   };
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   system.stateVersion = 6;
 }
