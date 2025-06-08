@@ -25,7 +25,7 @@ in
 
           languages.nix.enable = true;
 
-          pre-commit.hooks = {
+          git-hooks.hooks = {
             deadnix.enable = true;
             alejandra.enable = true;
           };

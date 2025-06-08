@@ -18,7 +18,7 @@ in {
         lua-language-server
         metals
         nil
-        ruff-lsp
+        ruff
         rust-analyzer
         # sqls
         taplo
