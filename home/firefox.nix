@@ -7,7 +7,6 @@
 in {
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-bin;
     # Cf. about:policies#documentation
     policies = {
       DisablePocket = true;
