@@ -114,10 +114,10 @@
   };
 
   # Bitwarden
-  programs.rbw = {
-    enable = true;
-    settings.email = "candido.ale@gmail.com";
-  };
+  # programs.rbw = {
+  #   enable = true;
+  #   settings.email = "candido.ale@gmail.com";
+  # };
 
   # Kitty
   programs.kitty = {
