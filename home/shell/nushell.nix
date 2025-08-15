@@ -17,11 +17,11 @@
 
     envFile.source = ./env.nu;
     configFile.source = ./config.nu;
-    extraConfig = ''
-      # plugin add ${pkgs.nushellPlugins.net}/bin/nu_plugin_net
-      # plugin add <polars>
-      # TODO:  ^^^^^^^^^^^^
-    '';
+    # extraConfig = ''
+    #   # plugin add ${pkgs.nushellPlugins.net}/bin/nu_plugin_net
+    #   # plugin add <polars>
+    #   # TODO:  ^^^^^^^^^^^^
+    # '';
 
     environmentVariables = config.home.sessionVariables;
 
