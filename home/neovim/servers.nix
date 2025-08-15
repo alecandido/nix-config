@@ -19,7 +19,7 @@ in {
         metals
         nil
         ruff
-        rust-analyzer
+        # rust-analyzer
         # sqls
         taplo
         texlab
