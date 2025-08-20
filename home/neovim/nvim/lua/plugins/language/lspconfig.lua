@@ -35,7 +35,6 @@ M.opts = {
     },
   },
 }
-local noformat = { "lua_ls" }
 
 --  This function gets run when an LSP connects to a particular buffer.
 local function on_attach(client, bufnr)
@@ -69,14 +68,6 @@ local function on_attach(client, bufnr)
   nmap("<leader>wl", function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, "[W]orkspace [L]ist Folders")
-
-  -- Format on save
-  if
-    not vim.tbl_contains(noformat, client.name)
-    and client.supports_method("textDocument/formatting")
-  then
-    require("lsp-format").on_attach(client)
-  end
 end
 
 function M.config(_, opts)
