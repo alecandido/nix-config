@@ -185,35 +185,43 @@ M.keys = {
     end,
     mode = { "n", "x", "o" },
   },
+
+  -- TODO: for some reason, once mapped, the keystrokes are just ignored
+  -- so "3fa" results in entering insert mode, instead of jumping
+  --
   -- Make builtin f, F, t, T also repeatable with ; and ,
-  {
-    "f",
-    function()
-      ts_repeat_move().builtin_f()
-    end,
-    mode = { "n", "x", "o" },
-  },
-  {
-    "F",
-    function()
-      ts_repeat_move().builtin_F()
-    end,
-    mode = { "n", "x", "o" },
-  },
-  {
-    "t",
-    function()
-      ts_repeat_move().builtin_t()
-    end,
-    mode = { "n", "x", "o" },
-  },
-  {
-    "T",
-    function()
-      ts_repeat_move().builtin_T()
-    end,
-    mode = { "n", "x", "o" },
-  },
+  -- {
+  --   "f",
+  --   function()
+  --     ts_repeat_move().builtin_f_expr()
+  --   end,
+  --   mode = { "n", "x", "o" },
+  --   expr = true,
+  -- },
+  -- {
+  --   "F",
+  --   function()
+  --     ts_repeat_move().builtin_F_expr()
+  --   end,
+  --   mode = { "n", "x", "o" },
+  --   expr = true,
+  -- },
+  -- {
+  --   "t",
+  --   function()
+  --     ts_repeat_move().builtin_t_expr()
+  --   end,
+  --   mode = { "n", "x", "o" },
+  --   expr = true,
+  -- },
+  -- {
+  --   "T",
+  --   function()
+  --     ts_repeat_move().builtin_T_expr()
+  --   end,
+  --   mode = { "n", "x", "o" },
+  --   expr = true,
+  -- },
 }
 
 return M
