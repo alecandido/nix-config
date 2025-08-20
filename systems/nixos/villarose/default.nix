@@ -5,5 +5,5 @@
     ./networking.nix
   ];
 
-  services.xserver.displayManager.gdm.autoSuspend = false;
+  services.displayManager.gdm.autoSuspend = false;
 }

@@ -7,8 +7,11 @@
 
   networking.interfaces."eno1".wakeOnLan = {
     enable = true;
-    policy = ["magic" "phy"];
+    policy = [
+      "magic"
+      "phy"
+    ];
   };
 
-  services.xserver.displayManager.gdm.autoSuspend = false;
+  services.displayManager.gdm.autoSuspend = false;
 }
