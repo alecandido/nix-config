@@ -23,9 +23,10 @@
       extend
       {
         proxyJump = "zeraa";
-        extraOptions = {
-          RemoteCommand = "PowerShell";
-        };
+        # FIXME: for some reason, when specified as remote command it prevents shortcuts
+        # extraOptions = {
+        #   RemoteCommand = "PowerShell";
+        # };
       };
   in {
     "bastione" = {
