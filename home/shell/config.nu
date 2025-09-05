@@ -8,7 +8,7 @@ let carapace_completer = {|spans: list<string>|
 let external_completer = {|spans|
     let expanded_alias = scope aliases
     | where name == $spans.0
-    | get -i 0.expansion
+    | get -o 0.expansion
 
     let spans = if $expanded_alias != null {
         $spans
@@ -40,7 +40,7 @@ export def pypath [
     let retain = [$"python(version)"] ++ $external
 
     $env.PYTHONPATH | split row ":"
-                    | filter {$in =~ ($retain | str join "|")}
+                    | where {$in =~ ($retain | str join "|")}
                     | str join ":"
 }
 
