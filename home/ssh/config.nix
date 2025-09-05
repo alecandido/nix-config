@@ -3,16 +3,30 @@
     # FIXME: better using OpenSSH tags, but this is limited by the home-manager
     # support:
     # multiple 'Tag' directives would be allowed, but since it is not a natively
-    # supported one, it should be provided withing `extraOptions`, which instead is an
+    # supported one, it should be provided within `extraOptions`, which instead is an
     # attribute set of directives, restricting to a single tag
     # thus, using Nix results in more flexible compositions - at the possible price of
     # a larger generated output (since fully expanded)
-    personal = cfg:
+    extend = args: cfg: args // cfg;
+    personal =
+      extend
       {
         user = "alessandro";
         forwardAgent = true;
-      }
-      // cfg;
+      };
+    qrc =
+      extend
+      {
+        user = "alessandro.candido";
+      };
+    scqt =
+      extend
+      {
+        proxyJump = "zeraa";
+        extraOptions = {
+          RemoteCommand = "PowerShell";
+        };
+      };
   in {
     "bastione" = {
       hostname = "bastione.mi.infn.it";
@@ -23,18 +37,27 @@
       user = "alessandro";
       proxyJump = "bastione";
     };
-    "qrc*" = {
-      user = "alessandro.candido";
-    };
-    "qrc" = {
+    "qrc" = qrc {
       hostname = "login.qrccluster.com";
     };
-    "qrcfromlab" = {
+    "qrcfromlab" = qrc {
       hostname = "192.168.2.66";
     };
-    "qrcws" = {
+    "qrcws" = qrc {
       hostname = "workspace";
       proxyJump = "qrc";
+    };
+    "zeraa" = qrc {
+      hostname = "192.168.2.73";
+      proxyJump = "qrc";
+    };
+    "scqt-iqm5q" = scqt {
+      hostname = "192.168.0.221";
+      user = "LENOVO";
+    };
+    "scqt-qw5q" = scqt {
+      hostname = "192.168.0.231";
+      user = "tii_s";
     };
     "lxplus*" = {
       user = "candidal";
