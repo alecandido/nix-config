@@ -8,6 +8,7 @@
         amenities.enable = true;
         dconf = {
           enable = true;
+          server = true;
         };
         neovim = {
           enable = true;

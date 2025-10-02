@@ -1,41 +1,34 @@
 {
-  config,
-  lib,
-  ...
-}: let
-  # TODO: lift to systems/lib, it could be useful even for other machines
-  autosshRestarts = builtins.listToAttrs (builtins.map (session: {
-      name = "autossh-${session.name}";
-      value = {
-        after = lib.mkForce ["network-online.target"];
-        requires = ["network-online.target"];
-        serviceConfig = {
-          Restart = lib.mkForce "always";
-          RestartSec =
-            lib.mkForce
-            "5min";
-        };
-      };
-    })
-    config.services.autossh.sessions);
-in {
+  services.openssh = {
+    enable = true;
+    ports = [22 443 2222];
+
+    settings = {
+      PasswordAuthentication = true;
+      AllowUsers = null;
+      UseDns = true;
+      X11Forwarding = false;
+      PermitRootLogin = "prohibit-password";
+    };
+  };
+
   networking = {
     nftables.enable = true;
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [80 443 8000];
+      allowedTCPPorts = [22 80 443 2222];
     };
+
+    interfaces = {
+      wlp0s20f3.ipv4.addresses = [
+        {
+          address = "192.168.1.227";
+          prefixLength = 24;
+        }
+      ];
+    };
+
+    defaultGateway = "192.168.1.254";
   };
-
-  services.autossh.sessions = [
-    {
-      extraArguments = "-N -R 22001:localhost:22 villarose";
-      monitoringPort = 20000;
-      name = "villarose";
-      user = "alessandro";
-    }
-  ];
-
-  systemd.services = autosshRestarts;
 }

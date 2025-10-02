@@ -3,6 +3,10 @@
   options,
   ...
 }: {
+  imports = [
+    ./gnome.nix
+  ];
+
   # Bootloader.
   boot.loader = {
     systemd-boot = {
@@ -43,10 +47,6 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -84,9 +84,6 @@
       git
       usbutils
       wl-clipboard
-      gnome-browser-connector
-      # gnome-extension-manager
-      gnomeExtensions.appindicator
       brave
       telegram-desktop
       fractal
@@ -101,15 +98,6 @@
         sudo nixos-rebuild switch --flake "$HOME/Projects/nix-config" --fast --show-trace
       '';
     };
-
-    gnome.excludePackages = with pkgs; [
-      epiphany
-      gnome-contacts
-      gnome-maps
-      gnome-music
-      geary
-      seahorse
-    ];
   };
 
   # Enable the OpenSSH daemon.
