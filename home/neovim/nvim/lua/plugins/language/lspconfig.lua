@@ -80,17 +80,16 @@ local function on_attach(client, bufnr)
 end
 
 function M.config(_, opts)
-  -- ensure neodev is set up before
-  require("neodev").setup({})
-
-  local lspconfig = require("lspconfig")
   local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
   for server_name, configs in pairs(opts.servers) do
-    lspconfig[server_name].setup(vim.tbl_deep_extend("keep", configs, {
-      capabilities = lsp_capabilities,
-      on_attach = on_attach,
-    }))
+    vim.lsp.config(
+      server_name,
+      vim.tbl_deep_extend("keep", configs, {
+        capabilities = lsp_capabilities,
+        on_attach = on_attach,
+      })
+    )
   end
 end
 
