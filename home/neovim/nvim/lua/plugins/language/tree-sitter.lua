@@ -5,12 +5,12 @@ local parser_path = vim.fn.stdpath("cache") .. "/tree-sitter"
 M.event = { "BufReadPre", "BufNewFile" }
 
 M.config = function(_, opts)
-  vim.opt.runtimepath:prepend(parser_path)
+  -- vim.opt.runtimepath:prepend(parser_path)
   require("nvim-treesitter.configs").setup(opts)
 end
 
 M.opts = {
-  parser_install_dir = parser_path,
+  -- parser_install_dir = parser_path,
 
   ensure_installed = {
     "bash",

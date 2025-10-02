@@ -69,6 +69,7 @@ return {
       "windwp/nvim-autopairs",
     },
     config = cmp.config,
+    opts = cmp.opts,
   },
 
   {
@@ -140,10 +141,8 @@ return {
 
   -- Neovim specific
   {
-    "folke/neodev.nvim",
-    opts = {
-      library = { plugins = { "nvim-dap-ui" }, types = true },
-    },
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
   },
 
   -- Tex

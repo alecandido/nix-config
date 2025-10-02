@@ -120,4 +120,12 @@ function M.config(_, opts)
   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 end
 
+function M.opts(_, opts)
+  opts.sources = opts.sources or {}
+  table.insert(opts.sources, {
+    name = "lazydev",
+    group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+  })
+end
+
 return M
