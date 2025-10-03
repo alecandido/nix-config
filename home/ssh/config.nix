@@ -60,36 +60,9 @@
       hostname = "192.168.0.231";
       user = "tii_s";
     };
-    "lxplus*" = {
-      user = "candidal";
-      extraOptions = {
-        GSSAPITrustDns = "yes";
-        GSSAPIAuthentication = "yes";
-        GSSAPIDelegateCredentials = "yes";
-        AddKeysToAgent = "yes";
-        StrictHostKeyChecking = "False";
-        ChallengeResponseAuthentication = "no";
-      };
-    };
-    "lxplus" = {
-      hostname = "lxplus9.cern.ch";
-    };
-    "villarose" = personal {
-      hostname = "villarose.annibale.dev";
-    };
     "yukon" = personal {
-      hostname = "localhost";
-      port = 22001;
-      proxyJump = "villarose";
-    };
-    "klondike" = personal {
-      hostname = "ac-klondike";
-      proxyJump = "yukon";
-    };
-    "killmotor" = personal {
-      hostname = "localhost";
-      port = 22003;
-      proxyJump = "villarose";
+      hostname = "2.229.167.187";
+      port = 2222;
     };
   };
 }
