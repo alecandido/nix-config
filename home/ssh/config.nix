@@ -8,12 +8,12 @@
     # thus, using Nix results in more flexible compositions - at the possible price of
     # a larger generated output (since fully expanded)
     extend = args: cfg: args // cfg;
-    # personal =
-    #   extend
-    #   {
-    #     user = "alessandro";
-    #     forwardAgent = true;
-    #   };
+    personal =
+      extend
+      {
+        user = "alessandro";
+        forwardAgent = true;
+      };
     qrc =
       extend
       {
@@ -59,6 +59,10 @@
     "scqt-qw5q" = scqt {
       hostname = "192.168.0.231";
       user = "tii_s";
+    };
+    "yukon" = personal {
+      hostname = "2.229.167.187";
+      port = 2222;
     };
   };
 }
