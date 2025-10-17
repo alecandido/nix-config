@@ -1,4 +1,4 @@
-{
+{lib, ...}: {
   programs.ssh.matchBlocks = let
     # FIXME: better using OpenSSH tags, but this is limited by the home-manager
     # support:
@@ -14,55 +14,69 @@
         user = "alessandro";
         forwardAgent = true;
       };
-    qrc =
-      extend
-      {
-        user = "alessandro.candido";
-      };
+    fullname = extend {
+      user = "alessandro.candido";
+    };
     scqt =
       extend
       {
-        proxyJump = "zeraa";
+        proxyJump = "qrc-zeraa";
         # FIXME: for some reason, when specified as remote command it prevents shortcuts
         # extraOptions = {
         #   RemoteCommand = "PowerShell";
         # };
       };
-  in {
-    "bastione" = {
-      hostname = "bastione.mi.infn.it";
-      user = "acandido";
-    };
-    "dom" = {
-      hostname = "dom.mi.infn.it";
-      user = "alessandro";
-      proxyJump = "bastione";
-    };
-    "qrc" = qrc {
-      hostname = "login.qrccluster.com";
-    };
-    "qrcfromlab" = qrc {
-      hostname = "192.168.2.66";
-    };
-    "qrcws" = qrc {
-      hostname = "workspace";
-      proxyJump = "qrc";
-    };
-    "zeraa" = qrc {
-      hostname = "192.168.2.73";
-      proxyJump = "qrc";
-    };
-    "scqt-iqm5q" = scqt {
-      hostname = "192.168.0.221";
-      user = "LENOVO";
-    };
-    "scqt-qw5q" = scqt {
-      hostname = "192.168.0.231";
-      user = "tii_s";
-    };
-    "yukon" = personal {
-      hostname = "2.229.167.187";
-      port = 2222;
-    };
-  };
+    # for each config, generate two copies: the bare one, and the `-fromlab` version,
+    # which create two separate hierarchies, one starting from the login node with
+    # domain name, the other with the IP address, for use within the lab
+    qrc = cfgs: (
+      lib.attrsets.mergeAttrsList
+      (
+        lib.attrsets.mapAttrsToList (name: cfg: {
+          "qrc-${name}" = cfg;
+          "qrc-${name}-fromlab" = cfg // {proxyJump = cfg.proxyJump + "-fromlab";};
+        })
+        cfgs
+      )
+    );
+  in
+    {
+      "bastione" = {
+        hostname = "bastione.mi.infn.it";
+        user = "acandido";
+      };
+      "dom" = {
+        hostname = "dom.mi.infn.it";
+        user = "alessandro";
+        proxyJump = "bastione";
+      };
+      "yukon" = personal {
+        hostname = "2.229.167.187";
+        port = 2222;
+      };
+      "qrc" = fullname {
+        hostname = "login.qrccluster.com";
+      };
+      "qrc-fromlab" = fullname {
+        hostname = "192.168.2.66";
+      };
+    }
+    // (qrc {
+      "ws" = fullname {
+        hostname = "workspace";
+        proxyJump = "qrc";
+      };
+      "zeraa" = fullname {
+        hostname = "192.168.2.73";
+        proxyJump = "qrc";
+      };
+      "scqt-iqm5q" = scqt {
+        hostname = "192.168.0.221";
+        user = "LENOVO";
+      };
+      "scqt-qw5q" = scqt {
+        hostname = "192.168.0.231";
+        user = "tii_s";
+      };
+    });
 }
