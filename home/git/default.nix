@@ -4,8 +4,10 @@
   programs.git = {
     enable = true;
 
-    userName = "Alessandro Candido";
-    userEmail = "candido.ale@gmail.com";
+    settings.user = {
+      name = "Alessandro Candido";
+      email = "candido.ale@gmail.com";
+    };
 
     ignores = [
       ".DS_Store"
@@ -24,8 +26,9 @@
   #   };
   # };
 
-  programs.git.difftastic = {
+  programs.difftastic = {
     enable = true;
-    background = "dark";
+    git.enable = true;
+    options.background = "dark";
   };
 }

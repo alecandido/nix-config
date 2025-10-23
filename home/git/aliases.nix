@@ -1,5 +1,5 @@
 {
-  programs.git.aliases = {
+  programs.git.settings.alias = {
     st = "status";
     aa = "add .";
     au = "add -u";

@@ -8,7 +8,7 @@
 in {
   home.packages = with pkgs; [universal-ctags];
 
-  programs.git.extraConfig = {
+  programs.git.settings = {
     user = {
       signingKey = "${home.homeDirectory}/.ssh/id_ed25519.pub";
     };
