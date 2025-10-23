@@ -65,7 +65,7 @@
     BROWSER =
       if !pkgs.stdenv.isDarwin
       then "${config.programs.firefox.package}/bin/firefox"
-      else "${config.programs.firefox.package}/Applications/Firefox.app/Contents/MacOS/firefox";
+      else "/Applications/Firefox.app/Contents/MacOS/firefox";
     EDITOR = lib.mkForce "${config.programs.neovim.package}/bin/nvim";
     MANPAGER = "${config.programs.neovim.package}/bin/nvim +Man!";
   };

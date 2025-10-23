@@ -1,12 +1,14 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }: let
   addons = builtins.getAttr pkgs.system inputs.firefox-addons.packages;
 in {
   programs.firefox = {
     enable = true;
+    package = lib.mkIf pkgs.stdenv.isDarwin null;
     # Cf. about:policies#documentation
     policies = {
       DisablePocket = true;
