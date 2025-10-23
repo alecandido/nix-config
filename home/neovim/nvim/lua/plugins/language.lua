@@ -69,7 +69,9 @@ return {
       "windwp/nvim-autopairs",
     },
     config = cmp.config,
-    opts = cmp.opts,
+    -- TODO: in principle needed to correctly register lazydev, but currently preventing
+    -- the whole completer to run
+    -- opts = cmp.opts,
   },
 
   {
