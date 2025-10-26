@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  config,
+  inputs,
+  ...
+}: {
   age.secrets.yukon-wg-key.file = inputs.secrets.yukon-wg-key;
 
   networking = {
