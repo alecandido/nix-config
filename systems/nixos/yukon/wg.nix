@@ -28,6 +28,8 @@
         # dns = ["127.0.0.1"];
         privateKeyFile = config.age.secrets.yukon-wg-key.path;
 
+        listenPort = 58325;
+
         # This allows the wireguard server to route your traffic to the internet and
         # hence be like a VPN
         postUp = ''
