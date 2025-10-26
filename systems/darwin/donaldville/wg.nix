@@ -18,7 +18,7 @@
         {
           publicKey = "cF6ZiBFPmN/CMGXmXGC8bdo75m2GKM1xkKOJQemminU=";
           allowedIPs = ["0.0.0.0/0" "::/0"];
-          endpoint = "2.229.167.187:51820";
+          endpoint = "2.229.167.187:58325";
         }
       ];
     };

@@ -8,7 +8,7 @@
 
   networking = {
     firewall = {
-      allowedUDPPorts = [51820];
+      allowedUDPPorts = [58325];
     };
 
     nat = {
@@ -21,8 +21,8 @@
     wg-quick.interfaces = {
       wg0 = {
         address = [
-          "fd31:bf08:57cb::0/128"
-          "192.168.26.0/32"
+          "fd31:bf08:57cb::1/128"
+          "192.168.26.1/32"
         ];
         # use dnscrypt, or proxy dns as described above
         # dns = ["127.0.0.1"];
