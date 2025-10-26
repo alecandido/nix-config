@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  pkgs,
   ...
 }: {
   age.secrets.yukon-wg-key.file = inputs.secrets.yukon-wg-key;
