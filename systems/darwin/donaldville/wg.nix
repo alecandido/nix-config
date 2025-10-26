@@ -8,11 +8,11 @@
   networking.wg-quick.interfaces = {
     wg0 = {
       address = [
-        "fd31:bf08:57cb::9/128"
-        "192.168.26.9/32"
+        "fd31:bf08:57cb::100/128"
+        "192.168.26.100/32"
       ];
       # use dnscrypt, or proxy dns as described above
-      # dns = ["127.0.0.1"];
+      dns = ["127.0.0.1"];
       privateKeyFile = config.age.secrets.donaldville-wg-key.path;
       peers = [
         {
