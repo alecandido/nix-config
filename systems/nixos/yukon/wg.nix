@@ -21,8 +21,8 @@
     wg-quick.interfaces = {
       wg0 = {
         address = [
-          "fd31:bf08:57cb::9/128"
-          "192.168.26.9/32"
+          "fd31:bf08:57cb::0/128"
+          "192.168.26.0/32"
         ];
         # use dnscrypt, or proxy dns as described above
         # dns = ["127.0.0.1"];
@@ -49,8 +49,8 @@
           {
             publicKey = "npbTfBHakKOz34jdQn6WnYLW/0zDvNowtwTKCUTlsVw=";
             allowedIPs = [
-              "fd31:bf08:57cb::8/128"
-              "192.168.26.8/32"
+              "fd31:bf08:57cb::100/128"
+              "192.168.26.100/32"
             ];
           }
         ];
