@@ -14,7 +14,7 @@
     nat = {
       enable = true;
       enableIPv6 = true;
-      externalInterface = "ens6";
+      externalInterface = "wlp0s20f3";
       internalInterfaces = ["wg0"];
     };
 
