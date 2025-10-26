@@ -16,8 +16,7 @@
       privateKeyFile = config.age.secrets.donaldville-wg-key.path;
       peers = [
         {
-          # bt wg conf
-          publicKey = "ejmbag/fcc9OLp8K62zfV0NCbp056DnA0qpNixLXwCo=";
+          publicKey = "cF6ZiBFPmN/CMGXmXGC8bdo75m2GKM1xkKOJQemminU=";
           allowedIPs = ["0.0.0.0/0" "::/0"];
           endpoint = "2.229.167.187:51820";
         }
