@@ -4,6 +4,7 @@
     ./hardware-configuration.nix
     ./kanata.nix
     ./networking.nix
+    ./wg.nix
   ];
 
   services.udev.extraRules = lib.mkAfter ''
