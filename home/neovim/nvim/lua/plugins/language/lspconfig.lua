@@ -90,6 +90,7 @@ function M.config(_, opts)
         on_attach = on_attach,
       })
     )
+    vim.lsp.enable(server_name)
   end
 end
 
