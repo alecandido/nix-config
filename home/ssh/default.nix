@@ -11,6 +11,7 @@ in {
   programs.ssh = {
     enable = true;
     package = pkgs.openssh_gssapi;
+    enableDefaultConfig = false;
   };
   services.ssh-agent.enable = isLinux;
   home.packages = with pkgs; [sshfs];
