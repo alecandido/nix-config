@@ -73,7 +73,7 @@ local function on_attach(client, bufnr)
   -- Format on save
   if
     not vim.tbl_contains(noformat, client.name)
-    and client.supports_method("textDocument/formatting")
+    and client:supports_method("textDocument/formatting")
   then
     require("lsp-format").on_attach(client)
   end
