@@ -19,7 +19,18 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = mkIf cfg.lsp (with pkgs; [tree-sitter]);
+    home.packages = with pkgs; (
+      (
+        # requested by lazy checkhealth
+        with lua51Packages; [lua luarocks]
+      )
+      ++ (
+        # requested for enhanced syntax-based features
+        if cfg.lsp
+        then [tree-sitter]
+        else []
+      )
+    );
 
     programs.neovim.enable = true;
     programs.neovim.defaultEditor = true;
