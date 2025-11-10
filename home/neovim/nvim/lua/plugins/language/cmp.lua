@@ -1,6 +1,8 @@
 local M = {}
 
-local function extra_opts(cmp)
+function M.opts(_, _)
+  local cmp = require("cmp")
+
   local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0
@@ -63,6 +65,7 @@ local function extra_opts(cmp)
     }),
 
     sources = {
+
       { name = "nvim_lsp" },
       { name = "luasnip" },
       { name = "buffer" },
@@ -73,6 +76,10 @@ local function extra_opts(cmp)
         name = "dictionary",
         keyword_length = 2,
       },
+      {
+        name = "lazydev",
+        group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+      },
     },
   }
 end
@@ -80,7 +87,7 @@ end
 function M.config(_, opts)
   local cmp = require("cmp")
 
-  cmp.setup(vim.tbl_deep_extend("keep", opts, extra_opts(cmp)))
+  cmp.setup(opts)
 
   cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
@@ -118,14 +125,6 @@ function M.config(_, opts)
 
   local cmp_autopairs = require("nvim-autopairs.completion.cmp")
   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-end
-
-function M.opts(_, opts)
-  opts.sources = opts.sources or {}
-  table.insert(opts.sources, {
-    name = "lazydev",
-    group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-  })
 end
 
 return M

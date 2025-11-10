@@ -34,9 +34,6 @@ return {
 
       -- Autoformat
       "lukas-reineke/lsp-format.nvim",
-
-      -- Neovim specific
-      "folke/lazydev.nvim",
     },
     opts = lspconfig.opts,
     config = lspconfig.config,
@@ -69,9 +66,7 @@ return {
       "windwp/nvim-autopairs",
     },
     config = cmp.config,
-    -- TODO: in principle needed to correctly register lazydev, but currently preventing
-    -- the whole completer to run
-    -- opts = cmp.opts,
+    opts = cmp.opts,
   },
 
   {
@@ -145,6 +140,12 @@ return {
   {
     "folke/lazydev.nvim",
     ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
   },
 
   -- Tex
