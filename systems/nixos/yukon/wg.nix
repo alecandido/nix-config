@@ -55,6 +55,18 @@
               "192.168.26.100/32"
             ];
           }
+          {
+            publicKey = "ayKwTdm1NCl9ZPJEqVkkrIKUrRRcQgI63PRI/5Upi0s=";
+            allowedIPs = [
+              "192.168.26.200/32"
+            ];
+          }
+          {
+            publicKey = "uWZbmOA0nh1HO572bJB24vySDw0EuEfC8P8kp2DIpxQ=";
+            allowedIPs = [
+              "192.168.26.201/32"
+            ];
+          }
         ];
       };
     };
