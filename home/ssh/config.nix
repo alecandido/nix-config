@@ -72,6 +72,10 @@
       "qrc-fromlab" = fullname {
         hostname = "192.168.2.66";
       };
+      "osaka-ql" = fullname {
+        user = "alessandro";
+        hostname = "133.1.37.12";
+      };
     }
     // (qrc {
       "ws" = fullname {
