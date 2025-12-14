@@ -59,7 +59,6 @@ M.config = function(_, opts)
     javascriptreact = { require("formatter.filetypes.javascriptreact").prettier },
     json = { require("formatter.filetypes.json").prettier },
     kotlin = { require("formatter.filetypes.kotlin").ktlint },
-    lua = { require("formatter.filetypes.lua").stylua },
     markdown = { require("formatter.filetypes.markdown").prettier },
     -- nu = { nufmt },
     nix = { require("formatter.filetypes.nix").alejandra },

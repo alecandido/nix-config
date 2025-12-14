@@ -165,7 +165,7 @@ M.opts = {
   },
 }
 
-function ts_repeat_move()
+local function ts_repeat_move()
   return require("nvim-treesitter.textobjects.repeatable_move")
 end
 
