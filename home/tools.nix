@@ -140,4 +140,15 @@
     enable = true;
     clean.enable = true;
   };
+
+  # Ghostty
+  programs.ghostty = {
+    enable = true;
+    package = lib.mkIf pkgs.stdenv.isDarwin null;
+    enableBashIntegration = true;
+    settings = {
+      # https://ghostty.org/docs/help/terminfo
+      shell-integration-features = "ssh-terminfo,ssh-env";
+    };
+  };
 }
