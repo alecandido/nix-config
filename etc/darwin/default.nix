@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  imports = [../nix.nix];
+  imports = [
+    ../fonts.nix
+    ../nix.nix
+  ];
 
   programs.zsh.enable = true;
 

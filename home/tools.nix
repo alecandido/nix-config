@@ -38,10 +38,6 @@
       mtr
       wakeonlan
 
-      # Fonts
-      nerd-fonts.fira-code
-      meslo-lgs-nf
-
       # Node JS
       # mainly to support some neovim plugins...
       # slim = no NPM
