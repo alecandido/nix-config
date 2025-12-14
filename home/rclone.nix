@@ -39,5 +39,6 @@
       run cp \
         ${config.xdg.configHome}/rclone/_rclone.conf \
         ${config.xdg.configHome}/rclone/rclone.conf
+      run chmod +w ${config.xdg.configHome}/rclone/rclone.conf
     '');
 }
