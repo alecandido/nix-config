@@ -30,10 +30,6 @@
         "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU="
         "alecandido.cachix.org-1:TgsrZYrtoZVpZ9nSlYBw2ylVFpHqLI1YnwhPTwjGdgM="
       ];
-      # users need to be allowed by root to access configs - but at this level the user
-      # name is not known, because it is otherwise not essential to configure the
-      # system, and then passed only to home-manager - that's why it is inlined
-      allowed-users = ["alessandro"];
     };
   };
 }

@@ -1,13 +1,4 @@
 {pkgs, ...}: {
-  # TODO: it has been required to make it work the first time, now moved to home/nix.nix
-  #nix = {
-  #  package = pkgs.nixFlakes;
-  #  extraOptions = ''
-  #    experimental-features = nix-command flakes
-  #  '';
-  #};
-
-  nix.enable = false;
   imports = [../nix.nix];
 
   programs.zsh.enable = true;
