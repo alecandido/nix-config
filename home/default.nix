@@ -21,6 +21,7 @@
       ./dconf.nix
       ./firefox.nix
       ./nix.nix
+      ./rclone.nix
       ./tex.nix
       ./tools.nix
       inputs.agenix.homeManagerModules.age
