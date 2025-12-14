@@ -145,6 +145,10 @@
     settings = {
       # https://ghostty.org/docs/help/terminfo
       shell-integration-features = "ssh-terminfo,ssh-env";
+      # font-family = "Fira Code Nerd Font Mono";
+      font-family = "BlexMono Nerd Font Mono";
+      font-size = 12;
+      theme = "dark:Oxocarbon,light:Alabaster";
     };
   };
 }

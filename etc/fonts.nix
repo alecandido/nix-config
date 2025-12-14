@@ -5,6 +5,7 @@
     noto-fonts-cjk-serif
     noto-fonts-emoji
     nerd-fonts.fira-code
+    nerd-fonts.blex-mono
     meslo-lgs-nf
     mplus-outline-fonts.githubRelease
   ];
