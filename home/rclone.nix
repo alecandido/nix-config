@@ -3,20 +3,22 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  ssh_hosts =
+    lib.attrsets.mapAttrs (_: block: {
+      config = {
+        type = "sftp";
+        host = block.data.hostname;
+        user = block.data.user;
+      };
+      secrets = {};
+      mounts = {};
+    })
+    config.programs.ssh.matchBlocks;
+in {
   programs.rclone = {
     enable = true;
-    remotes = {
-      qrc = {
-        config = {
-          type = "sftp";
-          host = "qrc";
-          user = "alessandro.candido";
-        };
-        secrets = {};
-        mounts = {};
-      };
-    };
+    remotes = ssh_hosts;
   };
 
   # The home-manager module for rclone relies on systemd both to generate the
@@ -27,14 +29,14 @@
     lib.mkIf pkgs.stdenv.isDarwin
     (lib.generators.toINIWithGlobalSection {} {
       globalSection = {};
-      sections = {
-        qrc = {
-          type = "sftp";
-          host = "login.qrccluster.com";
-          user = "alessandro.candido";
-          key_file = "${config.home.homeDirectory}/.ssh/id_ed25519";
-        };
-      };
+      sections =
+        {}
+        // lib.attrsets.mapAttrs (_: cfg:
+          cfg.config
+          // {
+            key_file = "${config.home.homeDirectory}/.ssh/id_ed25519";
+          })
+        ssh_hosts;
     });
 
   # Rclone requires the folder of the configuration file to be writable, since it will
