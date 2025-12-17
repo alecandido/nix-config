@@ -64,6 +64,7 @@
       else "/Applications/Firefox.app/Contents/MacOS/firefox";
     EDITOR = lib.mkForce "${config.programs.neovim.package}/bin/nvim";
     MANPAGER = "${config.programs.neovim.package}/bin/nvim +Man!";
+    NH_FLAKE = "${config.home.homeDirectory}/Projects/nix-config";
   };
 
   # Starship
