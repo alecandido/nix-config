@@ -4,17 +4,21 @@
   pkgs,
   ...
 }: let
+  # automatically import ssh hosts as rclone remotes
   ssh_hosts =
-    lib.attrsets.mapAttrs (_: block: {
+    lib.mapAttrs (_: block: {
       config = {
         type = "sftp";
         host = block.data.hostname;
         user = block.data.user;
+        "global.links" = true;
+        "global.vfs_cache_mode" = "writes";
       };
       secrets = {};
       mounts = {};
     })
-    config.programs.ssh.matchBlocks;
+    # first drop the global section
+    (lib.filterAttrs (n: _: n != "*") config.programs.ssh.matchBlocks);
 in {
   programs.rclone = {
     enable = true;
@@ -31,12 +35,13 @@ in {
       globalSection = {};
       sections =
         {}
-        // lib.attrsets.mapAttrs (_: cfg:
+        # add ssh hosts, providing public keys
+        // (lib.mapAttrs (_: cfg:
           cfg.config
           // {
             key_file = "${config.home.homeDirectory}/.ssh/id_ed25519";
           })
-        ssh_hosts;
+        ssh_hosts);
     });
 
   # Rclone requires the folder of the configuration file to be writable, since it will
