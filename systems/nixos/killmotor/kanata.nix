@@ -13,9 +13,9 @@
 
           (deflayer base
             esc  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-            tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+            tab  @nuq w    e    r    t    y    u    i    o    @nup [    ]    \
             @ale @mou s    d    f    g    h    j    k    l    @sym @alq ret
-            lsft z    x    c    v    b    n    m    ,    .    /    rsft
+            lsft @cz  @cax @mov v    b    n    m    ,    .    @csl rsft
           )
 
           (deflayer symbols
@@ -30,6 +30,20 @@
             _    _    _    @msu _    _    @mwl @mwd @mwu @mwr pp   _    _    _
             _    _    @msl @msd @msr _    _    mlft mrgt mmid prev next _
             _    _    _    _    _    _    _    mute vold volu del  _
+          )
+
+          (deflayer numbers
+            _    _    _    _    _    _    _    _    _    _    _    _    _    _
+            _    _    _    _    _    _    _    _    _    _    _    _    _    _
+            _    1    2    3    4    5    6    7    8    9    0    _    _
+            _    _    _    _    _    _    _    _    _    _    _    _
+          )
+
+          (deflayer move
+            _    _    _    _    _    _    _    _    _    _    _    _    _    _
+            _    _    _    _    _    _    _    _    _    _  _    _    _    _
+            _    _    _    _    _    _    home pgdn pgup end  _    _    _
+            _    _    _    _    _    _    _    _    _    _    _    _
           )
 
           (defalias
@@ -49,8 +63,14 @@
 
             sym (tap-hold-press 200 200 ; (layer-while-held symbols))
             mou (tap-hold-release 200 200 a (layer-while-held mouse))
+            nup (tap-hold-release 200 200 p (layer-while-held numbers))
+            nuq (tap-hold-release 200 200 q (layer-while-held numbers))
+            mov (tap-hold-release 200 200 c (layer-while-held move))
             ale (tap-hold-release 200 200 esc alt)
             alq (tap-hold-release 200 200 ' alt)
+            cz (tap-hold-release 200 200 z lctl)
+            csl (tap-hold-release 200 200 / rctl)
+            cax (tap-hold-release 200 200 x (multi ctl alt))
 
             msu (movemouse-accel-up 3 1000 1 5)
             msd (movemouse-accel-down 3 1000 1 5)
@@ -67,6 +87,7 @@
           movemouse-inherit-accel-state yes
           movemouse-smooth-diagonals yes
         '';
+        devices = ["/dev/input/event17"];
       };
     };
   };
