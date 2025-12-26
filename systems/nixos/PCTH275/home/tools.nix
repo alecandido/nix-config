@@ -1,3 +1,3 @@
 {lib, ...}: {
-  programs.kitty.font.size = lib.mkForce 9;
+  programs.kitty.font.size = lib.mkForce 12;
 }
