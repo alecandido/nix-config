@@ -6,6 +6,7 @@
   imports = [
     ./gnome.nix
     ../fonts.nix
+    ../nix.nix
   ];
 
   # Bootloader.
