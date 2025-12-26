@@ -6,7 +6,8 @@
 }: let
   # automatically import ssh hosts as rclone remotes
   ssh_hosts =
-    lib.mapAttrs (_: block: {
+    lib.mapAttrs
+    (_: block: {
       config = {
         type = "sftp";
         host = block.data.hostname;
@@ -29,20 +30,23 @@ in {
   # configuration file and to create the mount points.systemd.
   # Since not available on MacOS (and no automated translation to launchd is easily
   # available) the easiest alternative is to manually generate the configuration file.
-  xdg.configFile."rclone/_rclone.conf".text =
-    lib.mkIf pkgs.stdenv.isDarwin
-    (lib.generators.toINIWithGlobalSection {} {
-      globalSection = {};
-      sections =
-        {}
-        # add ssh hosts, providing public keys
-        // (lib.mapAttrs (_: cfg:
-          cfg.config
-          // {
-            key_file = "${config.home.homeDirectory}/.ssh/id_ed25519";
-          })
-        ssh_hosts);
-    });
+  xdg.configFile."rclone/_rclone.conf" = {
+    enable = pkgs.stdenv.isDarwin;
+    text =
+      lib.mkIf pkgs.stdenv.isDarwin
+      (lib.generators.toINIWithGlobalSection {} {
+        globalSection = {};
+        sections =
+          {}
+          # add ssh hosts, providing public keys
+          // (lib.mapAttrs (_: cfg:
+            cfg.config
+            // {
+              key_file = "${config.home.homeDirectory}/.ssh/id_ed25519";
+            })
+          ssh_hosts);
+      });
+  };
 
   # Rclone requires the folder of the configuration file to be writable, since it will
   # be used at run time to store some other temporary configurations.
