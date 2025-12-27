@@ -86,8 +86,8 @@
         extraDefCfg = ''
           movemouse-inherit-accel-state yes
           movemouse-smooth-diagonals yes
+          linux-dev-names-include ("Keychron K12")
         '';
-        devices = ["/dev/input/event17"];
       };
     };
   };
