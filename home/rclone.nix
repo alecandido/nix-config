@@ -7,7 +7,7 @@
   # automatically import ssh hosts as rclone remotes
   ssh_hosts =
     lib.mapAttrs
-    (_: block: {
+    (name: block: {
       config = {
         type = "sftp";
         host = block.data.hostname;
@@ -16,7 +16,15 @@
         "global.vfs_cache_mode" = "writes";
       };
       secrets = {};
-      mounts = {};
+      mounts =
+        if (lib.strings.hasPrefix "qrc" name)
+        then {
+          "./" = {
+            enable = true;
+            mountPoint = "${config.home.homeDirectory}/Resources/${name}";
+          };
+        }
+        else {};
     })
     # first drop the global section
     (lib.filterAttrs (n: _: n != "*") config.programs.ssh.matchBlocks);
