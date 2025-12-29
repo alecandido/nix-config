@@ -14,11 +14,14 @@ in {
     autoSuspend = false; # TODO: mkIf cfg.server (builtins.trace "ciao" false);
   };
 
+  hardware.i2c.enable = true;
+
   environment = {
     systemPackages = with pkgs; [
       gnome-browser-connector
       # gnome-extension-manager
       gnomeExtensions.appindicator
+      gnomeExtensions.brightness-control-using-ddcutil
     ];
 
     gnome.excludePackages = with pkgs; [
