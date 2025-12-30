@@ -28,7 +28,7 @@
           (deflayer mouse
             _    _    _    _    _    _    _    _    _    _    _    _    _    _
             _    _    _    @msu _    _    @mwl @mwd @mwu @mwr pp   brdn brup _
-            _    _    @msl @msd @msr _    _    mlft mrgt mmid prev next _
+            _    _    @msl @msd @msr _    _    mlft mrgt mmid prev next prnt
             _    _    _    _    _    _    _    vold volu mute del  _
           )
 
