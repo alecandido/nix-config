@@ -14,8 +14,8 @@
           (deflayer base
             esc  1    2    3    4    5    6    7    8    9    0    -    =    bspc
             tab  @nuq w    e    r    t    y    u    i    o    @nup [    ]    \
-            @ale @mou s    d    f    g    h    j    k    l    @sym @alq ret
-            lsft @cz  @cax @mov v    b    n    m    ,    @mtd @csl rsft
+            @ale @mou @mov d    f    g    h    j    k    l    @sym @alq ret
+            lsft @cz  @cax c    v    b    n    m    ,    @mtd @csl rsft
           )
 
           (deflayer symbols
@@ -65,7 +65,7 @@
             mou (tap-hold-release 200 200 a (layer-while-held mouse))
             nup (tap-hold-release 200 200 p (layer-while-held numbers))
             nuq (tap-hold-release 200 200 q (layer-while-held numbers))
-            mov (tap-hold-release 200 200 c (layer-while-held move))
+            mov (tap-hold-release 200 200 s (layer-while-held move))
             mtd (tap-hold-release 200 200 . rmeta)
             ale (tap-hold-release 200 200 esc alt)
             alq (tap-hold-release 200 200 ' alt)
