@@ -93,6 +93,7 @@
       thunderbird
       zoom-us
       xournalpp
+      beeper
     ];
 
     shellAliases = {
