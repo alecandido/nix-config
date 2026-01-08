@@ -32,7 +32,17 @@ in {
             workspaces-only-on-primary = true;
           };
           "org/gnome/shell" = {
-            enabled-extensions = ["appindicatorsupport@rgcjonas.gmail.com"];
+            disable-user-extensions = false;
+            enabled-extensions = [
+              "appindicatorsupport@rgcjonas.gmail.com"
+              "display-brightness-ddcutil@themightydeity.github.com"
+              "emoji-copy@felipeftn"
+              "tilingshell@ferrarodomenico.com"
+            ];
+          };
+          "org/gnome/shell/extensions/display-brightness-ddcutil" = {
+            ddcutil-binary-path = "/etc/profiles/per-user/will/bin/ddcutil";
+            show-value-label = true;
           };
           "org/gnome/shell/app-switcher" = {
             current-workspace-only = true;

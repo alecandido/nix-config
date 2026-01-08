@@ -1,12 +1,4 @@
-{
-  # config,
-  # lib,
-  pkgs,
-  ...
-}: let
-  # inherit (lib) mkIf;
-  # cfg = config.plan.dconf;
-in {
+{pkgs, ...}: {
   # Enable the GNOME Desktop Environment.
   services.desktopManager.gnome.enable = true;
   services.displayManager.gdm = {
@@ -22,6 +14,8 @@ in {
       # gnome-extension-manager
       gnomeExtensions.appindicator
       gnomeExtensions.brightness-control-using-ddcutil
+      gnomeExtensions.emoji-copy
+      gnomeExtensions.tiling-shell
     ];
 
     gnome.excludePackages = with pkgs; [
