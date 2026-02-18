@@ -37,6 +37,8 @@
       nmap
       mtr
       wakeonlan
+      # vpn
+      openconnect
 
       # Node JS
       # mainly to support some neovim plugins...
