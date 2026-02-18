@@ -40,6 +40,7 @@
     villarose = mkNixos "villarose";
     yukon = mkNixos "yukon";
     killmotor = mkNixos "killmotor";
+    umbrellastan = mkNixos "umbrellastan";
   };
 in {
   ocopoli = instances.ocopoli;
@@ -47,4 +48,5 @@ in {
   villarose = instances.villarose;
   yukon = instances.yukon;
   killmotor = instances.killmotor;
+  umbrellastan = instances.umbrellastan;
 }
