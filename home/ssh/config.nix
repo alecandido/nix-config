@@ -82,6 +82,11 @@
         hostname = "workspace";
         proxyJump = "qrc";
       };
+      "aliah" = {
+        user = "alessandro";
+        hostname = "192.168.2.55";
+        proxyJump = "qrc";
+      };
       "zeraa" = fullname {
         hostname = "192.168.2.73";
         proxyJump = "qrc";
