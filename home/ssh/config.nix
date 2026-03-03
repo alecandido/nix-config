@@ -76,6 +76,14 @@
         user = "alessandro";
         hostname = "133.1.37.12";
       };
+      "juice-misc" = {
+        user = "acandido";
+        hostname = "192.168.128.121";
+      };
+      "juice-platinum" = {
+        user = "acandido";
+        hostname = "192.168.128.122";
+      };
     }
     // (qrc {
       "ws" = fullname {
