@@ -4,7 +4,15 @@
   lib,
   ...
 }: {
-  nix = {
+  nix = let
+    subs = [
+      "https://cache.nixos.org"
+      "https://nix-community.cachix.org"
+      "https://devenv.cachix.org"
+      "https://nixpkgs-python.cachix.org"
+      "https://alecandido.cachix.org"
+    ];
+  in {
     registry.nixpkgs.flake = inputs.nixpkgs;
 
     gc = lib.mkIf (!pkgs.stdenv.isDarwin) {
@@ -15,13 +23,10 @@
 
     settings = {
       experimental-features = ["nix-command" "flakes"];
-      trusted-substituters = [
-        "https://cache.nixos.org"
-        "https://nix-community.cachix.org"
-        "https://devenv.cachix.org"
-        "https://nixpkgs-python.cachix.org"
-        "https://alecandido.cachix.org"
-      ];
+      # TODO: possibly lift this at user level, and just keep it limited to
+      # cache.nixos.org by default
+      substituters = subs;
+      trusted-substituters = subs;
       trusted-users = ["root"];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
