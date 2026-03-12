@@ -32,7 +32,7 @@
       # Network
       dnsutils
       ldns
-      dogdns
+      doggo
       socat
       nmap
       mtr

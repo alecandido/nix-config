@@ -22,7 +22,7 @@ in {
       ++ (with pkgs.nodePackages; [
         eslint
         stylelint
-        jsonlint
+        # jsonlint  # TODO: unmaintained - replace
       ]);
 
     xdg.configFile."ltex".source = ./ltex;

@@ -55,5 +55,10 @@ in {
       vid = "${home.homeDirectory}/Videos";
       dl = "${home.homeDirectory}/Downloads";
     };
+
+    # TODO: The default value of `programs.zsh.dotDir` will change in future versions.
+    # This is set in order to adopt the new behavior (XDG config directory),
+    # It will be the default for home.stateVersion = 26.05
+    dotDir = "${config.xdg.configHome}/zsh";
   };
 }

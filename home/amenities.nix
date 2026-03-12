@@ -19,7 +19,7 @@ in {
       # render images in browser
       chafa
       # render PDF to many formats
-      poppler_utils
+      poppler-utils
       # render video thumbnails
       ffmpegthumbnailer
       # record terminal sessions
