@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  isLinux = lib.strings.hasInfix "linux" pkgs.system;
+  isLinux = lib.strings.hasInfix "linux" pkgs.stdenv.hostPlatform.system;
 in {
   imports = [
     ./config.nix

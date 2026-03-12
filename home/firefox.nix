@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  addons = builtins.getAttr pkgs.system inputs.firefox-addons.packages;
+  addons = builtins.getAttr pkgs.stdenv.hostPlatform.system inputs.firefox-addons.packages;
 in {
   programs.firefox = {
     enable = true;

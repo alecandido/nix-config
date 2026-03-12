@@ -3,7 +3,7 @@
   inputs,
   ...
 }: let
-  system = pkgs.system;
+  system = pkgs.stdenv.hostPlatform.system;
   devenv = inputs.devenv.packages.${system}.default;
 in {
   nix.settings = {
