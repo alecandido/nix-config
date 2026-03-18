@@ -4,13 +4,16 @@ M.opts = {
   servers = {
     bashls = {},
     cssls = {},
+    eslint = {},
     fortls = {},
     golangci_lint_ls = {},
     gopls = {},
     hls = { filetypes = { "haskell", "lhaskell", "cabal" } },
+    html = {},
     -- ltex = {
     --   settings = { ltex = { language = "en-US", dictionary = ":~/.config/ltex/dictionary.json" } },
     -- },
+    jsonls = {},
     lua_ls = {},
     metals = {},
     nil_ls = {},
