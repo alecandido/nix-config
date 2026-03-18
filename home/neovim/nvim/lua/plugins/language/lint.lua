@@ -34,7 +34,6 @@ M.opts = {
 	gh_workflows = { "actionlint" },
 	go = { "revive" },
 	javascript = { "eslint" },
-	json = { "jsonlint" },
 	-- markdown = { "vale" },
 	nix = { "nix" },
 	python = { "ruff" },
