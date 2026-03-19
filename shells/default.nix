@@ -1,65 +1,40 @@
-{
-  nixpkgs,
-  devenv,
-  systems,
-  ...
-} @ inputs: let
-  forEachSystem = nixpkgs.lib.genAttrs (import systems);
-in
-  forEachSystem
-  (system: let
-    pkgs = nixpkgs.legacyPackages.${system};
-    devenvDisclaimer = ''
-      devenv_dir=$PWD/.devenv
-      if [ ! -d $devenv_dir ]; then
-        echo "Creating devenv dir at '$devenv_dir'"
-      fi
-    '';
-  in {
+let
+  devenvDisclaimer = ''
+    devenv_dir=$PWD/.devenv
+    if [ ! -d $devenv_dir ]; then
+      echo "Creating devenv dir at '$devenv_dir'"
+    fi
+  '';
+in {
+  devenv.shells = {
     # a shell for this repo
-    default = devenv.lib.mkShell {
-      inherit inputs pkgs;
-      modules = [
-        {
-          scripts.format.exec = "nix fmt .";
+    default = {
+      scripts.format.exec = "nix fmt .";
 
-          languages.nix.enable = true;
+      languages.nix.enable = true;
 
-          git-hooks.hooks = {
-            deadnix.enable = true;
-            alejandra.enable = true;
-          };
-        }
-      ];
+      git-hooks.hooks = {
+        deadnix.enable = true;
+        alejandra.enable = true;
+      };
     };
 
     # make python available
-    python = devenv.lib.mkShell {
-      inherit inputs pkgs;
+    python = {
+      enterShell = devenvDisclaimer;
 
-      modules = [
-        {
-          enterShell = devenvDisclaimer;
-
-          languages.python.enable = true;
-        }
-      ];
+      languages.python.enable = true;
     };
 
     # make python available
     # with a related virtual environment, to install dependencies
-    pyvenv = devenv.lib.mkShell {
-      inherit inputs pkgs;
+    pyvenv = {
+      enterShell = devenvDisclaimer;
 
-      modules = [
-        {
-          enterShell = devenvDisclaimer;
-
-          languages.python = {
-            enable = true;
-            venv.enable = true;
-          };
-        }
-      ];
+      languages.python = {
+        enable = true;
+        venv.enable = true;
+      };
     };
-  })
+  };
+}

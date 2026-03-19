@@ -17,9 +17,9 @@
 
     # Flake utilities
     flake-utils.url = "github:numtide/flake-utils";
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     # Tools
-    systems.url = "github:nix-systems/default";
     devenv.url = "github:cachix/devenv";
     agenix.url = "github:ryantm/agenix";
 
@@ -36,13 +36,28 @@
   outputs = inputs: let
     sys = (import ./systems) inputs;
     nixConfigs = (import ./top/nix.nix) inputs;
-  in {
-    nixosConfigurations = sys.nixos;
-    darwinConfigurations = sys.darwin;
-    homeConfigurations = sys.user;
+  in
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [inputs.devenv.flakeModule];
+      systems = ["x86_64-linux" "aarch64-darwin"];
 
-    inherit (nixConfigs) formatter;
+      flake = {
+        nixosConfigurations = sys.nixos;
+        darwinConfigurations = sys.darwin;
+        homeConfigurations = sys.user;
 
-    devShells = (import ./shells) inputs;
-  };
+        inherit (nixConfigs) formatter;
+      };
+
+      perSystem = {system, ...}: {
+        _module.args.pkgs = import inputs.nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true;
+          };
+        };
+
+        imports = [./shells];
+      };
+    };
 }
