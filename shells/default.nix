@@ -1,4 +1,4 @@
-let
+{pkgs, ...}: let
   devenvDisclaimer = ''
     devenv_dir=$PWD/.devenv
     if [ ! -d $devenv_dir ]; then
@@ -10,6 +10,7 @@ in {
     # a shell for this repo
     default = {
       scripts.format.exec = "nix fmt .";
+      packages = with pkgs; [mistral-vibe];
 
       languages.nix.enable = true;
 
@@ -23,6 +24,7 @@ in {
     python = {
       enterShell = devenvDisclaimer;
 
+      packages = with pkgs; [mistral-vibe];
       languages.python.enable = true;
     };
 
