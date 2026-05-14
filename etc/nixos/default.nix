@@ -94,6 +94,7 @@
       zoom-us
       xournalpp
       beeper
+      teams-for-linux
     ];
 
     shellAliases = {
