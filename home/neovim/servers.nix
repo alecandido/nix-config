@@ -25,15 +25,14 @@ in {
         texlab
         # verible
         vhdl-ls
-      ]
-      ++ (with pkgs.nodePackages; [
+        # from vscode:
         bash-language-server
         pyright
         svelte-language-server
         typescript-language-server
         vscode-langservers-extracted
         yaml-language-server
-      ])
+      ]
       ++ (with pkgs.vscode-extensions; [
         dbaeumer.vscode-eslint
       ]);

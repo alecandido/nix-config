@@ -21,16 +21,14 @@ in {
         isort
         ktlint
         pgformatter
+        prettier
         rustfmt
         shfmt
         stylish-haskell
         stylua
         uncrustify
       ]
-      ++ (lib.optionals (!stdenv.isDarwin) [nufmt nufmt-in])
-      ++ (with nodePackages; [
-        prettier
-      ]);
+      ++ (lib.optionals (!stdenv.isDarwin) [nufmt nufmt-in]);
 
     xdg.configFile."uncrustify.cfg".source = ./uncrustify.cfg;
   };
