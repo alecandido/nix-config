@@ -79,14 +79,6 @@
         user = "alessandro";
         hostname = "133.1.37.12";
       };
-      "juice-misc" = {
-        user = "acandido";
-        hostname = "192.168.128.121";
-      };
-      "juice-platinum" = {
-        user = "acandido";
-        hostname = "192.168.128.122";
-      };
     }
     // (qrc {
       "ws" = fullname {
@@ -109,6 +101,16 @@
       "scqt-qw5q" = scqt {
         hostname = "192.168.0.231";
         user = "tii_s";
+      };
+      "juice-21" = {
+        user = "acandido";
+        hostname = "192.168.2.21";
+        proxyJump = "qrc";
+      };
+      "juice-22" = {
+        user = "acandido";
+        hostname = "192.168.2.22";
+        proxyJump = "qrc";
       };
     });
 }
