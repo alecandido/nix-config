@@ -27,10 +27,10 @@
         else {};
     })
     # first drop the global section
-    (lib.filterAttrs (n: _: n != "*") config.programs.ssh.matchBlocks);
+    (lib.filterAttrs (n: _: n != "*") config.programs.ssh.settings);
 in {
   programs.rclone = {
-    enable = true;
+    enable = false;
     remotes = ssh_hosts;
   };
 

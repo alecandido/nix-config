@@ -1,5 +1,5 @@
 {lib, ...}: {
-  programs.ssh.matchBlocks = let
+  programs.ssh.settings = let
     # FIXME: better using OpenSSH tags, but this is limited by the home-manager
     # support:
     # multiple 'Tag' directives would be allowed, but since it is not a natively
