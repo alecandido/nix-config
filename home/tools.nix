@@ -67,6 +67,8 @@
     EDITOR = lib.mkForce "${config.programs.neovim.package}/bin/nvim";
     MANPAGER = "${config.programs.neovim.package}/bin/nvim +Man!";
     NH_FLAKE = "${config.home.homeDirectory}/Projects/nix-config";
+    # since starship is already presenting the name, no need for the extra prompt
+    VIRTUAL_ENV_DISABLE_PROMPT = true;
   };
 
   # Starship
