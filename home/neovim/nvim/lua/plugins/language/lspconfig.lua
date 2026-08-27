@@ -95,6 +95,11 @@ function M.config(_, opts)
     )
     vim.lsp.enable(server_name)
   end
+
+  -- copilot-lsp (NES)
+  if vim.lsp.config.copilot then
+    vim.lsp.enable("copilot")
+  end
 end
 
 return M
