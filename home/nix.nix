@@ -26,7 +26,7 @@ in {
     # FIXME: remove as soon as devenv will start doing this autonomously
     devenvNuAutoload = lib.hm.dag.entryAfter ["writeBoundary"] ''
       export PATH="${pkgs.nushell}/bin:${pkgs.devenv}/bin:$PATH"
-      run mkdir ${autoload}
+      run mkdir -p ${autoload}
       run nu -c 'devenv hook nu | save --force ${autoload}/devenv-hook.nu'
     '';
   };
