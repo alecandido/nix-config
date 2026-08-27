@@ -52,7 +52,7 @@
       pciutils # lspci
       # usbutils # lsusb
     ]
-    ++ lib.optionals stdenv.isDarwin [m-cli];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [m-cli];
 
   # XDG
   xdg.enable = true;
@@ -61,7 +61,7 @@
   home.sessionVariables = {
     # default programs
     BROWSER =
-      if !pkgs.stdenv.isDarwin
+      if !pkgs.stdenv.hostPlatform.isDarwin
       then "${config.programs.firefox.package}/bin/firefox"
       else "/Applications/Firefox.app/Contents/MacOS/firefox";
     EDITOR = lib.mkForce "${config.programs.neovim.package}/bin/nvim";
@@ -145,7 +145,7 @@
   # Ghostty
   programs.ghostty = {
     enable = true;
-    package = lib.mkIf pkgs.stdenv.isDarwin null;
+    package = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin null;
     enableBashIntegration = true;
     settings = {
       # https://ghostty.org/docs/help/terminfo

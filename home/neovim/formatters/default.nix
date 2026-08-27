@@ -28,7 +28,7 @@ in {
         stylua
         uncrustify
       ]
-      ++ (lib.optionals (!stdenv.isDarwin) [nufmt nufmt-in]);
+      ++ (lib.optionals (!stdenv.hostPlatform.isDarwin) [nufmt nufmt-in]);
 
     xdg.configFile."uncrustify.cfg".source = ./uncrustify.cfg;
   };

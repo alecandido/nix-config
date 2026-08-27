@@ -15,7 +15,7 @@
   in {
     registry.nixpkgs.flake = inputs.nixpkgs;
 
-    gc = lib.mkIf (!pkgs.stdenv.isDarwin) {
+    gc = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 1w";

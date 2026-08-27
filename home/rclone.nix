@@ -39,9 +39,9 @@ in {
   # Since not available on MacOS (and no automated translation to launchd is easily
   # available) the easiest alternative is to manually generate the configuration file.
   xdg.configFile."rclone/_rclone.conf" = {
-    enable = pkgs.stdenv.isDarwin;
+    enable = pkgs.stdenv.hostPlatform.isDarwin;
     text =
-      lib.mkIf pkgs.stdenv.isDarwin
+      lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
       (lib.generators.toINIWithGlobalSection {} {
         globalSection = {};
         sections =
@@ -64,7 +64,7 @@ in {
   # The present workaround is to just copy the generated configurations to a regular
   # file, circumventing the linking process.
   home.activation.copyRcloneConfig =
-    lib.mkIf pkgs.stdenv.isDarwin
+    lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
     (lib.hm.dag.entryAfter ["writeBoundary" "linkGeneration"] ''
       run cp \
         ${config.xdg.configHome}/rclone/_rclone.conf \

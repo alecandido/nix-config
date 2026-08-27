@@ -8,7 +8,7 @@
 in {
   programs.firefox = {
     enable = true;
-    package = lib.mkIf pkgs.stdenv.isDarwin null;
+    package = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin null;
     # Cf. about:policies#documentation
     policies = {
       DisablePocket = true;
