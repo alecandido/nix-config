@@ -1,9 +1,8 @@
-{pkgs, ...}: {
+{
   devenv.shells = {
     # a shell for this repo
     default = {
       scripts.format.exec = "nix fmt .";
-      packages = with pkgs; [mistral-vibe];
 
       languages.nix.enable = true;
 
@@ -15,7 +14,6 @@
 
     # make python available
     python = {
-      packages = with pkgs; [mistral-vibe];
       languages.python.enable = true;
     };
 
