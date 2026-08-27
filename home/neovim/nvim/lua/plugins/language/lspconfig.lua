@@ -38,7 +38,7 @@ M.opts = {
     },
   },
 }
-local noformat = { "lua_ls", "nil_ls" }
+local noformat = { }
 
 --  This function gets run when an LSP connects to a particular buffer.
 local function on_attach(client, bufnr)
