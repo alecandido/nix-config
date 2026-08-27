@@ -16,6 +16,7 @@
       ./ssh
       ./xournalpp
       ./zellij
+      ./ai.nix
       ./amenities.nix
       ./build.nix
       ./dconf.nix
