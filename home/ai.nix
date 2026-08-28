@@ -6,6 +6,7 @@
 }: let
   token = config.age.secrets.llm-qrc-token.path;
   url = config.age.secrets.llm-qrc-url.path;
+  geminiToken = config.age.secrets.gemini-token.path;
 
   # copilot using the qwen/qrc backend
   copilotQrc = pkgs.writeShellScriptBin "copilot-qrc" ''
@@ -15,6 +16,8 @@
     export COPILOT_MODEL="qwen3.8:latest"
     exec copilot "$@"
   '';
+
+  trimFirst = x: builtins.substring 1 (builtins.stringLength x - 1) x;
 in {
   programs.github-copilot-cli = {
     enable = true;
@@ -28,8 +31,14 @@ in {
 
   age.secrets.llm-qrc-url.file = inputs.secrets.llm-qrc-url;
   age.secrets.llm-qrc-token.file = inputs.secrets.llm-qrc-token;
+  age.secrets.gemini-token.file = inputs.secrets.gemini-token;
 
   home.packages = [
     copilotQrc
   ];
+
+  programs.nushell.extraEnv = ''
+    # trim the first character for both, since it is intended for Bash, and it is a $
+    $env.GEMINI_API_KEY = (open --raw ${trimFirst geminiToken});
+  '';
 }
