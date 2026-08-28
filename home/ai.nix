@@ -2,6 +2,7 @@
   inputs,
   config,
   pkgs,
+  lib,
   ...
 }: let
   token = config.age.secrets.llm-qrc-token.path;
@@ -18,22 +19,34 @@
   '';
 
   trimFirst = x: builtins.substring 1 (builtins.stringLength x - 1) x;
+
+  agySettings = {
+    modelProvider = "gemini";
+    colorScheme = "terminal";
+  };
 in {
   programs.github-copilot-cli = {
     enable = true;
   };
 
-  # Gemini access via Antigravity CLI (agy)
-  programs.antigravity-cli = {
-    enable = true;
-    defaultModel = "gemini-3.1-pro-preview";
-  };
+  home.activation.updateAntigravitySettings = let
+    settings = config.home.homeDirectory + "/.gemini/antigravity-cli/settings.json";
+    jsonUpdate = builtins.toJSON agySettings;
+    tmp = "/tmp/hm-activate-antigravity-settings";
+  in (lib.hm.dag.entryAfter ["writeBoundary" "linkGeneration"] ''
+    if [ ! -s "${settings}" ]; then
+        echo "{}" > ${settings}
+    fi
+    ${lib.getExe pkgs.jq} -s '.[0] * .[1]' ${settings} <(echo '${jsonUpdate}') > ${tmp}
+    mv ${tmp} ${settings}
+  '');
 
   age.secrets.llm-qrc-url.file = inputs.secrets.llm-qrc-url;
   age.secrets.llm-qrc-token.file = inputs.secrets.llm-qrc-token;
   age.secrets.gemini-token.file = inputs.secrets.gemini-token;
 
   home.packages = [
+    pkgs.antigravity-cli
     copilotQrc
   ];
 
