@@ -61,7 +61,7 @@ M.config = function(_, opts)
     kotlin = { require("formatter.filetypes.kotlin").ktlint },
     markdown = { require("formatter.filetypes.markdown").prettier },
     -- nu = { nufmt },
-    nix = { require("formatter.filetypes.nix").alejandra },
+    -- nix = { require("formatter.filetypes.nix").alejandra },
     python = {
       require("formatter.filetypes.python").iruff,
     },

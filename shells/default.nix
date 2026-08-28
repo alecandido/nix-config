@@ -8,7 +8,6 @@
 
       git-hooks.hooks = {
         deadnix.enable = true;
-        alejandra.enable = true;
       };
     };
 
