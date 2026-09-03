@@ -1,45 +1,42 @@
-{lib, ...}: {
-  programs.ssh.settings = let
-    # FIXME: better using OpenSSH tags, but this is limited by the home-manager
-    # support:
-    # multiple 'Tag' directives would be allowed, but since it is not a natively
-    # supported one, it should be provided within `extraOptions`, which instead is an
-    # attribute set of directives, restricting to a single tag
-    # thus, using Nix results in more flexible compositions - at the possible price of
-    # a larger generated output (since fully expanded)
-    extend = args: cfg: args // cfg;
-    personal =
-      extend
-      {
+{ lib, ... }: {
+  programs.ssh.settings =
+    let
+      # FIXME: better using OpenSSH tags, but this is limited by the home-manager
+      # support:
+      # multiple 'Tag' directives would be allowed, but since it is not a natively
+      # supported one, it should be provided within `extraOptions`, which instead is an
+      # attribute set of directives, restricting to a single tag
+      # thus, using Nix results in more flexible compositions - at the possible price of
+      # a larger generated output (since fully expanded)
+      extend = args: cfg: args // cfg;
+      personal = extend {
         user = "alessandro";
         forwardAgent = true;
       };
-    fullname = extend {
-      user = "alessandro.candido";
-    };
-    scqt =
-      extend
-      {
+      fullname = extend {
+        user = "alessandro.candido";
+      };
+      scqt = extend {
         proxyJump = "qrc-zeraa";
         # FIXME: for some reason, when specified as remote command it prevents shortcuts
         # extraOptions = {
         #   RemoteCommand = "PowerShell";
         # };
       };
-    # for each config, generate two copies: the bare one, and the `-fromlab` version,
-    # which create two separate hierarchies, one starting from the login node with
-    # domain name, the other with the IP address, for use within the lab
-    qrc = cfgs: (
-      lib.attrsets.mergeAttrsList
-      (
-        lib.attrsets.mapAttrsToList (name: cfg: {
-          "qrc-${name}" = cfg;
-          "qrc-${name}-fromlab" = cfg // {proxyJump = cfg.proxyJump + "-fromlab";};
-        })
-        cfgs
-      )
-    );
-  in
+      # for each config, generate two copies: the bare one, and the `-fromlab` version,
+      # which create two separate hierarchies, one starting from the login node with
+      # domain name, the other with the IP address, for use within the lab
+      qrc =
+        cfgs:
+        (lib.attrsets.mergeAttrsList (
+          lib.attrsets.mapAttrsToList (name: cfg: {
+            "qrc-${name}" = cfg;
+            "qrc-${name}-fromlab" = cfg // {
+              proxyJump = cfg.proxyJump + "-fromlab";
+            };
+          }) cfgs
+        ));
+    in
     {
       "*" = {
         forwardAgent = false;
@@ -85,8 +82,7 @@
         hostname = "workspace";
         proxyJump = "qrc";
       };
-      "aliah" = {
-        user = "alessandro";
+      "aliah" = fullname {
         hostname = "192.168.2.55";
         proxyJump = "qrc";
       };
