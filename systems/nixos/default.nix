@@ -2,37 +2,44 @@
   inputs,
   lib,
   ...
-}: let
-  inherit (inputs) home-manager nixpkgs self;
+}:
+let
+  inherit (inputs) home-manager self nixpkgs;
 
-  mkNixos = name: (let
-    config = import "${path}/home";
-    user = config.user;
-    path = ./. + ("/" + name);
-    homeMods = lib.homeMods {
-      inherit inputs;
-      homeRoot = "${self}/home";
-      config = config // {home = "/home/${user}";};
-    };
-  in
-    nixpkgs.lib.nixosSystem {
-      modules = [
-        {
-          networking.hostName = name;
-          nix.settings.trusted-users = [user];
-        }
-        "${self}/etc/nixos"
-        path
-        home-manager.nixosModules.home-manager
-        homeMods
-        lib.commonMods
-        inputs.agenix.nixosModules.default
-      ];
+  mkNixos =
+    name:
+    (
+      let
+        config = import "${path}/home";
+        user = config.user;
+        path = ./. + ("/" + name);
+        homeMods = lib.homeMods {
+          inherit inputs;
+          homeRoot = "${self}/home";
+          config = config // {
+            home = "/home/${user}";
+          };
+        };
+      in
+      nixpkgs.lib.nixosSystem {
+        modules = [
+          {
+            networking.hostName = name;
+            nix.settings.allowed-users = [ user ];
+          }
+          "${self}/etc/nixos"
+          path
+          home-manager.nixosModules.home-manager
+          homeMods
+          lib.commonMods
+          inputs.agenix.nixosModules.default
+        ];
 
-      # Give `inputs` access to all nix-darwin modules
-      specialArgs = {inherit inputs;};
-      system = "x86_64-linux";
-    });
+        # Give `inputs` access to all nix-darwin modules
+        specialArgs = { inherit inputs; };
+        system = "x86_64-linux";
+      }
+    );
 
   instances = {
     ocopoli = mkNixos "ocopoli";
@@ -42,7 +49,8 @@
     killmotor = mkNixos "killmotor";
     umbrellastan = mkNixos "umbrellastan";
   };
-in {
+in
+{
   ocopoli = instances.ocopoli;
   klondike = instances.klondike;
   villarose = instances.villarose;

@@ -1,43 +1,51 @@
 {
-  lib,
   inputs,
+  lib,
   ...
-}: let
-  inherit (inputs) darwin home-manager self;
+}:
+let
+  inherit (inputs) home-manager self darwin;
 
-  mkDarwin = name: (let
-    config = import "${path}/home";
-    user = config.user;
-    path = ./. + ("/" + name);
-    homeMods = lib.homeMods {
-      inherit inputs;
-      homeRoot = "${self}/home";
-      config = config // {home = "/Users/${user}";};
-    };
-  in
-    darwin.lib.darwinSystem {
-      modules = [
-        {
-          networking.hostName = name;
-          nix.settings.allowed-users = [user];
-        }
-        "${self}/etc/darwin"
-        path
-        home-manager.darwinModules.home-manager
-        homeMods
-        inputs.agenix.darwinModules.default
-        lib.commonMods
-      ];
+  mkDarwin =
+    name:
+    (
+      let
+        config = import "${path}/home";
+        user = config.user;
+        path = ./. + ("/" + name);
+        homeMods = lib.homeMods {
+          inherit inputs;
+          homeRoot = "${self}/home";
+          config = config // {
+            home = "/Users/${user}";
+          };
+        };
+      in
+      darwin.lib.darwinSystem {
+        modules = [
+          {
+            networking.hostName = name;
+            nix.settings.allowed-users = [ user ];
+          }
+          "${self}/etc/darwin"
+          path
+          home-manager.darwinModules.home-manager
+          homeMods
+          lib.commonMods
+          inputs.agenix.darwinModules.default
+        ];
 
-      # Give `inputs` access to all nix-darwin modules
-      specialArgs = {inherit inputs;};
-      system = "aarch64-darwin";
-    });
+        # Give `inputs` access to all nix-darwin modules
+        specialArgs = { inherit inputs; };
+        system = "aarch64-darwin";
+      }
+    );
 
   instances = {
     donaldville = mkDarwin "donaldville";
   };
-in {
+in
+{
   donaldville = instances.donaldville;
   ac-donaldville = instances.donaldville;
 }
