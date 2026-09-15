@@ -15,7 +15,9 @@ let
     export COPILOT_PROVIDER_TYPE="openai"
     export COPILOT_PROVIDER_BASE_URL="$(cat ${url})/api/v1"
     export COPILOT_PROVIDER_API_KEY=$(cat ${token})
-    export COPILOT_MODEL="qwen3.8:latest"
+    export COPILOT_MODEL="barrydeen/Qwen3.8-27B-AWQ-4bit"
+    export COPILOT_PROVIDER_MAX_PROMPT_TOKENS=229376
+    export COPILOT_PROVIDER_MAX_OUTPUT_TOKENS=32768
     exec copilot "$@"
   '';
 
