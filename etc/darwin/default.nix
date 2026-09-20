@@ -16,11 +16,6 @@
     {
       pathsToLink = [ "/share/zsh" ];
       shells = with pkgs; [ nushell ];
-      shellAliases = {
-        upgrade = ''
-          sudo darwin-rebuild switch --flake "$HOME/Projects/nix-config" --show-trace
-        '';
-      };
       variables = {
         SHELL = shell;
       };

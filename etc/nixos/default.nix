@@ -96,12 +96,6 @@
       beeper
       teams-for-linux
     ];
-
-    shellAliases = {
-      upgrade = ''
-        sudo nixos-rebuild switch --flake "$HOME/Projects/nix-config" --no-reexec --show-trace
-      '';
-    };
   };
 
   # Enable the OpenSSH daemon.
