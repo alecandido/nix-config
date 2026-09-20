@@ -59,8 +59,6 @@ M.init = function()
 		"JSON",
 		"--ext",
 		get_cur_file_extension,
-		"--config",
-		os.getenv("XDG_CONFIG_HOME") .. "/vale/vale.ini",
 	}
 
 	-- local cppcheck = require("lint.linters.cppcheck")

@@ -15,14 +15,13 @@ in {
       ruff
       selene
       sqlfluff
-      vale
+      # vale
       yamllint
       eslint
       stylelint
     ];
 
     xdg.configFile."ltex".source = ./ltex;
-    xdg.configFile."vale".source = ./vale;
     xdg.configFile."yamllint".source = ./yamllint;
   };
 }
