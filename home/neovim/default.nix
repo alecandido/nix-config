@@ -1,41 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-  inherit (lib) mkIf mkEnableOption;
-  cfg = config.plan.neovim;
-in {
+# The neovim configuration itself (lua files, plugins, LSP setup) is a
+# standalone flake at ./nvim (see home/neovim/nvim/flake.nix).
+# It can be developed on its own (`devenv shell` / direnv in ./nvim)
+# without rebuilding this whole system; it is also consumed here, so the
+# installed system gets neovim + config + LSP servers.
+{inputs, ...}: {
   imports = [
+    inputs.nvim.homeManagerModules.default
     ./linters
     ./formatters
-    ./servers.nix
   ];
-
-  options.plan.neovim = {
-    enable = mkEnableOption "neovim";
-    lsp = mkEnableOption "neovim lsp";
-  };
-
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; (
-      (
-        # requested by lazy checkhealth
-        with lua51Packages; [lua luarocks]
-      )
-      ++ (
-        # requested for enhanced syntax-based features
-        if cfg.lsp
-        then [tree-sitter]
-        else []
-      )
-    );
-
-    programs.neovim.enable = true;
-    programs.neovim.defaultEditor = true;
-    programs.neovim.vimdiffAlias = true;
-
-    xdg.configFile."nvim".source = ./nvim;
-  };
 }

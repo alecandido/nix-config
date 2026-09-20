@@ -775,6 +775,22 @@
         "type": "github"
       }
     },
+    "nvim": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "path": "home/neovim/nvim",
+        "type": "path"
+      },
+      "original": {
+        "path": "home/neovim/nvim",
+        "type": "path"
+      },
+      "parent": []
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -785,6 +801,7 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager_2",
         "nixpkgs": "nixpkgs_3",
+        "nvim": "nvim",
         "secrets": "secrets"
       }
     },

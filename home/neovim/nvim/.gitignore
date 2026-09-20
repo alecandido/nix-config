@@ -1,2 +1,4 @@
-.devenv
+.devenv*
+devenv.local.nix
 .direnv
+.flake-check-tmp

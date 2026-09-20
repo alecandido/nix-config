@@ -1,0 +1,3 @@
+# DevEnv configuration
+# This is a flakeless devenv setup for development
+allow_unfree: true

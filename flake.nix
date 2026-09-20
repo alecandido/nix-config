@@ -29,6 +29,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Local, standalone flakes
+    nvim = {
+      url = "path:home/neovim/nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Secrets
     secrets.url = "git+ssh://git@github.com/alecandido/secrets.git?shallow=1";
   };
