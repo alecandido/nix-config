@@ -7,3 +7,4 @@
 
   nix.package = pkgs.nix;
 }
+

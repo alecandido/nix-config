@@ -5,7 +5,7 @@
 }: let
   inherit (inputs) home-manager nixpkgs;
 in {
-  "alessandro.candido@dalma" = home-manager.lib.homeManagerConfiguration (
+  qrc = home-manager.lib.homeManagerConfiguration (
     let
       user = "alessandro.candido";
       system = "x86_64-linux";
