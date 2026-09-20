@@ -24,7 +24,7 @@ let
   # trimFirst = x: builtins.substring 1 (builtins.stringLength x - 1) x;
 
   agySettings = {
-    modelProvider = "gemini";
+    # modelProvider = "gemini";
     colorScheme = "terminal";
   };
 in
