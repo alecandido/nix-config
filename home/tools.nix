@@ -3,8 +3,10 @@
   lib,
   config,
   ...
-}: {
-  home.packages = with pkgs;
+}:
+{
+  home.packages =
+    with pkgs;
     [
       # Some basics
       coreutils
@@ -39,6 +41,8 @@
       wakeonlan
       # vpn
       openconnect
+      # unstable connection
+      mosh
 
       # Node JS
       # mainly to support some neovim plugins...
@@ -52,7 +56,7 @@
       pciutils # lspci
       # usbutils # lsusb
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [m-cli];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ m-cli ];
 
   # XDG
   xdg.enable = true;
@@ -61,9 +65,10 @@
   home.sessionVariables = {
     # default programs
     BROWSER =
-      if !pkgs.stdenv.hostPlatform.isDarwin
-      then "${config.programs.firefox.package}/bin/firefox"
-      else "/Applications/Firefox.app/Contents/MacOS/firefox";
+      if !pkgs.stdenv.hostPlatform.isDarwin then
+        "${config.programs.firefox.package}/bin/firefox"
+      else
+        "/Applications/Firefox.app/Contents/MacOS/firefox";
     EDITOR = lib.mkForce "${config.programs.neovim.package}/bin/nvim";
     MANPAGER = "${config.programs.neovim.package}/bin/nvim +Man!";
     NH_FLAKE = "${config.home.homeDirectory}/Projects/nix-config";

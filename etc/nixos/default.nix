@@ -2,7 +2,8 @@
   pkgs,
   options,
   ...
-}: {
+}:
+{
   imports = [
     ./gnome.nix
     ../fonts.nix
@@ -106,6 +107,9 @@
         AllowAgentForwarding yes
     '';
   };
+
+  # Activate personal network
+  services.tailscale.enable = true;
 
   system.stateVersion = "23.11";
 

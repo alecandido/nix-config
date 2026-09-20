@@ -25,5 +25,8 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Activate personal network
+  services.tailscale.enable = true;
+
   system.stateVersion = 6;
 }
