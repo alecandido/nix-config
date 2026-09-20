@@ -3,7 +3,6 @@
 Purely home manager configurations, to use Nix on an OS different from NixOS and
 nix-darwin.
 
-- `lxplus`: CERN's shared login system.
 - `qrc`: personal machine with no admin/root access. Activate with
   `nh home switch -c alessandro.candido@dalma` (or plain `nh home switch` when
   run as `alessandro.candido` on host `dalma`, since `nh` resolves
