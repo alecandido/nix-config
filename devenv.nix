@@ -2,8 +2,10 @@
   pkgs,
   lib,
   ...
-}: {
-  packages = with pkgs;
+}:
+{
+  packages =
+    with pkgs;
     [
       alejandra
       deadnix
@@ -11,7 +13,7 @@
       jq
       prek
     ]
-    ++ lib.optionals pkgs.stdenv.isLinux [
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       apptainer
     ];
 
