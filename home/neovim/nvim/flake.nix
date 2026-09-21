@@ -1,7 +1,7 @@
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-  outputs = {nixpkgs, ...}: let
+  outputs = {self, nixpkgs, ...}: let
     lib = nixpkgs.lib;
 
     supportedSystems = [
@@ -34,30 +34,13 @@
     }: let
       cfg = config.plan.neovim;
 
-      # nvim.yml, .luarc.json, ftdetect/ and friends must NOT end up
-      # inside $XDG_CONFIG_HOME/nvim (they belong to the repo checkout,
-      # not to the running configuration).
-      nvimConfig = pkgs.runCommand "nvim-config" {} ''
-        mkdir -p $out
-        cp -r ${/.} \
-          $out/
-        rm -rf \
-          $out/.envrc \
-          $out/.gitignore \
-          $out/.luarc.json \
-          $out/.devenv \
-          $out/.devenv* \
-          $out/.direnv \
-          $out/README.md \
-          $out/nvim.yml \
-          $out/flake.nix \
-          $out/flake.lock \
-          $out/nix \
-          $out/devenv.nix \
-          $out/devenv.yaml \
-          $out/devenv.lock
-        find $out -name '.gitkeep' -delete
-      '';
+      # Map only the subdirectories needed at runtime into $XDG_CONFIG_HOME/nvim.
+      # We do NOT symlink the whole directory because programs.neovim also
+      # writes $XDG_CONFIG_HOME/nvim/init.lua, and home-manager cannot install
+      # a file inside a path that is already a symlink to the nix store
+      # (outside $HOME).  Instead we expose each subdirectory individually and
+      # feed init.lua via programs.neovim.extraLuaConfig.
+      src = self;
     in {
       options.plan.neovim = {
         enable = lib.mkEnableOption "neovim";
@@ -79,8 +62,16 @@
         programs.neovim.enable = true;
         programs.neovim.defaultEditor = true;
         programs.neovim.vimdiffAlias = true;
+        # Inline init.lua so that programs.neovim can write
+        # $XDG_CONFIG_HOME/nvim/init.lua without conflicting with a
+        # whole-directory xdg.configFile."nvim" symlink.
+        programs.neovim.extraLuaConfig = builtins.readFile (src + "/init.lua");
 
-        xdg.configFile."nvim".source = nvimConfig;
+        # Map each runtime subdirectory individually.
+        xdg.configFile."nvim/lua".source = src + "/lua";
+        xdg.configFile."nvim/ftdetect".source = src + "/ftdetect";
+        xdg.configFile."nvim/ftplugin".source = src + "/ftplugin";
+
       };
     };
   in {
