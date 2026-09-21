@@ -9,6 +9,7 @@
       deadnix
       skopeo
       jq
+      prek
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       apptainer
