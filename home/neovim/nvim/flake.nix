@@ -39,7 +39,7 @@
       # writes $XDG_CONFIG_HOME/nvim/init.lua, and home-manager cannot install
       # a file inside a path that is already a symlink to the nix store
       # (outside $HOME).  Instead we expose each subdirectory individually and
-      # feed init.lua via programs.neovim.extraLuaConfig.
+      # feed init.lua via programs.neovim.initLua.
       src = self;
     in {
       options.plan.neovim = {
@@ -65,7 +65,7 @@
         # Inline init.lua so that programs.neovim can write
         # $XDG_CONFIG_HOME/nvim/init.lua without conflicting with a
         # whole-directory xdg.configFile."nvim" symlink.
-        programs.neovim.extraLuaConfig = builtins.readFile (src + "/init.lua");
+        programs.neovim.initLua = builtins.readFile (src + "/init.lua");
 
         # Map each runtime subdirectory individually.
         xdg.configFile."nvim/lua".source = src + "/lua";
