@@ -82,17 +82,11 @@ local function on_attach(client, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, "[W]orkspace [L]ist Folders")
 
-  -- Format on save
-  if
-    not vim.tbl_contains(noformat, client.name)
-    and client:supports_method("textDocument/formatting")
-  then
-    require("lsp-format").on_attach(client)
-  end
+  -- Format on save is now handled by conform.nvim
 end
 
 function M.config(_, opts)
-  local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+  local lsp_capabilities = require("blink.cmp").get_lsp_capabilities()
 
   for server_name, configs in pairs(opts.servers) do
     vim.lsp.config(

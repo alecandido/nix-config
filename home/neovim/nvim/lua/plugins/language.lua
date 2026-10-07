@@ -1,8 +1,6 @@
 local parent = "plugins.language"
 
-local cmp = require(parent .. ".cmp")
 local dap = require(parent .. ".dap")
-local formatter = require(parent .. ".formatter")
 local lint = require(parent .. ".lint")
 local lspconfig = require(parent .. ".lspconfig")
 local tree_sitter = require(parent .. ".tree-sitter")
@@ -32,12 +30,7 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      -- Autocompletion
-      "hrsh7th/nvim-cmp",
-      "hrsh7th/cmp-nvim-lsp",
-
-      -- Autoformat
-      "lukas-reineke/lsp-format.nvim",
+      "saghen/blink.cmp",
     },
     opts = lspconfig.opts,
     config = lspconfig.config,
@@ -45,51 +38,59 @@ return {
 
   -- Autocompletion
   {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      -- Snippet Engine & its associated nvim-cmp source
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-
-      -- Adds LSP completion capabilities
-      "hrsh7th/cmp-nvim-lsp",
-
-      -- Adds a number of user-friendly snippets
-      "rafamadriz/friendly-snippets",
-
-      -- Further completion sources,
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "petertriho/cmp-git",
-      "hrsh7th/cmp-emoji",
-      "hrsh7th/cmp-calc",
-      "uga-rosa/cmp-dictionary",
-      "hrsh7th/cmp-cmdline",
-
-      -- Autopair
-      "windwp/nvim-autopairs",
+    "saghen/blink.cmp",
+    lazy = false, -- blink.cmp handles lazy loading internally
+    dependencies = "rafamadriz/friendly-snippets",
+    version = "*",
+    opts = {
+      keymap = { preset = "default" },
+      appearance = {
+        use_nvim_cmp_as_default = true,
+        nerd_font_variant = "mono",
+      },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+      },
     },
-    config = cmp.config,
-    opts = cmp.opts,
   },
 
+  -- Formatting
   {
-    "L3MON4D3/LuaSnip",
-    dependencies = { "rafamadriz/friendly-snippets" },
-    build = "make install_jsregexp",
-    init = function()
-      require("luasnip.loaders.from_vscode").lazy_load()
-    end,
-  },
-
-  -- Formatting, complementary to the LSP (when not available)
-  {
-    "mhartington/formatter.nvim",
-    config = formatter.config,
-    opts = formatter.opts,
-    init = formatter.init,
-    event = formatter.event,
-    cmd = formatter.cmd,
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    opts = {
+      formatters_by_ft = {
+        c = { "uncrustify" },
+        cpp = { "uncrustify" },
+        css = { "prettier" },
+        fennel = { "fnlfmt" },
+        go = { "gofmt", "goimports" },
+        graphql = { "prettier" },
+        haskell = { "stylish-haskell" },
+        html = { "prettier" },
+        javascript = { "prettier" },
+        javascriptreact = { "prettier" },
+        json = { "prettier" },
+        kotlin = { "ktlint" },
+        markdown = { "prettier" },
+        nix = { "alejandra" },
+        python = { "ruff" }, -- using ruff for python formatting
+        rust = { "rustfmt" },
+        sh = { "shfmt" },
+        sql = { "pg_format" },
+        svelte = { "prettier" },
+        toml = { "taplo" },
+        typescript = { "prettier" },
+        typescriptreact = { "prettier" },
+        vue = { "prettier" },
+        yaml = { "prettier" },
+      },
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_format = "fallback",
+      },
+    },
   },
 
   -- Debug

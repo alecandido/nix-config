@@ -4,7 +4,13 @@ return {
   "tpope/vim-rsi",
 
   -- Substitute
-  "tpope/vim-surround",
+  {
+    "echasnovski/mini.surround",
+    version = "*",
+    config = function()
+      require("mini.surround").setup()
+    end
+  },
   "svermeulen/vim-subversive",
   -- Control case
   "tpope/vim-abolish",
@@ -14,17 +20,26 @@ return {
   -- Detect tabstop and shiftwidth automatically
   "tpope/vim-sleuth",
 
-  -- Comments
+  -- File management (replaces vim-eunuch)
   {
-    "numToStr/Comment.nvim",
-    lazy = false,
-    init = function()
-      require("Comment").setup()
-    end,
+    "stevearc/oil.nvim",
+    opts = {},
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    keys = {
+      { "-", "<cmd>Oil<cr>", desc = "Open parent directory" },
+    },
   },
 
-  -- Unix
-  "tpope/vim-eunuch",
+  -- Navigation (quick jumping)
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+    },
+  },
 
   -- Git
   "tpope/vim-fugitive",

@@ -5,8 +5,6 @@ local parent = "plugins.ui"
 local barbar = require(parent .. ".barbar")
 local gitsigns = require(parent .. ".gitsigns")
 local headlines = require(parent .. ".headlines")
-local noice = require(parent .. ".noice")
-local notify = require(parent .. ".notify")
 local osc52 = require(parent .. ".osc52")
 local symbols_outline = require(parent .. ".symbols-outline")
 
@@ -62,19 +60,35 @@ return {
   },
 
   {
-    "rcarriga/nvim-notify",
-    opts = notify.opts,
-    keys = notify.keys,
-  },
-
-  {
-    "folke/noice.nvim",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+      bigfile = { enabled = true },
+      dashboard = { enabled = true },
+      notifier = { enabled = true },
+      quickfile = { enabled = true },
+      statuscolumn = { enabled = true },
+      words = { enabled = true },
+      picker = { enabled = true },
     },
-    opts = noice.opts,
-    event = noice.event,
+    config = function(_, opts)
+      require("snacks").setup(opts)
+      -- Force the picker to use the standard background and readable path colors
+      vim.api.nvim_set_hl(0, "SnacksPickerNormal", { link = "Normal" })
+      vim.api.nvim_set_hl(0, "SnacksPickerListNormal", { link = "Normal" })
+      vim.api.nvim_set_hl(0, "SnacksPickerDir", { link = "Comment" })
+    end,
+    keys = {
+      { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
+      { "<leader><space>", function() Snacks.picker.buffers() end, desc = "Buffers" },
+      { "<leader>fg", function() Snacks.picker.grep() end, desc = "Grep" },
+      { "<leader>fn", function() Snacks.picker.notifications() end, desc = "Find Notifications" },
+      { "<leader>n", function() Snacks.notifier.show_history() end, desc = "Notification History" },
+      { "<leader>fc", function() Snacks.picker.commands() end, desc = "Find Commands" },
+      { "<leader>f:", function() Snacks.picker.command_history() end, desc = "Command History" },
+      { "<leader>.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+    },
   },
 
   {
