@@ -2,7 +2,7 @@
   "runtime.version": "LuaJIT",
   "diagnostics.globals": ["vim"],
   "workspace": {
-    "ignoreDir": [".devenv/", ".direnv/"],
+    "ignoreDir": [".devenv/"],
     "checkThirdParty": false
   },
   "telemetry.enable": false
