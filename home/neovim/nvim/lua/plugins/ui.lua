@@ -75,9 +75,15 @@ return {
     config = function(_, opts)
       require("snacks").setup(opts)
       -- Force the picker to use the standard background and readable path colors
-      vim.api.nvim_set_hl(0, "SnacksPickerNormal", { link = "Normal" })
-      vim.api.nvim_set_hl(0, "SnacksPickerListNormal", { link = "Normal" })
-      vim.api.nvim_set_hl(0, "SnacksPickerDir", { link = "Comment" })
+      local function fix_snacks_hl()
+        vim.api.nvim_set_hl(0, "SnacksPickerNormal", { link = "Normal" })
+        vim.api.nvim_set_hl(0, "SnacksPickerListNormal", { link = "Normal" })
+        vim.api.nvim_set_hl(0, "SnacksPickerDir", { link = "Comment" })
+      end
+      fix_snacks_hl()
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        callback = fix_snacks_hl,
+      })
     end,
     keys = {
       { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
