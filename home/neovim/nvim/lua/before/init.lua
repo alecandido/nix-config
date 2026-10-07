@@ -8,3 +8,4 @@ local parent = ...
 require(parent .. ".nord")
 require(parent .. ".polyglot")
 require(parent .. ".settings")
+require(parent .. ".folding")

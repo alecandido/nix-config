@@ -5,7 +5,6 @@ local lint = require(parent .. ".lint")
 local lspconfig = require(parent .. ".lspconfig")
 local tree_sitter = require(parent .. ".tree-sitter")
 local trouble = require(parent .. ".trouble")
-local ufo = require(parent .. ".ufo")
 
 return {
   -- Symbols & related
@@ -127,15 +126,6 @@ return {
     opts = lint.opts,
     init = lint.init,
     event = lint.event,
-  },
-
-  {
-    "kevinhwang91/nvim-ufo",
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = "kevinhwang91/promise-async",
-    init = ufo.init,
-    opts = ufo.opts,
-    keys = ufo.keys,
   },
 
   -- Bunch of syntaxes for those languages which I do not bother installing a language
