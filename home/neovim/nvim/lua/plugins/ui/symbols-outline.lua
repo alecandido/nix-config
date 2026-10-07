@@ -1,7 +1,7 @@
 local M = {}
 
 M.keys = {
-  { "<A-s>", "<Cmd>Outline<CR>", desc = "Open [S]ymbols outline" },
+  { "<leader>o", "<Cmd>Outline<CR>", desc = "Open [O]utline" },
 }
 
 M.opts = {
