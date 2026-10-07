@@ -78,10 +78,10 @@ return {
   },
 
   {
-    "simrat39/symbols-outline.nvim",
+    "hedyhli/outline.nvim",
     keys = symbols_outline.keys,
     config = function(_, opts)
-      require("symbols-outline").setup(opts)
+      require("outline").setup(opts)
     end,
     cmd = symbols_outline.cmd,
     opts = symbols_outline.opts,

@@ -8,6 +8,15 @@ M.opts = {
       ["cmp.entry.get_documentation"] = true,
     },
   },
+  routes = {
+    {
+      filter = {
+        event = "notify",
+        min_height = 10,
+      },
+      view = "split",
+    },
+  },
   presets = {
     bottom_search = true,
     long_message_to_split = true,

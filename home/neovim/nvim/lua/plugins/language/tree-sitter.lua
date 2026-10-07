@@ -4,13 +4,40 @@ local parser_path = vim.fn.stdpath("cache") .. "/tree-sitter"
 
 M.event = { "BufReadPre", "BufNewFile" }
 
+M.init = function()
+  -- Shim for Neovim 0.12 nightly breaking change where `match` contains arrays of nodes
+  local ok, query = pcall(require, "vim.treesitter.query")
+  if ok and query.add_directive and not _G._ts_shim_applied then
+    _G._ts_shim_applied = true
+    local function wrap_cb(cb)
+      return function(match, pattern, bufnr, pred, metadata)
+        local shim_match = setmetatable({}, {
+          __index = function(_, k)
+            local v = match[k]
+            if type(v) == "table" and #v > 0 and type(v[1]) == "userdata" then
+              return v[#v]
+            end
+            return v
+          end
+        })
+        return cb(shim_match, pattern, bufnr, pred, metadata)
+      end
+    end
+    
+    local orig_dir = query.add_directive
+    query.add_directive = function(name, cb, o) return orig_dir(name, wrap_cb(cb), o) end
+    
+    local orig_pred = query.add_predicate
+    query.add_predicate = function(name, cb, o) return orig_pred(name, wrap_cb(cb), o) end
+  end
+end
+
 M.config = function(_, opts)
-  -- vim.opt.runtimepath:prepend(parser_path)
+
   require("nvim-treesitter.configs").setup(opts)
 end
 
 M.opts = {
-  -- parser_install_dir = parser_path,
 
   ensure_installed = {
     "bash",
@@ -24,7 +51,6 @@ M.opts = {
     "diff",
     "dockerfile",
     "fennel",
-    "firrtl",
     "fortran",
     "git_config",
     "git_rebase",
@@ -60,7 +86,6 @@ M.opts = {
     "meson",
     "mlir",
     "ninja",
-    "nix",
     "nu",
     "passwd",
     "perl",
@@ -76,7 +101,6 @@ M.opts = {
     "sql",
     "strace",
     "svelte",
-    "swift",
     "toml",
     "tsx",
     "typescript",

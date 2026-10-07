@@ -13,12 +13,14 @@ return {
   -- Symbols & related
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master",
     lazy = false,
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
       "nushell/tree-sitter-nu",
     },
     build = ":TSUpdate",
+    init = tree_sitter.init,
     config = tree_sitter.config,
     opts = tree_sitter.opts,
     event = tree_sitter.event,
@@ -28,6 +30,7 @@ return {
   -- LSP Configuration
   {
     "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       -- Autocompletion
       "hrsh7th/nvim-cmp",
@@ -127,6 +130,7 @@ return {
 
   {
     "kevinhwang91/nvim-ufo",
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = "kevinhwang91/promise-async",
     init = ufo.init,
     opts = ufo.opts,
