@@ -86,6 +86,7 @@ M.opts = {
     "meson",
     "mlir",
     "ninja",
+    "nix",
     "nu",
     "passwd",
     "perl",

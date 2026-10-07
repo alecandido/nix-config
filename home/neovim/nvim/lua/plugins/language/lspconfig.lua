@@ -38,7 +38,16 @@ M.opts = {
     },
   },
 }
-local noformat = { }
+local noformat = {
+  "nil_ls",       -- Conflicts with formatter.nvim (Nix)
+  "ruff",         -- Conflicts with formatter.nvim (Python)
+  "ts_ls",        -- Conflicts with prettier
+  "html",         -- Conflicts with prettier
+  "cssls",        -- Conflicts with prettier
+  "jsonls",       -- Conflicts with prettier
+  "rust_analyzer",-- Conflicts with rustfmt
+  "gopls",        -- Conflicts with gofmt/goimports
+}
 
 --  This function gets run when an LSP connects to a particular buffer.
 local function on_attach(client, bufnr)
