@@ -56,6 +56,7 @@
               luarocks
             ]
           )
+          ++ [ pkgs.dwt1-shell-color-scripts ]
           ++ lib.optional cfg.lsp pkgs.tree-sitter
           ++ lib.optionals cfg.lsp (servers pkgs);
 
