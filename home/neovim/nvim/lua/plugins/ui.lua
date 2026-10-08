@@ -2,13 +2,13 @@
 
 local parent = "plugins.ui"
 
+local snacks = require(parent .. ".snacks")
 local barbar = require(parent .. ".barbar")
 local gitsigns = require(parent .. ".gitsigns")
 local headlines = require(parent .. ".headlines")
 local osc52 = require(parent .. ".osc52")
 local symbols_outline = require(parent .. ".symbols-outline")
 
-local snacks = require(parent .. ".snacks")
 return {
 	{ "shaunsingh/nord.nvim", lazy = false, priority = 1000 },
 	{ "rebelot/kanagawa.nvim", lazy = true },

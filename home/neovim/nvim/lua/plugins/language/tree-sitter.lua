@@ -5,248 +5,251 @@ local parser_path = vim.fn.stdpath("cache") .. "/tree-sitter"
 M.event = { "BufReadPre", "BufNewFile" }
 
 M.init = function()
-  -- Shim for Neovim 0.12 nightly breaking change where `match` contains arrays of nodes
-  local ok, query = pcall(require, "vim.treesitter.query")
-  if ok and query.add_directive and not _G._ts_shim_applied then
-    _G._ts_shim_applied = true
-    local function wrap_cb(cb)
-      return function(match, pattern, bufnr, pred, metadata)
-        local shim_match = setmetatable({}, {
-          __index = function(_, k)
-            local v = match[k]
-            if type(v) == "table" and #v > 0 and type(v[1]) == "userdata" then
-              return v[#v]
-            end
-            return v
-          end
-        })
-        return cb(shim_match, pattern, bufnr, pred, metadata)
-      end
-    end
-    
-    local orig_dir = query.add_directive
-    query.add_directive = function(name, cb, o) return orig_dir(name, wrap_cb(cb), o) end
-    
-    local orig_pred = query.add_predicate
-    query.add_predicate = function(name, cb, o) return orig_pred(name, wrap_cb(cb), o) end
-  end
+	-- Shim for Neovim 0.12 nightly breaking change where `match` contains arrays of nodes
+	local ok, query = pcall(require, "vim.treesitter.query")
+	if ok and query.add_directive and not _G._ts_shim_applied then
+		_G._ts_shim_applied = true
+		local function wrap_cb(cb)
+			return function(match, pattern, bufnr, pred, metadata)
+				local shim_match = setmetatable({}, {
+					__index = function(_, k)
+						local v = match[k]
+						if type(v) == "table" and #v > 0 and type(v[1]) == "userdata" then
+							return v[#v]
+						end
+						return v
+					end,
+				})
+				return cb(shim_match, pattern, bufnr, pred, metadata)
+			end
+		end
+
+		local orig_dir = query.add_directive
+		query.add_directive = function(name, cb, o)
+			return orig_dir(name, wrap_cb(cb), o)
+		end
+
+		local orig_pred = query.add_predicate
+		query.add_predicate = function(name, cb, o)
+			return orig_pred(name, wrap_cb(cb), o)
+		end
+	end
 end
 
 M.config = function(_, opts)
-
-  require("nvim-treesitter.configs").setup(opts)
+	require("nvim-treesitter.configs").setup(opts)
 end
 
 M.opts = {
 
-  ensure_installed = {
-    "bash",
-    "bibtex",
-    "c",
-    "comment",
-    "cpp",
-    "css",
-    "csv",
-    "cuda",
-    "diff",
-    "dockerfile",
-    "fennel",
-    "fortran",
-    "git_config",
-    "git_rebase",
-    "gitattributes",
-    "gitcommit",
-    "gitignore",
-    "go",
-    "gomod",
-    "gosum",
-    "gowork",
-    "graphql",
-    "haskell",
-    "ini",
-    "java",
-    "javascript",
-    "jq",
-    "jsdoc",
-    "json",
-    "jsonc",
-    "julia",
-    "just",
-    "kdl",
-    "kotlin",
-    "latex",
-    "llvm",
-    "lua",
-    "luadoc",
-    "luau",
-    "make",
-    "markdown",
-    "markdown_inline",
-    "mermaid",
-    "meson",
-    "mlir",
-    "ninja",
-    "nix",
-    "nu",
-    "passwd",
-    "perl",
-    "python",
-    "query",
-    "racket",
-    "regex",
-    "rst",
-    "rust",
-    "scala",
-    "scheme",
-    "scss",
-    "sql",
-    "strace",
-    "svelte",
-    "toml",
-    "tsx",
-    "typescript",
-    "verilog",
-    "vim",
-    "vue",
-    "xml",
-    "yaml",
-  },
+	ensure_installed = {
+		"bash",
+		"bibtex",
+		"c",
+		"comment",
+		"cpp",
+		"css",
+		"csv",
+		"cuda",
+		"diff",
+		"dockerfile",
+		"fennel",
+		"fortran",
+		"git_config",
+		"git_rebase",
+		"gitattributes",
+		"gitcommit",
+		"gitignore",
+		"go",
+		"gomod",
+		"gosum",
+		"gowork",
+		"graphql",
+		"haskell",
+		"ini",
+		"java",
+		"javascript",
+		"jq",
+		"jsdoc",
+		"json",
+		"jsonc",
+		"julia",
+		"just",
+		"kdl",
+		"kotlin",
+		"latex",
+		"llvm",
+		"lua",
+		"luadoc",
+		"luau",
+		"make",
+		"markdown",
+		"markdown_inline",
+		"mermaid",
+		"meson",
+		"mlir",
+		"ninja",
+		"nix",
+		"nu",
+		"passwd",
+		"perl",
+		"python",
+		"query",
+		"racket",
+		"regex",
+		"rst",
+		"rust",
+		"scala",
+		"scheme",
+		"scss",
+		"sql",
+		"strace",
+		"svelte",
+		"toml",
+		"tsx",
+		"typescript",
+		"verilog",
+		"vim",
+		"vue",
+		"xml",
+		"yaml",
+	},
 
-  auto_install = true,
+	auto_install = true,
 
-  ignore_install = {},
+	ignore_install = {},
 
-  highlight = { enable = true },
-  indent = { enable = true },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "<C-space>",
-      node_incremental = "<C-space>",
-      scope_incremental = "<C-s>",
-      node_decremental = "<M-space>",
-    },
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        ["aa"] = { query = "@parameter.outer", desc = "[a]round p[a]rameter" },
-        ["ia"] = { query = "@parameter.inner", desc = "[i]nnner p[a]rameter" },
-        ["af"] = { query = "@function.outer", desc = "[a]round [f]unction" },
-        ["if"] = { query = "@function.inner", desc = "[i]nnner [f]unction" },
-        ["ac"] = { query = "@class.outer", desc = "[a]round [c]lass" },
-        ["ic"] = { query = "@class.inner", desc = "[i]nnner [c]lass" },
-        ["aq"] = { query = "@comment.outer", desc = "Comment (or [q]omment)" },
-        ["as"] = { query = "@scope", query_group = "locals", desc = "[a]round language [s]cope" },
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true,
-      goto_next_start = {
-        ["]f"] = { query = "@function.outer", desc = "Next [f]unction" },
-        ["]]"] = { query = "@function.outer", desc = "Next function" },
-        ["]c"] = { query = "@class.outer", desc = "Next [c]lass" },
-        ["]i"] = { query = "@conditional.outer", desc = "Next [i]f" },
-        ["]l"] = { query = "@loop.outer", desc = "Next [l]oop" },
-        ["]r"] = { query = "@return.outer", desc = "Next [r]eturn" },
-        ["]n"] = { query = "@number.inner", desc = "Next [n]umber" },
-        ["]s"] = { query = "@scope", query_group = "locals", desc = "Next [s]cope" },
-        ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-      },
-      goto_next_end = {
-        ["]F"] = { query = "@function.outer", desc = "Next [F]unction end" },
-        ["]["] = { query = "@function.outer", desc = "Next [F]unction end" },
-        ["]C"] = { query = "@class.outer", desc = "Next [C]lass end" },
-      },
-      goto_previous_start = {
-        ["[f"] = { query = "@function.outer", desc = "Previous [f]unction" },
-        ["[["] = { query = "@function.outer", desc = "Previous function" },
-        ["[c"] = { query = "@class.outer", desc = "Previous [c]lass" },
-        ["]i"] = { query = "@conditional.outer", desc = "Previous i[f]" },
-        ["[l"] = { query = "@loop.outer", desc = "Previous [l]oop" },
-        ["[r"] = { query = "@return.outer", desc = "Previous [r]eturn" },
-        ["[n"] = { query = "@number.inner", desc = "Previous [n]umber" },
-        ["[s"] = { query = "@scope", query_group = "locals", desc = "Previous [s]cope" },
-        ["[z"] = { query = "@fold", query_group = "folds", desc = "Previous fold" },
-      },
-      goto_previous_end = {
-        ["[F"] = { query = "@function.outer", desc = "Previous [F]unction end" },
-        ["[]"] = { query = "@function.outer", desc = "Previous Function end" },
-        ["[C"] = { query = "@class.outer", desc = "Previous [C]lass end" },
-      },
-    },
-    swap = {
-      enable = true,
-      swap_next = {
-        ["<leader>sa"] = { query = "@parameter.inner", desc = "[S]wap with next [a]rgument" },
-      },
-      swap_previous = {
-        ["<leader>sA"] = { query = "@parameter.inner", desc = "[S]wap with previous [a]rgument" },
-      },
-    },
-  },
+	highlight = { enable = true },
+	indent = { enable = true },
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = "<C-space>",
+			node_incremental = "<C-space>",
+			scope_incremental = "<C-s>",
+			node_decremental = "<M-space>",
+		},
+	},
+	textobjects = {
+		select = {
+			enable = true,
+			lookahead = true,
+			keymaps = {
+				["aa"] = { query = "@parameter.outer", desc = "[a]round p[a]rameter" },
+				["ia"] = { query = "@parameter.inner", desc = "[i]nnner p[a]rameter" },
+				["af"] = { query = "@function.outer", desc = "[a]round [f]unction" },
+				["if"] = { query = "@function.inner", desc = "[i]nnner [f]unction" },
+				["ac"] = { query = "@class.outer", desc = "[a]round [c]lass" },
+				["ic"] = { query = "@class.inner", desc = "[i]nnner [c]lass" },
+				["aq"] = { query = "@comment.outer", desc = "Comment (or [q]omment)" },
+				["as"] = { query = "@scope", query_group = "locals", desc = "[a]round language [s]cope" },
+			},
+		},
+		move = {
+			enable = true,
+			set_jumps = true,
+			goto_next_start = {
+				["]f"] = { query = "@function.outer", desc = "Next [f]unction" },
+				["]]"] = { query = "@function.outer", desc = "Next function" },
+				["]c"] = { query = "@class.outer", desc = "Next [c]lass" },
+				["]i"] = { query = "@conditional.outer", desc = "Next [i]f" },
+				["]l"] = { query = "@loop.outer", desc = "Next [l]oop" },
+				["]r"] = { query = "@return.outer", desc = "Next [r]eturn" },
+				["]n"] = { query = "@number.inner", desc = "Next [n]umber" },
+				["]s"] = { query = "@scope", query_group = "locals", desc = "Next [s]cope" },
+				["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
+			},
+			goto_next_end = {
+				["]F"] = { query = "@function.outer", desc = "Next [F]unction end" },
+				["]["] = { query = "@function.outer", desc = "Next [F]unction end" },
+				["]C"] = { query = "@class.outer", desc = "Next [C]lass end" },
+			},
+			goto_previous_start = {
+				["[f"] = { query = "@function.outer", desc = "Previous [f]unction" },
+				["[["] = { query = "@function.outer", desc = "Previous function" },
+				["[c"] = { query = "@class.outer", desc = "Previous [c]lass" },
+				["]i"] = { query = "@conditional.outer", desc = "Previous i[f]" },
+				["[l"] = { query = "@loop.outer", desc = "Previous [l]oop" },
+				["[r"] = { query = "@return.outer", desc = "Previous [r]eturn" },
+				["[n"] = { query = "@number.inner", desc = "Previous [n]umber" },
+				["[s"] = { query = "@scope", query_group = "locals", desc = "Previous [s]cope" },
+				["[z"] = { query = "@fold", query_group = "folds", desc = "Previous fold" },
+			},
+			goto_previous_end = {
+				["[F"] = { query = "@function.outer", desc = "Previous [F]unction end" },
+				["[]"] = { query = "@function.outer", desc = "Previous Function end" },
+				["[C"] = { query = "@class.outer", desc = "Previous [C]lass end" },
+			},
+		},
+		swap = {
+			enable = true,
+			swap_next = {
+				["<leader>sa"] = { query = "@parameter.inner", desc = "[S]wap with next [a]rgument" },
+			},
+			swap_previous = {
+				["<leader>sA"] = { query = "@parameter.inner", desc = "[S]wap with previous [a]rgument" },
+			},
+		},
+	},
 }
 
 local function ts_repeat_move()
-  return require("nvim-treesitter.textobjects.repeatable_move")
+	return require("nvim-treesitter.textobjects.repeatable_move")
 end
 
 M.keys = {
-  -- vim way: ; goes to the direction you were moving.
-  {
-    ";",
-    function()
-      ts_repeat_move().repeat_last_move()
-    end,
-    mode = { "n", "x", "o" },
-  },
-  {
-    ",",
-    function()
-      ts_repeat_move().repeat_last_move_opposite()
-    end,
-    mode = { "n", "x", "o" },
-  },
+	-- vim way: ; goes to the direction you were moving.
+	{
+		";",
+		function()
+			ts_repeat_move().repeat_last_move()
+		end,
+		mode = { "n", "x", "o" },
+	},
+	{
+		",",
+		function()
+			ts_repeat_move().repeat_last_move_opposite()
+		end,
+		mode = { "n", "x", "o" },
+	},
 
-  -- TODO: for some reason, once mapped, the keystrokes are just ignored
-  -- so "3fa" results in entering insert mode, instead of jumping
-  --
-  -- Make builtin f, F, t, T also repeatable with ; and ,
-  -- {
-  --   "f",
-  --   function()
-  --     ts_repeat_move().builtin_f_expr()
-  --   end,
-  --   mode = { "n", "x", "o" },
-  --   expr = true,
-  -- },
-  -- {
-  --   "F",
-  --   function()
-  --     ts_repeat_move().builtin_F_expr()
-  --   end,
-  --   mode = { "n", "x", "o" },
-  --   expr = true,
-  -- },
-  -- {
-  --   "t",
-  --   function()
-  --     ts_repeat_move().builtin_t_expr()
-  --   end,
-  --   mode = { "n", "x", "o" },
-  --   expr = true,
-  -- },
-  -- {
-  --   "T",
-  --   function()
-  --     ts_repeat_move().builtin_T_expr()
-  --   end,
-  --   mode = { "n", "x", "o" },
-  --   expr = true,
-  -- },
+	-- TODO: for some reason, once mapped, the keystrokes are just ignored
+	-- so "3fa" results in entering insert mode, instead of jumping
+	--
+	-- Make builtin f, F, t, T also repeatable with ; and ,
+	-- {
+	--   "f",
+	--   function()
+	--     ts_repeat_move().builtin_f_expr()
+	--   end,
+	--   mode = { "n", "x", "o" },
+	--   expr = true,
+	-- },
+	-- {
+	--   "F",
+	--   function()
+	--     ts_repeat_move().builtin_F_expr()
+	--   end,
+	--   mode = { "n", "x", "o" },
+	--   expr = true,
+	-- },
+	-- {
+	--   "t",
+	--   function()
+	--     ts_repeat_move().builtin_t_expr()
+	--   end,
+	--   mode = { "n", "x", "o" },
+	--   expr = true,
+	-- },
+	-- {
+	--   "T",
+	--   function()
+	--     ts_repeat_move().builtin_T_expr()
+	--   end,
+	--   mode = { "n", "x", "o" },
+	--   expr = true,
+	-- },
 }
 
 return M

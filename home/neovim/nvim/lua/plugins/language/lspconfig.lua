@@ -1,108 +1,104 @@
 local M = {}
 
 M.opts = {
-  servers = {
-    bashls = {},
-    cssls = {},
-    eslint = {},
-    fortls = {},
-    golangci_lint_ls = {},
-    gopls = {},
-    hls = { filetypes = { "haskell", "lhaskell", "cabal" } },
-    html = {},
-    -- ltex = {
-    --   settings = { ltex = { language = "en-US", dictionary = ":~/.config/ltex/dictionary.json" } },
-    -- },
-    jsonls = {},
-    lua_ls = {},
-    metals = {},
-    nil_ls = {},
-    pyright = {},
-    ruff = {},
-    rust_analyzer = { cargo = { features = "all" } },
-    -- sqls = {},
-    svelte = {},
-    taplo = {},
-    texlab = {},
-    ts_ls = {},
-    -- verible = {},
-    vhdl_ls = {},
-    yamlls = {
-      settings = {
-        yaml = {
-          schemas = {
-            ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-          },
-        },
-      },
-    },
-  },
+	servers = {
+		bashls = {},
+		cssls = {},
+		eslint = {},
+		fortls = {},
+		golangci_lint_ls = {},
+		gopls = {},
+		hls = { filetypes = { "haskell", "lhaskell", "cabal" } },
+		html = {},
+		-- ltex = {
+		--   settings = { ltex = { language = "en-US", dictionary = ":~/.config/ltex/dictionary.json" } },
+		-- },
+		jsonls = {},
+		lua_ls = {},
+		metals = {},
+		nil_ls = {},
+		pyright = {},
+		ruff = {},
+		rust_analyzer = { cargo = { features = "all" } },
+		-- sqls = {},
+		svelte = {},
+		taplo = {},
+		texlab = {},
+		ts_ls = {},
+		-- verible = {},
+		vhdl_ls = {},
+		yamlls = {
+			settings = {
+				yaml = {
+					schemas = {
+						["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+					},
+				},
+			},
+		},
+	},
 }
 local noformat = {
-  "nil_ls",       -- Conflicts with formatter.nvim (Nix)
-  "ruff",         -- Conflicts with formatter.nvim (Python)
-  "ts_ls",        -- Conflicts with prettier
-  "html",         -- Conflicts with prettier
-  "cssls",        -- Conflicts with prettier
-  "jsonls",       -- Conflicts with prettier
-  "rust_analyzer",-- Conflicts with rustfmt
-  "gopls",        -- Conflicts with gofmt/goimports
+	"nil_ls", -- Conflicts with formatter.nvim (Nix)
+	"ruff", -- Conflicts with formatter.nvim (Python)
+	"ts_ls", -- Conflicts with prettier
+	"html", -- Conflicts with prettier
+	"cssls", -- Conflicts with prettier
+	"jsonls", -- Conflicts with prettier
+	"rust_analyzer", -- Conflicts with rustfmt
+	"gopls", -- Conflicts with gofmt/goimports
 }
 
 --  This function gets run when an LSP connects to a particular buffer.
 local function on_attach(client, bufnr)
-  local maplib = require("lib.map")
+	local maplib = require("lib.map")
 
-  local function nmap(keys, func, desc)
-    maplib.nmap(keys, func, { buffer = bufnr, desc = desc, prefix = "LSP: " })
-  end
+	local function nmap(keys, func, desc)
+		maplib.nmap(keys, func, { buffer = bufnr, desc = desc, prefix = "LSP: " })
+	end
 
-  -- See `:help K` for why this keymap
-  nmap("<A-i>", vim.lsp.buf.hover, "Hover Documentation ([i]nfo)")
-  nmap("<A-I>", vim.lsp.buf.signature_help, "Signature Documentation ([I]nfo)")
+	-- See `:help K` for why this keymap
+	nmap("<A-i>", vim.lsp.buf.hover, "Hover Documentation ([i]nfo)")
+	nmap("<A-I>", vim.lsp.buf.signature_help, "Signature Documentation ([I]nfo)")
 
-  nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-  nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-  nmap("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-  nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-  nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-  nmap("<leader>td", vim.lsp.buf.type_definition, "Type [D]efinition")
-  nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-  nmap(
-    "<leader>ws",
-    require("telescope.builtin").lsp_dynamic_workspace_symbols,
-    "[W]orkspace [S]ymbols"
-  )
+	nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+	nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+	nmap("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+	nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+	nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+	nmap("<leader>td", vim.lsp.buf.type_definition, "Type [D]efinition")
+	nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+	nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 
-  -- Lesser used LSP functionality
-  nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-  nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-  nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-  nmap("<leader>wl", function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, "[W]orkspace [L]ist Folders")
+	-- Lesser used LSP functionality
+	nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+	nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
+	nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
+	nmap("<leader>wl", function()
+		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+	end, "[W]orkspace [L]ist Folders")
 
-  -- Format on save is now handled by conform.nvim
+	-- Format on save is now handled by conform.nvim
 end
 
 function M.config(_, opts)
-  local lsp_capabilities = require("blink.cmp").get_lsp_capabilities()
+	local lsp_capabilities = require("blink.cmp").get_lsp_capabilities()
 
-  for server_name, configs in pairs(opts.servers) do
-    vim.lsp.config(
-      server_name,
-      vim.tbl_deep_extend("keep", configs, {
-        capabilities = lsp_capabilities,
-        on_attach = on_attach,
-      })
-    )
-    vim.lsp.enable(server_name)
-  end
+	for server_name, configs in pairs(opts.servers) do
+		vim.lsp.config(
+			server_name,
+			vim.tbl_deep_extend("keep", configs, {
+				capabilities = lsp_capabilities,
+				on_attach = on_attach,
+			})
+		)
+		vim.lsp.enable(server_name)
+	end
 
-  -- copilot-lsp (NES)
-  if vim.lsp.config.copilot then
-    vim.lsp.enable("copilot")
-  end
+	-- copilot-lsp (NES)
+	if vim.lsp.config.copilot then
+		vim.lsp.enable("copilot")
+	end
 end
 
 return M

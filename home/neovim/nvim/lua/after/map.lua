@@ -2,16 +2,16 @@ local nmap = require("lib.map").nmap
 
 -- Broader movements
 local big_steps = {
-  { "H", "^" },
-  { "L", "$" },
-  { "K", "H" },
-  { "J", "L" },
-  { "^", "K" },
-  { "$", "J" },
+	{ "H", "^" },
+	{ "L", "$" },
+	{ "K", "H" },
+	{ "J", "L" },
+	{ "^", "K" },
+	{ "$", "J" },
 }
 
 for _, map in ipairs(big_steps) do
-  vim.keymap.set("", map[1], map[2])
+	vim.keymap.set("", map[1], map[2])
 end
 
 -- Insert new lines
@@ -22,11 +22,7 @@ vim.keymap.set("v", ">", ">gv")
 
 -- Jump in windows
 for _, c in ipairs({ "h", "j", "k", "l" }) do
-  nmap(
-    string.format("<C-%s>", c),
-    string.format("<C-w>%s", c),
-    { desc = "Move to adjacent window" }
-  )
+	nmap(string.format("<C-%s>", c), string.format("<C-w>%s", c), { desc = "Move to adjacent window" })
 end
 
 -- Increment & decrement
