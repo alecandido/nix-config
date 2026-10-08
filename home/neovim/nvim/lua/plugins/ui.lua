@@ -162,9 +162,59 @@ return {
       require("snacks").setup(opts)
       -- Force the picker to use the standard background and readable path colors
       local function fix_snacks_hl()
-        vim.api.nvim_set_hl(0, "SnacksPickerNormal", { link = "Normal" })
-        vim.api.nvim_set_hl(0, "SnacksPickerListNormal", { link = "Normal" })
+        -- Use the correct highlight groups for Snacks Picker windows
+        vim.api.nvim_set_hl(0, "SnacksPicker", { link = "Normal" })
+        vim.api.nvim_set_hl(0, "SnacksPickerList", { link = "Normal" })
+        vim.api.nvim_set_hl(0, "SnacksPickerPreview", { link = "Normal" })
+        vim.api.nvim_set_hl(0, "SnacksPickerInput", { link = "Normal" })
+        vim.api.nvim_set_hl(0, "SnacksPickerBox", { link = "Normal" })
         vim.api.nvim_set_hl(0, "SnacksPickerDir", { link = "Comment" })
+
+        -- Clear backgrounds on picker borders so they don't show the old background
+        local fb = vim.api.nvim_get_hl(0, { name = "FloatBorder", link = false })
+        local border_fg = fb.fg or vim.api.nvim_get_hl(0, { name = "Normal", link = false }).fg
+        local borders = {
+          "SnacksPickerBorder",
+          "SnacksPickerListBorder",
+          "SnacksPickerPreviewBorder",
+          "SnacksPickerInputBorder",
+          "SnacksPickerBoxBorder",
+        }
+        for _, hl_group in ipairs(borders) do
+          vim.api.nvim_set_hl(0, hl_group, { fg = border_fg, bg = "NONE" })
+        end
+
+        local function get_hl_hex(name)
+          local hl = vim.api.nvim_get_hl(0, { name = name, link = false })
+          if hl.fg then return hl.fg end
+          hl = vim.api.nvim_get_hl(0, { name = name, link = true })
+          return hl.fg
+        end
+
+        local indent_fg = get_hl_hex("SnacksIndent") or get_hl_hex("Whitespace")
+        -- If Normal background is transparent/unset, assume pure black for blending
+        local normal_bg = vim.api.nvim_get_hl(0, { name = "Normal", link = false }).bg or 0x000000
+
+        if indent_fg then
+          vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = indent_fg })
+          
+          local r1 = math.floor(indent_fg / 0x10000)
+          local g1 = math.floor((indent_fg % 0x10000) / 0x100)
+          local b1 = indent_fg % 0x100
+          
+          local r2 = math.floor(normal_bg / 0x10000)
+          local g2 = math.floor((normal_bg % 0x10000) / 0x100)
+          local b2 = normal_bg % 0x100
+          
+          -- Use a higher alpha (0.5 instead of 0.3) so it's barely visible instead of invisible on pure black
+          local alpha = 0.5
+          local r = math.floor(r1 * alpha + r2 * (1 - alpha))
+          local g = math.floor(g1 * alpha + g2 * (1 - alpha))
+          local b = math.floor(b1 * alpha + b2 * (1 - alpha))
+          
+          local faint_fg = string.format("#%06x", r * 0x10000 + g * 0x100 + b)
+          vim.api.nvim_set_hl(0, "SnacksIndent", { fg = faint_fg, bg = "NONE" })
+        end
       end
       fix_snacks_hl()
       vim.api.nvim_create_autocmd("ColorScheme", {
