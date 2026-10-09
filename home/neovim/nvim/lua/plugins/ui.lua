@@ -8,11 +8,32 @@ local gitsigns = require(parent .. ".gitsigns")
 local headlines = require(parent .. ".headlines")
 local osc52 = require(parent .. ".osc52")
 local symbols_outline = require(parent .. ".symbols-outline")
+local render_markdown = require(parent .. ".render-markdown")
 
 return {
 	{ "shaunsingh/nord.nvim", lazy = false, priority = 1000 },
 	{ "rebelot/kanagawa.nvim", lazy = true },
 	{ "navarasu/onedark.nvim", lazy = true },
+
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		ft = render_markdown.ft,
+		opts = render_markdown.opts,
+		config = render_markdown.config,
+	},
+
+	{
+		"HakonHarnes/img-clip.nvim",
+		opts = {
+			filetypes = {
+				codecompanion = {
+					prompt_for_file_name = false,
+					template = "[Image]($FILE_PATH)",
+					use_absolute_path = true,
+				},
+			},
+		},
+	},
 
 	-- Useful plugin to show you pending keybinds.
 	{
