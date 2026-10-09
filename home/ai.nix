@@ -18,7 +18,7 @@ let
     export COPILOT_MODEL="barrydeen/Qwen3.8-27B-AWQ-4bit"
     export COPILOT_PROVIDER_MAX_PROMPT_TOKENS=229376
     export COPILOT_PROVIDER_MAX_OUTPUT_TOKENS=32768
-    exec copilot "$@"
+    exec copilot --model "$COPILOT_MODEL" "$@"
   '';
 
   # trimFirst = x: builtins.substring 1 (builtins.stringLength x - 1) x;
