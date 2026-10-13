@@ -5,6 +5,9 @@
 }:
 let
   inherit (inputs) home-manager self darwin;
+  darwinInputs = inputs // {
+    nixpkgs = inputs.nixpkgs-darwin;
+  };
 
   mkDarwin =
     name:
@@ -14,7 +17,7 @@ let
         user = config.user;
         path = ./. + ("/" + name);
         homeMods = lib.homeMods {
-          inherit inputs;
+          inputs = darwinInputs;
           homeRoot = "${self}/home";
           config = config // {
             home = "/Users/${user}";
@@ -36,7 +39,7 @@ let
         ];
 
         # Give `inputs` access to all nix-darwin modules
-        specialArgs = { inherit inputs; };
+        specialArgs = { inputs = darwinInputs; };
         system = "aarch64-darwin";
       }
     );
