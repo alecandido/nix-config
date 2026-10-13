@@ -24,7 +24,7 @@
       svelte-language-server
       taplo
       texlab
-      typescript-language-server
+      # typescript-language-server
       vhdl-ls
       vscode-langservers-extracted
       yaml-language-server
