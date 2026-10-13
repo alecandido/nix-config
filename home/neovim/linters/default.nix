@@ -1,26 +1,12 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   inherit (lib) mkIf;
   cfg = config.plan.neovim;
 in {
   config = mkIf (cfg.enable && cfg.lsp) {
-    home.packages = with pkgs; [
-      actionlint
-      cppcheck
-      revive
-      ruff
-      selene
-      sqlfluff
-      # vale
-      yamllint
-      eslint
-      stylelint
-    ];
-
     xdg.configFile."ltex".source = ./ltex;
     xdg.configFile."yamllint".source = ./yamllint;
   };
