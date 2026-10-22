@@ -23,7 +23,7 @@
       # ripgrep-all
       duf
       gh
-      ncdu_1
+      gdu
       fzf
       btop
       tldr

@@ -29,6 +29,13 @@ let
           {
             networking.hostName = name;
             nix.settings.allowed-users = [ user ];
+            nixpkgs.overlays = [
+              (final: prev: {
+                python3Packages = prev.python3Packages.overrideScope (pfinal: pprev: {
+                  debugpy = inputs.nixpkgs.legacyPackages.${prev.stdenv.hostPlatform.system}.python3Packages.debugpy;
+                });
+              })
+            ];
           }
           "${self}/etc/darwin"
           path
