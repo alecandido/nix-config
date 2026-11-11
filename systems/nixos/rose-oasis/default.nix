@@ -7,15 +7,23 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Early KMS for AMD RDNA integrated graphics
+  boot.initrd.kernelModules = ["amdgpu"];
+
+  # Graphics and 32-bit driver compatibility
+  hardware.graphics.enable32Bit = true;
+
   hardware.cpu.amd.updateMicrocode = true;
   services.fstrim.enable = true;
+  zramSwap.enable = true;
 
   users.users.alessandro.extraGroups = [
     "audio"
+    "i2c"
     "video"
   ];
 
-  # Ensures binary blobs for Wi-Fi 7, Bluetooth, and GPU are present
+  # Ensures binary blobs for Wi-Fi, Bluetooth, and GPU are present
   hardware.enableRedistributableFirmware = true;
 
   # Prevents NetworkManager from dropping the card into idle sleep

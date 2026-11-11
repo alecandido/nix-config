@@ -2,6 +2,7 @@
   user = "alessandro";
 
   extraHomeModules = [
+    ./tools.nix
     {
       plan = {
         amenities.enable = true;

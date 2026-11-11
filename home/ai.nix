@@ -36,12 +36,12 @@ in {
     jsonUpdate = builtins.toJSON agySettings;
     tmp = "/tmp/hm-activate-antigravity-settings";
   in (lib.hm.dag.entryAfter ["writeBoundary"] ''
-    $DRY_RUN_CMD mkdir -p "$HOME/.gemini/antigravity-cli"
+    $DRY_RUN_CMD mkdir -p "${config.home.homeDirectory}/.gemini/antigravity-cli"
     if [ ! -s "${settings}" ]; then
-        echo "{}" > ${settings}
+        echo "{}" > "${settings}"
     fi
-    ${lib.getExe pkgs.jq} -s '.[0] * .[1]' ${settings} <(echo '${jsonUpdate}') > ${tmp}
-    mv ${tmp} ${settings}
+    ${lib.getExe pkgs.jq} -s '.[0] * .[1]' "${settings}" <(echo '${jsonUpdate}') > "${tmp}"
+    mv "${tmp}" "${settings}"
   '');
 
   age.secrets.llm-qrc-url.file = inputs.secrets.llm-qrc-url;
