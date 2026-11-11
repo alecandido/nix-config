@@ -9,10 +9,15 @@
 
   hardware.cpu.amd.updateMicrocode = true;
   services.fstrim.enable = true;
-  networking.networkmanager.wifi.powersave = false;
 
   users.users.alessandro.extraGroups = [
     "audio"
     "video"
   ];
+
+  # Ensures binary blobs for Wi-Fi 7, Bluetooth, and GPU are present
+  hardware.enableRedistributableFirmware = true;
+
+  # Prevents NetworkManager from dropping the card into idle sleep
+  networking.networkmanager.wifi.powersave = false;
 }
