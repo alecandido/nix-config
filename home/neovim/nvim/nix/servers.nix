@@ -15,7 +15,6 @@
       golangci-lint-langserver
       gopls
       haskell-language-server
-      ltex-ls
       lua-language-server
       metals
       nil

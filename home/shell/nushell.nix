@@ -24,6 +24,7 @@
     # '';
 
     environmentVariables = config.home.sessionVariables;
+    loadSessionVariables = false;
 
     shellAliases = {
       la = "ls -a";
