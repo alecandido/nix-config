@@ -2,30 +2,29 @@
   inputs,
   lib,
   ...
-}:
-let
+}: let
   inherit (inputs) home-manager self nixpkgs;
 
-  mkNixos =
-    name:
-    (
-      let
-        config = import "${path}/home";
-        user = config.user;
-        path = ./. + ("/" + name);
-        homeMods = lib.homeMods {
-          inherit inputs;
-          homeRoot = "${self}/home";
-          config = config // {
+  mkNixos = name: (
+    let
+      config = import "${path}/home";
+      user = config.user;
+      path = ./. + ("/" + name);
+      homeMods = lib.homeMods {
+        inherit inputs;
+        homeRoot = "${self}/home";
+        config =
+          config
+          // {
             home = "/home/${user}";
           };
-        };
-      in
+      };
+    in
       nixpkgs.lib.nixosSystem {
         modules = [
           {
             networking.hostName = name;
-            nix.settings.allowed-users = [ user ];
+            nix.settings.allowed-users = [user];
           }
           "${self}/etc/nixos"
           path
@@ -36,10 +35,10 @@ let
         ];
 
         # Give `inputs` access to all nix-darwin modules
-        specialArgs = { inherit inputs; };
+        specialArgs = {inherit inputs;};
         system = "x86_64-linux";
       }
-    );
+  );
 
   instances = {
     ocopoli = mkNixos "ocopoli";
@@ -48,13 +47,14 @@ let
     yukon = mkNixos "yukon";
     killmotor = mkNixos "killmotor";
     umbrellastan = mkNixos "umbrellastan";
+    rose-oasis = mkNixos "rose-oasis";
   };
-in
-{
+in {
   ocopoli = instances.ocopoli;
   klondike = instances.klondike;
   villarose = instances.villarose;
   yukon = instances.yukon;
   killmotor = instances.killmotor;
   umbrellastan = instances.umbrellastan;
+  rose-oasis = instances.rose-oasis;
 }
