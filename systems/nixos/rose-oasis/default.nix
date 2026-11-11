@@ -2,6 +2,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./wifi.nix
   ];
 
   # Use latest kernel.
@@ -25,7 +26,4 @@
 
   # Ensures binary blobs for Wi-Fi, Bluetooth, and GPU are present
   hardware.enableRedistributableFirmware = true;
-
-  # Prevents NetworkManager from dropping the card into idle sleep
-  networking.networkmanager.wifi.powersave = false;
 }
