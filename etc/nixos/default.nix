@@ -2,8 +2,7 @@
   pkgs,
   options,
   ...
-}:
-{
+}: {
   imports = [
     ./gnome.nix
     ../fonts.nix
@@ -87,7 +86,6 @@
       git
       usbutils
       wl-clipboard
-      brave
       telegram-desktop
       fractal
       waypipe
