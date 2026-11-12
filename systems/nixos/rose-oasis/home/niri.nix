@@ -21,8 +21,8 @@ in {
           // The EDID advertises 59.951 Hz, not exactly 60.000 Hz.
           mode "2560x1440@59.951"
           scale 1.0
-          // Change to "270" to flip the portrait orientation.
-          transform "90"
+          // Change to "90" to flip the portrait orientation.
+          transform "270"
           position x=2560 y=0
       }
     '';

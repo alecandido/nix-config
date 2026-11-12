@@ -43,8 +43,8 @@ niri validate
 
 The 4K monitor uses the highest advertised refresh rate at 150% scale. Actual
 refresh depends on the KVM/link bandwidth. The portrait monitor uses its
-advertised 59.951 Hz mode at 100% scale, immediately to the right; change `"90"`
-to `"270"` in the host file to reverse its rotation.
+advertised 59.951 Hz mode at 100% scale, immediately to the right; change `"270"`
+to `"90"` in the host file to reverse its rotation.
 
 | Super binding | Action |
 | --- | --- |
