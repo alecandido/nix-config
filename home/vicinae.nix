@@ -5,12 +5,13 @@
   pkgs,
   ...
 }: let
+  # Newer companions use browser IPC unsupported by the pinned Vicinae.
   browserCompanion = inputs.firefox-addons.lib.${pkgs.stdenv.hostPlatform.system}.buildFirefoxXpiAddon {
     pname = "vicinae-browser-companion";
-    version = "1.2.0";
+    version = "1.0.0";
     addonId = "firefox@vicinae.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/5224510/vicinae-1.2.0.xpi";
-    sha256 = "a0ef790a2d1e749510ab953e65b34a8e8e04244cc4f84e47d0028882872b2280";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4839406/vicinae-1.0.0.xpi";
+    sha256 = "996c056d556be9c9c97494403672463117973e7d1bfc10fad9f719f8c07d9426";
     meta = {
       description = "Vicinae browser integration";
       homepage = "https://addons.mozilla.org/firefox/addon/vicinae/";
@@ -45,6 +46,7 @@ in {
     home.packages = [pkgs.vicinae pkgs.pinentry-qt];
     programs.rbw.enable = true;
     programs.firefox.profiles.default.extensions.packages = [browserCompanion];
+    programs.firefox.policies.ExtensionSettings."firefox@vicinae.com".updates_disabled = true;
 
     xdg.dataFile = builtins.listToAttrs (map (extension:
       lib.nameValuePair "vicinae/extensions/${extension.name}" {

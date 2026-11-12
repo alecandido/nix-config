@@ -82,6 +82,8 @@ Open **Browse Bitwarden Vault** in Vicinae to search entries.
 For live Firefox tabs, the
 [Vicinae browser companion](https://addons.mozilla.org/en-US/firefox/addon/vicinae/)
 is installed declaratively on NixOS hosts. Restart Firefox after rebuilding.
+The signed companion is pinned to 1.0.0 for compatibility with Vicinae 0.29.2;
+automatic updates are disabled for this addon because 1.2.0 uses incompatible IPC.
 Vicinae supplies the native messaging bridge when it starts.
 Open Vicinae, choose **Search Browser Tabs**, search a title or URL, and press
 Enter to focus the selected tab. No BroTab installation is needed.
