@@ -115,6 +115,10 @@ binds {
     Mod+Shift+4 { move-column-to-workspace "4-comms"; }
     Mod+Shift+5 { move-column-to-workspace "5-aux"; }
     Mod+Tab { focus-workspace-previous; }
+    Mod+Page_Down { focus-workspace-down; }
+    Mod+Page_Up { focus-workspace-up; }
+    Mod+Shift+Page_Down { move-column-to-workspace-down; }
+    Mod+Shift+Page_Up { move-column-to-workspace-up; }
     Mod+O { toggle-overview; }
 
     Mod+Comma { consume-or-expel-window-left; }
@@ -126,14 +130,16 @@ binds {
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
     Mod+C { center-column; }
+    Mod+V { toggle-window-floating; }
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
-    Mod+Return { spawn "@terminal@"; }
-    Mod+D { spawn "@noctalia@" "msg" "panel-toggle" "launcher"; }
+    Mod+Return hotkey-overlay-title="Open Terminal" { spawn "@terminal@"; }
+    Mod+D hotkey-overlay-title="Application Launcher" { spawn "@noctalia@" "msg" "panel-toggle" "launcher"; }
     Mod+Space { spawn "@noctalia@" "msg" "panel-toggle" "launcher"; }
-    Mod+S { spawn "@noctalia@" "msg" "panel-toggle" "control-center"; }
-    Mod+Shift+Comma { spawn "@noctalia@" "msg" "settings-toggle"; }
+    Mod+S hotkey-overlay-title="Control Center" { spawn "@noctalia@" "msg" "panel-toggle" "control-center"; }
+    Mod+Shift+Comma hotkey-overlay-title="Noctalia Settings" { spawn "@noctalia@" "msg" "settings-toggle"; }
     Mod+Q { close-window; }
-    Mod+Alt+L { spawn "@noctalia@" "msg" "session" "lock"; }
+    Mod+Alt+L hotkey-overlay-title="Lock Screen" { spawn "@noctalia@" "msg" "session" "lock"; }
     Print { screenshot; }
     Mod+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
@@ -143,6 +149,11 @@ binds {
     XF86AudioRaiseVolume allow-when-locked=true { spawn "@noctalia@" "msg" "volume-up"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "@noctalia@" "msg" "volume-down"; }
     XF86AudioMute allow-when-locked=true { spawn "@noctalia@" "msg" "volume-mute"; }
+    XF86AudioPlay allow-when-locked=true { spawn "@noctalia@" "msg" "media" "toggle"; }
+    XF86AudioPause allow-when-locked=true { spawn "@noctalia@" "msg" "media" "pause"; }
+    XF86AudioStop allow-when-locked=true { spawn "@noctalia@" "msg" "media" "stop"; }
+    XF86AudioNext allow-when-locked=true { spawn "@noctalia@" "msg" "media" "next"; }
+    XF86AudioPrev allow-when-locked=true { spawn "@noctalia@" "msg" "media" "previous"; }
     XF86MonBrightnessUp allow-when-locked=true { spawn "@noctalia@" "msg" "brightness-up"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "@noctalia@" "msg" "brightness-down"; }
 }

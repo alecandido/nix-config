@@ -88,10 +88,15 @@ settings.
 | `Return` / `D` or `Space` / `Q` | Ghostty / Noctalia launcher / close |
 | `S` / `Shift+,` | Control center / Noctalia settings |
 | `Tab` / `O` / `Shift+/` | Previous workspace / overview / binding help |
+| `PageUp` / `PageDown` | Focus the workspace above / below |
+| `Shift+PageUp` / `Shift+PageDown` | Move the column to the workspace above / below |
+| `V` / `Shift+V` | Toggle window floating / switch floating-tiled focus |
 | `Alt+L` / `Shift+E` | Lock / quit |
 
 `Print`, `Super+Print`, and `Alt+Print` capture a selection, screen, and window.
-Volume and brightness keys use Noctalia's controls and OSDs. `ddcutil` is available
+Volume and brightness keys use Noctalia's controls and OSDs. Media keys control
+Noctalia's active player: play/pause, dedicated pause, stop, next and previous
+track; these controls also work while locked. `ddcutil` is available
 for supported external-monitor brightness controls. Idle locks after 10 minutes,
 blanks displays after 15, and locks before sleep using the existing login PAM
 stack. Noctalia runs as one systemd user service tied to the graphical session.
