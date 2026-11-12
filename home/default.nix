@@ -26,6 +26,7 @@
       ./rclone.nix
       ./tex.nix
       ./tools.nix
+      ./vicinae.nix
       inputs.agenix.homeManagerModules.age
     ]
     ++ extraHomeModules;

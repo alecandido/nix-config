@@ -44,7 +44,9 @@ terminal fonts and website font preferences remain unchanged.
 
 Vicinae provides the application and file launcher on `Super+D`, `Super+Space`,
 and the bar's launcher button, using the cached nixpkgs package and Nord dark
-theme. It runs as a graphical-session-bound user service only on Niri hosts.
+theme. It runs as a graphical-session-bound user service on every NixOS host,
+including GNOME; macOS is unchanged. On GNOME, open it from the applications
+overview; existing GNOME shortcuts are unchanged.
 File results appear in the main search; **Search Files** opens a dedicated view.
 Its indexer scans the home directory locally; the first scan may take time.
 Configure search paths and exclusions in Vicinae's extension settings.
@@ -52,8 +54,9 @@ Clipboard history remains disabled. Vicinae's GUI settings stay writable, but
 the declarative theme, root file search, favorites and clipboard policy take
 precedence through `VICINAE_OVERRIDES`.
 
-Nix, Niri, Firefox (bookmarks/history), GitHub, and Bitwarden extensions are built from a
-pinned upstream revision and installed declaratively on Niri hosts. GitHub
+Nix, Firefox (bookmarks/history), GitHub, and Bitwarden extensions are built from a
+pinned upstream revision and installed declaratively on NixOS hosts. The Niri
+extension is installed only with Niri. GitHub
 requires a personal access token entered in its extension preferences; never
 put the token in Nix settings, which are copied to the public-readable Nix store.
 
@@ -76,9 +79,10 @@ your personal API key. For EU-hosted accounts, first run
 `rbw config set base_url https://api.bitwarden.eu`.
 Open **Browse Bitwarden Vault** in Vicinae to search entries.
 
-For live Firefox tabs, install the
+For live Firefox tabs, the
 [Vicinae browser companion](https://addons.mozilla.org/en-US/firefox/addon/vicinae/)
-and restart Firefox. Vicinae supplies the native messaging bridge when it starts.
+is installed declaratively on NixOS hosts. Restart Firefox after rebuilding.
+Vicinae supplies the native messaging bridge when it starts.
 Open Vicinae, choose **Search Browser Tabs**, search a title or URL, and press
 Enter to focus the selected tab. No BroTab installation is needed.
 

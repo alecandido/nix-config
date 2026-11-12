@@ -8,10 +8,7 @@
   outputDirective = output:
     lib.optionalString (output != null) "open-on-output ${builtins.toJSON output}";
 in {
-  imports = [
-    ./noctalia.nix
-    ./vicinae.nix
-  ];
+  imports = [./noctalia.nix];
 
   options.plan.niri = {
     enable = lib.mkEnableOption "the minimal Niri desktop";
@@ -38,6 +35,8 @@ in {
     ];
 
     home.packages = [pkgs.nautilus];
+    plan.niri.noctaliaSettings.widget.launcher.actions.left =
+      lib.mkDefault "exec ${lib.getExe pkgs.vicinae} toggle";
     xdg.configFile."niri-mimeapps.list".text = ''
       [Default Applications]
       inode/directory=org.gnome.Nautilus.desktop;

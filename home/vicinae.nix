@@ -1,9 +1,21 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
 }: let
+  browserCompanion = inputs.firefox-addons.lib.${pkgs.stdenv.hostPlatform.system}.buildFirefoxXpiAddon {
+    pname = "vicinae-browser-companion";
+    version = "1.2.0";
+    addonId = "firefox@vicinae.com";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5224510/vicinae-1.2.0.xpi";
+    sha256 = "a0ef790a2d1e749510ab953e65b34a8e8e04244cc4f84e47d0028882872b2280";
+    meta = {
+      description = "Vicinae browser integration";
+      homepage = "https://addons.mozilla.org/firefox/addon/vicinae/";
+    };
+  };
   extensionSource = pkgs.fetchFromGitHub {
     owner = "vicinaehq";
     repo = "extensions";
@@ -17,7 +29,7 @@
       version = "0";
       src = "${extensionSource}/extensions/${name}";
       npmFlags = ["--legacy-peer-deps"];
-    }) ["nix" "niri" "firefox" "github" "bitwarden"];
+    }) (["nix" "firefox" "github" "bitwarden"] ++ lib.optional config.plan.niri.enable "niri");
   settings = (pkgs.formats.json {}).generate "vicinae-settings.json" {
     search_files_in_root = true;
     favorites = ["files:search"];
@@ -27,18 +39,18 @@
       lib.getExe config.programs.rbw.package;
   };
 in {
-  config = lib.mkIf config.plan.niri.enable {
+  options.plan.vicinae.enable = lib.mkEnableOption "the Vicinae launcher";
+
+  config = lib.mkIf config.plan.vicinae.enable {
     home.packages = [pkgs.vicinae pkgs.pinentry-qt];
     programs.rbw.enable = true;
+    programs.firefox.profiles.default.extensions.packages = [browserCompanion];
 
     xdg.dataFile = builtins.listToAttrs (map (extension:
       lib.nameValuePair "vicinae/extensions/${extension.name}" {
         source = extension;
       })
     extensions);
-
-    plan.niri.noctaliaSettings.widget.launcher.actions.left =
-      lib.mkDefault "exec ${lib.getExe pkgs.vicinae} toggle";
 
     systemd.user.services.vicinae = {
       Unit = {

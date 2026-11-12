@@ -23,7 +23,10 @@ in {
       hardware.i2c.enable = true;
 
       home-manager.sharedModules = [
-        {plan.niri.enable = niri;}
+        {
+          plan.niri.enable = niri;
+          plan.vicinae.enable = true;
+        }
       ];
     }
     (lib.mkIf niri {
