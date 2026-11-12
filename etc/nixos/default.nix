@@ -1,10 +1,12 @@
 {
+  config,
+  lib,
   pkgs,
   options,
   ...
 }: {
   imports = [
-    ./gnome.nix
+    ./desktop.nix
     ../fonts.nix
     ../nix.nix
   ];
@@ -47,7 +49,7 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services.xserver.enable = lib.mkDefault (config.plan.desktop == "gnome");
 
   # Configure keymap in X11
   services.xserver.xkb = {

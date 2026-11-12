@@ -1,0 +1,135 @@
+prefer-no-csd
+animations {
+    off
+}
+
+input {
+    keyboard {
+        xkb {
+            layout "us"
+        }
+    }
+}
+
+layout {
+    gaps 8
+    default-column-width { proportion 0.5; }
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 1.0
+    }
+    preset-window-heights {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 1.0
+    }
+    focus-ring {
+        width 2
+        active-color "#88c0d0"
+        inactive-color "#434c5e"
+    }
+    border {
+        off
+    }
+    background-color "#2e3440"
+}
+
+workspace "1-code" {
+    @primary-output@
+}
+workspace "2-web" {
+    @primary-output@
+}
+workspace "3-work" {
+    @primary-output@
+}
+workspace "4-comms" {
+    @secondary-output@
+    layout {
+        default-column-width { proportion 1.0; }
+    }
+}
+workspace "5-aux" {
+    @secondary-output@
+    layout {
+        default-column-width { proportion 1.0; }
+    }
+}
+
+window-rule {
+    match app-id=r#"(?i)^firefox$"#
+    open-on-workspace "2-web"
+}
+window-rule {
+    match app-id=r#"(?i)^(thunderbird|org\.mozilla\.Thunderbird|org\.telegram\.desktop|org\.gnome\.Fractal|beeper|com\.beeper\.Beeper|teams-for-linux|com\.github\.IsmaelMartinez\.teams_for_linux)$"#
+    open-on-workspace "4-comms"
+    default-column-width { proportion 1.0; }
+    block-out-from "screencast"
+}
+window-rule {
+    match app-id=r#"(?i)^(spotify|com\.spotify\.Client|mpv|io\.mpv\.mpv|vlc|org\.videolan\.VLC)$"#
+    open-on-workspace "5-aux"
+    default-column-width { proportion 1.0; }
+}
+window-rule {
+    match app-id=r#"(?i)^(bitwarden|com\.bitwarden\.desktop|org\.keepassxc\.KeePassXC|org\.gnome\.World\.Secrets|1password|com\.1password\.1Password)$"#
+    block-out-from "screencast"
+}
+
+binds {
+    Mod+H { focus-column-left; }
+    Mod+L { focus-column-right; }
+    Mod+J { focus-window-or-workspace-down; }
+    Mod+K { focus-window-or-workspace-up; }
+    Mod+Shift+H { move-column-left; }
+    Mod+Shift+L { move-column-right; }
+    Mod+Shift+J { move-window-down-or-to-workspace-down; }
+    Mod+Shift+K { move-window-up-or-to-workspace-up; }
+    Mod+Ctrl+H { focus-monitor-left; }
+    Mod+Ctrl+L { focus-monitor-right; }
+    Mod+Ctrl+Shift+H { move-column-to-monitor-left; }
+    Mod+Ctrl+Shift+L { move-column-to-monitor-right; }
+
+    Mod+1 { focus-workspace "1-code"; }
+    Mod+2 { focus-workspace "2-web"; }
+    Mod+3 { focus-workspace "3-work"; }
+    Mod+4 { focus-workspace "4-comms"; }
+    Mod+5 { focus-workspace "5-aux"; }
+    Mod+Shift+1 { move-column-to-workspace "1-code"; }
+    Mod+Shift+2 { move-column-to-workspace "2-web"; }
+    Mod+Shift+3 { move-column-to-workspace "3-work"; }
+    Mod+Shift+4 { move-column-to-workspace "4-comms"; }
+    Mod+Shift+5 { move-column-to-workspace "5-aux"; }
+    Mod+Tab { focus-workspace-previous; }
+    Mod+O { toggle-overview; }
+
+    Mod+Comma { consume-or-expel-window-left; }
+    Mod+Period { consume-or-expel-window-right; }
+    Mod+BracketLeft { consume-window-into-column; }
+    Mod+BracketRight { expel-window-from-column; }
+    Mod+R { switch-preset-column-width; }
+    Mod+Shift+R { switch-preset-window-height; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+C { center-column; }
+
+    Mod+Return { spawn "@terminal@"; }
+    Mod+D { spawn "@fuzzel@"; }
+    Mod+Space { spawn "@fuzzel@"; }
+    Mod+Q { close-window; }
+    Mod+Alt+L { spawn "@swaylock@" "--daemonize"; }
+    Print { screenshot; }
+    Mod+Print { screenshot-screen; }
+    Alt+Print { screenshot-window; }
+    Mod+Shift+E { quit; }
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "@wpctl@" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "@wpctl@" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+    XF86AudioMute allow-when-locked=true { spawn "@wpctl@" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "@brightnessctl@" "set" "+10%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "@brightnessctl@" "set" "10%-"; }
+}

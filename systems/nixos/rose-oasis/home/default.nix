@@ -3,11 +3,12 @@
 
   extraHomeModules = [
     ./tools.nix
-    {
+    ./niri.nix
+    ({config, ...}: {
       plan = {
         amenities.enable = true;
         dconf = {
-          enable = true;
+          enable = !config.plan.niri.enable;
           server = true;
         };
         neovim = {
@@ -16,6 +17,6 @@
         };
         tex.enable = true;
       };
-    }
+    })
   ];
 }

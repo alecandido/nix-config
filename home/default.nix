@@ -11,6 +11,7 @@
       ./kerberos
       ./mail
       ./neovim
+      ./niri
       ./python
       ./shell
       ./ssh
