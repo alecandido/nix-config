@@ -47,7 +47,14 @@ in {
       size = 24;
       gtk.enable = true;
     };
-    gtk.enable = true;
+    gtk = {
+      enable = true;
+      font = {
+        package = pkgs.inter;
+        name = "Inter";
+        size = 10;
+      };
+    };
 
     xdg.configFile."niri/config.kdl".text =
       builtins.replaceStrings

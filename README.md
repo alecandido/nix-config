@@ -39,6 +39,8 @@ and otherwise mostly upstream visual defaults. Soteria remains the Polkit agent.
 Nautilus (Files) is available from the launcher and handles folders by default;
 GVfs and UDisks provide network-share and removable-drive support. The existing
 GTK file chooser remains unchanged. This setup is enabled only for Niri.
+GTK applications, including Firefox's browser UI, use Inter at 10 points;
+terminal fonts and website font preferences remain unchanged.
 
 The reusable desktop lives in `home/niri/`. Monitor identities and geometry live
 only in `systems/nixos/rose-oasis/home/niri.nix`. The exact EDID strings are
