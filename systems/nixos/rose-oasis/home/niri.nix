@@ -23,8 +23,8 @@ in {
           scale 1.0
           // Change to "90" to flip the portrait orientation.
           transform "270"
-          // Portrait logical width is 1440: place it flush left of the primary.
-          position x=-1440 y=0
+          // Flush left and centered: (1440 - 2560) / 2 = -560.
+          position x=-1440 y=-560
       }
     '';
   };

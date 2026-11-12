@@ -52,9 +52,8 @@ advertised 59.951 Hz mode at 100% scale, immediately to the left; change `"270"`
 to `"90"` in the host file to reverse its rotation.
 
 Positions use logical pixels: the primary is `2560x1440` at `(0, 0)`, and the
-portrait screen is `1440x2560` at `(-1440, 0)`, currently aligned at the top.
-Adjust `position` in the host file to match the physical arrangement; for
-example, portrait `y=-560` centers the two displays vertically.
+portrait screen is `1440x2560` at `(-1440, -560)`, centered vertically against the
+primary. Adjust `position` in the host file to fine-tune the physical arrangement.
 
 For interactive drag-and-drop arrangement, run this from the repository inside
 Niri:
