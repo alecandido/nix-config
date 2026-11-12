@@ -45,6 +45,16 @@ in {
   config = lib.mkIf config.plan.vicinae.enable {
     home.packages = [pkgs.vicinae pkgs.pinentry-qt];
     programs.rbw.enable = true;
+    home.activation.rbwLockTimeout = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      rbw_timeout=""
+      if [[ -e "''${XDG_CONFIG_HOME:-$HOME/.config}/rbw/config.json" ]]; then
+        rbw_configuration="$(${lib.getExe config.programs.rbw.package} config show)"
+        rbw_timeout="$(printf '%s' "$rbw_configuration" | ${lib.getExe pkgs.jq} -er '.lock_timeout')"
+      fi
+      if [[ "$rbw_timeout" != 300 ]]; then
+        run ${lib.getExe config.programs.rbw.package} config set lock_timeout 300
+      fi
+    '';
     programs.firefox.profiles.default.extensions.packages = [browserCompanion];
     programs.firefox.policies.ExtensionSettings."firefox@vicinae.com".updates_disabled = true;
 

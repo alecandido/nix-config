@@ -62,7 +62,9 @@ put the token in Nix settings, which are copied to the public-readable Nix store
 
 Bitwarden uses the separately authenticated `rbw` client, with `pinentry-qt`
 available for graphical password prompts. Its account configuration and vault
-remain outside the Nix store.
+remain outside the Nix store. Home Manager enforces a five-minute `rbw` auto-lock
+timeout while preserving the other account settings. Changing the timeout stops
+the current agent, so the next vault access requires unlocking again.
 
 After rebuilding, configure and authenticate it once:
 
