@@ -46,14 +46,19 @@ niri msg outputs
 niri validate
 ```
 
-The 4K monitor uses the highest advertised refresh rate at 150% scale. Actual
+The 4K monitor uses the highest advertised refresh rate at 125% scale. Actual
 refresh depends on the KVM/link bandwidth. The portrait monitor uses its
 advertised 59.951 Hz mode at 100% scale, immediately to the left; change `"270"`
 to `"90"` in the host file to reverse its rotation.
 
-Positions use logical pixels: the primary is `2560x1440` at `(0, 0)`, and the
-portrait screen is `1440x2560` at `(-1440, -560)`, centered vertically against the
+Positions use logical pixels: the primary is `3072x1728` at `(0, 0)`, and the
+portrait screen is `1440x2560` at `(-1440, -416)`, centered vertically against the
 primary. Adjust `position` in the host file to fine-tune the physical arrangement.
+
+Niri and GTK applications use the installed Adwaita cursor theme at size 24.
+Without an available theme, Niri's fixed-size fallback cursor can look oversized
+on the unscaled portrait display. Rose-oasis uses the Asia/Dubai timezone and
+English (US) locale defaults, without the shared Italian regional overrides.
 
 For interactive drag-and-drop arrangement, run this from the repository inside
 Niri:

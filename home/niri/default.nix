@@ -34,6 +34,15 @@ in {
       (lib.hm.assertions.assertPlatform "plan.niri" pkgs lib.platforms.linux)
     ];
 
+    home.pointerCursor = {
+      enable = true;
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+      size = 24;
+      gtk.enable = true;
+    };
+    gtk.enable = true;
+
     xdg.configFile."niri/config.kdl".text =
       builtins.replaceStrings
       [
@@ -41,12 +50,16 @@ in {
         "@secondary-output@"
         "@terminal@"
         "@noctalia@"
+        "@cursor-theme@"
+        "@cursor-size@"
       ]
       [
         (outputDirective cfg.primaryOutput)
         (outputDirective cfg.secondaryOutput)
         (lib.getExe config.programs.ghostty.package)
         (lib.getExe pkgs.noctalia)
+        (builtins.toJSON config.home.pointerCursor.name)
+        (toString config.home.pointerCursor.size)
       ]
       (builtins.readFile ./config.kdl)
       + "\n"

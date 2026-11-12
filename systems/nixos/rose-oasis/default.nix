@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -6,6 +10,9 @@
   ];
 
   plan.desktop = "niri";
+
+  time.timeZone = lib.mkForce "Asia/Dubai";
+  i18n.extraLocaleSettings = lib.mkForce {};
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -15,6 +22,8 @@
 
   # Graphics and 32-bit driver compatibility
   hardware.graphics.enable32Bit = true;
+
+  hardware.bluetooth.enable = true;
 
   hardware.cpu.amd.updateMicrocode = true;
   services.fstrim.enable = true;

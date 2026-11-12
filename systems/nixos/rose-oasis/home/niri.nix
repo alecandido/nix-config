@@ -11,7 +11,7 @@ in {
       output "${primary}" {
           // Highest advertised refresh at 4K (120 Hz when the link supports it).
           mode "3840x2160"
-          scale 1.5
+          scale 1.25
           transform "normal"
           position x=0 y=0
           focus-at-startup
@@ -23,8 +23,8 @@ in {
           scale 1.0
           // Change to "90" to flip the portrait orientation.
           transform "270"
-          // Flush left and centered: (1440 - 2560) / 2 = -560.
-          position x=-1440 y=-560
+          // Flush left and centered: (1728 - 2560) / 2 = -416.
+          position x=-1440 y=-416
       }
     '';
   };

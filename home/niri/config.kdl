@@ -3,6 +3,11 @@ animations {
     off
 }
 
+cursor {
+    xcursor-theme @cursor-theme@
+    xcursor-size @cursor-size@
+}
+
 input {
     keyboard {
         xkb {
