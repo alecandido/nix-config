@@ -8,7 +8,10 @@
   outputDirective = output:
     lib.optionalString (output != null) "open-on-output ${builtins.toJSON output}";
 in {
-  imports = [./noctalia.nix];
+  imports = [
+    ./noctalia.nix
+    ./vicinae.nix
+  ];
 
   options.plan.niri = {
     enable = lib.mkEnableOption "the minimal Niri desktop";
@@ -63,6 +66,7 @@ in {
         "@secondary-output@"
         "@terminal@"
         "@noctalia@"
+        "@vicinae@"
         "@cursor-theme@"
         "@cursor-size@"
       ]
@@ -71,6 +75,7 @@ in {
         (outputDirective cfg.secondaryOutput)
         (lib.getExe config.programs.ghostty.package)
         (lib.getExe pkgs.noctalia)
+        (lib.getExe pkgs.vicinae)
         (builtins.toJSON config.home.pointerCursor.name)
         (toString config.home.pointerCursor.size)
       ]

@@ -32,7 +32,7 @@ of defining a new option in a module, and then setting in the common one.
 `rose-oasis` opts in. GDM remains the login screen. After rebuilding, log out
 and select the Niri session.
 
-Noctalia supplies the bar, launcher, notifications, wallpaper controls, lock
+Noctalia supplies the bar, notifications, wallpaper controls, lock
 screen and idle management, replacing Waybar, Fuzzel, Mako and Swayidle/Swaylock.
 It uses the Noctalia package already pinned in nixpkgs, with a Nord dark palette
 and otherwise mostly upstream visual defaults. Soteria remains the Polkit agent.
@@ -41,6 +41,46 @@ GVfs and UDisks provide network-share and removable-drive support. The existing
 GTK file chooser remains unchanged. This setup is enabled only for Niri.
 GTK applications, including Firefox's browser UI, use Inter at 10 points;
 terminal fonts and website font preferences remain unchanged.
+
+Vicinae provides the application and file launcher on `Super+D`, `Super+Space`,
+and the bar's launcher button, using the cached nixpkgs package and Nord dark
+theme. It runs as a graphical-session-bound user service only on Niri hosts.
+File results appear in the main search; **Search Files** opens a dedicated view.
+Its indexer scans the home directory locally; the first scan may take time.
+Configure search paths and exclusions in Vicinae's extension settings.
+Clipboard history remains disabled. Vicinae's GUI settings stay writable, but
+the declarative theme, root file search, favorites and clipboard policy take
+precedence through `VICINAE_OVERRIDES`.
+
+Nix, Niri, Firefox (bookmarks/history), GitHub, and Bitwarden extensions are built from a
+pinned upstream revision and installed declaratively on Niri hosts. GitHub
+requires a personal access token entered in its extension preferences; never
+put the token in Nix settings, which are copied to the public-readable Nix store.
+
+Bitwarden uses the separately authenticated `rbw` client, with `pinentry-qt`
+available for graphical password prompts. Its account configuration and vault
+remain outside the Nix store.
+
+After rebuilding, configure and authenticate it once:
+
+```sh
+rbw config set email "your-bitwarden-email"
+rbw config set pinentry "$(command -v pinentry-qt)"
+rbw register
+rbw login
+rbw sync
+```
+
+`rbw register` is required for the official Bitwarden service and prompts for
+your personal API key. For EU-hosted accounts, first run
+`rbw config set base_url https://api.bitwarden.eu`.
+Open **Browse Bitwarden Vault** in Vicinae to search entries.
+
+For live Firefox tabs, install the
+[Vicinae browser companion](https://addons.mozilla.org/en-US/firefox/addon/vicinae/)
+and restart Firefox. Vicinae supplies the native messaging bridge when it starts.
+Open Vicinae, choose **Search Browser Tabs**, search a title or URL, and press
+Enter to focus the selected tab. No BroTab installation is needed.
 
 The reusable desktop lives in `home/niri/`. Monitor identities and geometry live
 only in `systems/nixos/rose-oasis/home/niri.nix`. The exact EDID strings are
@@ -85,7 +125,7 @@ settings.
 | `Ctrl+H L` / `Ctrl+Shift+H L` | Focus monitor / send column to monitor |
 | `,` / `.` / `[` / `]` | Consume/expel adjacent windows / stack/unstack |
 | `R` / `Shift+R` / `F` / `Shift+F` / `C` | Width / height / maximize / fullscreen / center |
-| `Return` / `D` or `Space` / `Q` | Ghostty / Noctalia launcher / close |
+| `Return` / `D` or `Space` / `Q` | Ghostty / Vicinae launcher / close |
 | `S` / `Shift+,` | Control center / Noctalia settings |
 | `Tab` / `O` / `Shift+/` | Previous workspace / overview / binding help |
 | `PageUp` / `PageDown` | Focus the workspace above / below |
