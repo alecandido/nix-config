@@ -34,6 +34,12 @@ in {
       (lib.hm.assertions.assertPlatform "plan.niri" pkgs lib.platforms.linux)
     ];
 
+    home.packages = [pkgs.nautilus];
+    xdg.configFile."niri-mimeapps.list".text = ''
+      [Default Applications]
+      inode/directory=org.gnome.Nautilus.desktop;
+    '';
+
     home.pointerCursor = {
       enable = true;
       package = pkgs.adwaita-icon-theme;

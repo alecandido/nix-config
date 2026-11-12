@@ -36,6 +36,9 @@ Noctalia supplies the bar, launcher, notifications, wallpaper controls, lock
 screen and idle management, replacing Waybar, Fuzzel, Mako and Swayidle/Swaylock.
 It uses the Noctalia package already pinned in nixpkgs, with a Nord dark palette
 and otherwise mostly upstream visual defaults. Soteria remains the Polkit agent.
+Nautilus (Files) is available from the launcher and handles folders by default;
+GVfs and UDisks provide network-share and removable-drive support. The existing
+GTK file chooser remains unchanged. This setup is enabled only for Niri.
 
 The reusable desktop lives in `home/niri/`. Monitor identities and geometry live
 only in `systems/nixos/rose-oasis/home/niri.nix`. The exact EDID strings are

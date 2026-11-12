@@ -96,6 +96,7 @@
       xournalpp
       beeper
       teams-for-linux
+      spotify
     ];
   };
 

@@ -29,12 +29,14 @@ in {
     (lib.mkIf niri {
       programs.niri = {
         enable = true;
-        # Use the GTK file chooser rather than installing Nautilus.
+        # Keep the GTK chooser; Home Manager installs Nautilus for browsing.
         useNautilus = false;
       };
       services.displayManager.defaultSession = "niri";
       programs.noctalia.enable = true;
       services.gnome.gnome-keyring.enable = true;
+      services.gvfs.enable = true;
+      services.udisks2.enable = true;
       security.soteria.enable = true;
       systemd.user.services.polkit-soteria.partOf = ["graphical-session.target"];
 
