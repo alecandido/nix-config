@@ -52,6 +52,7 @@ in {
           screen-off = {
             enabled = lib.mkDefault true;
             timeout = lib.mkDefault 900;
+            locked_timeout = lib.mkDefault 5;
             action = lib.mkDefault "screen_off";
           };
         };

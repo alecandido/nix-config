@@ -145,8 +145,9 @@ settings.
 Volume and brightness keys use Noctalia's controls and OSDs. Media keys control
 Noctalia's active player: play/pause, dedicated pause, stop, next and previous
 track; these controls also work while locked. `ddcutil` is available
-for supported external-monitor brightness controls. Idle locks after 10 minutes,
-blanks displays after 15, and locks before sleep using the existing login PAM
+for supported external-monitor brightness controls. Idle locks after 10 minutes.
+While locked, monitors turn off after 5 seconds of inactivity and wake on input;
+the unlocked screen-off timeout remains 15 minutes. Noctalia locks before sleep using the existing login PAM
 stack. Noctalia runs as one systemd user service tied to the graphical session.
 
 Open settings with `Super+Shift+,` to choose wallpapers and customize the shell.
