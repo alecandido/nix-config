@@ -78,6 +78,12 @@ window-rule {
     match app-id=r#"(?i)^(bitwarden|com\.bitwarden\.desktop|org\.keepassxc\.KeePassXC|org\.gnome\.World\.Secrets|1password|com\.1password\.1Password)$"#
     block-out-from "screencast"
 }
+window-rule {
+    match app-id="^dev\\.noctalia\\.Noctalia$"
+    open-floating true
+    default-column-width { fixed 1080; }
+    default-window-height { fixed 920; }
+}
 
 binds {
     Mod+H { focus-column-left; }
@@ -117,19 +123,21 @@ binds {
     Mod+C { center-column; }
 
     Mod+Return { spawn "@terminal@"; }
-    Mod+D { spawn "@fuzzel@"; }
-    Mod+Space { spawn "@fuzzel@"; }
+    Mod+D { spawn "@noctalia@" "msg" "panel-toggle" "launcher"; }
+    Mod+Space { spawn "@noctalia@" "msg" "panel-toggle" "launcher"; }
+    Mod+S { spawn "@noctalia@" "msg" "panel-toggle" "control-center"; }
+    Mod+Shift+Comma { spawn "@noctalia@" "msg" "settings-toggle"; }
     Mod+Q { close-window; }
-    Mod+Alt+L { spawn "@swaylock@" "--daemonize"; }
+    Mod+Alt+L { spawn "@noctalia@" "msg" "session" "lock"; }
     Print { screenshot; }
     Mod+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
     Mod+Shift+E { quit; }
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "@wpctl@" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "5%+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "@wpctl@" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
-    XF86AudioMute allow-when-locked=true { spawn "@wpctl@" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-    XF86MonBrightnessUp allow-when-locked=true { spawn "@brightnessctl@" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "@brightnessctl@" "set" "10%-"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "@noctalia@" "msg" "volume-up"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "@noctalia@" "msg" "volume-down"; }
+    XF86AudioMute allow-when-locked=true { spawn "@noctalia@" "msg" "volume-mute"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "@noctalia@" "msg" "brightness-up"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "@noctalia@" "msg" "brightness-down"; }
 }

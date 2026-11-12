@@ -33,10 +33,10 @@ in {
         useNautilus = false;
       };
       services.displayManager.defaultSession = "niri";
+      programs.noctalia.enable = true;
       services.gnome.gnome-keyring.enable = true;
       security.soteria.enable = true;
       systemd.user.services.polkit-soteria.partOf = ["graphical-session.target"];
-      security.pam.services.swaylock = {};
 
       # Niri starts satellite on demand; do not run a separate Xwayland service.
       environment.systemPackages = [pkgs.xwayland-satellite];
