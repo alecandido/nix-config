@@ -40,6 +40,7 @@ in {
         label_source = lib.mkDefault "name";
         max_label_chars = lib.mkDefault 20;
       };
+      widget.tray.hidden = lib.mkDefault ["nm-applet"];
       lockscreen = {
         enabled = lib.mkDefault true;
         lock_before_suspend = lib.mkDefault true;

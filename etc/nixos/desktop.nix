@@ -53,6 +53,9 @@ in {
       };
       services.displayManager.defaultSession = "niri";
       programs.noctalia.enable = true;
+      networking.networkmanager.plugins = [pkgs.networkmanager-openconnect];
+      # Noctalia toggles VPN profiles; nm-applet supplies their authentication dialogs.
+      programs.nm-applet.enable = true;
       services.gnome.gnome-keyring.enable = true;
       services.gvfs.enable = true;
       services.udisks2.enable = true;

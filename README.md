@@ -85,6 +85,27 @@ GTK file chooser remains unchanged. This setup is enabled only for Niri.
 GTK applications, including Firefox's browser UI, use Inter at 10 points;
 terminal fonts and website font preferences remain unchanged.
 
+### OpenConnect VPN
+
+On Niri, NetworkManager's OpenConnect plugin and `nm-connection-editor` are
+available. After rebuilding and logging back in, launch **Advanced Network
+Configuration** (or `nm-connection-editor`), add an OpenConnect VPN, and set its
+gateway and protocol to match your existing `openconnect` command. Leave
+automatic connection disabled for manual activation.
+
+Saved VPN profiles appear in Noctalia's **Network** panel. Use the plug button
+next to the profile to connect and the unplug button to disconnect. The section
+switch turns off all active VPN profiles; turning it back on shows the profiles
+without automatically connecting them. `nm-applet` runs in the graphical session
+to provide VPN authentication dialogs, with its duplicate tray icon hidden.
+Passwords and one-time codes belong in those dialogs, not in Nix configuration
+or the public-readable Nix store. Authentication depends on the VPN server;
+browser-based SSO and custom OpenConnect scripts may need additional setup.
+An existing standalone `openconnect` tunnel is not a saved NetworkManager VPN:
+disconnect it before activating the new profile.
+
+### Launcher
+
 Vicinae provides the application and file launcher on `Super+D`, `Super+Space`,
 and the bar's launcher button, using the cached nixpkgs package and Nord dark
 theme. It runs as a graphical-session-bound user service on every NixOS host,
