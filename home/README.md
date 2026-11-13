@@ -51,6 +51,12 @@ Icons remain inside the private extracted tree. The original input file is not
 deleted or secured by the CLI; keep it outside the repository and in a private
 directory yourself. Retained archives are not deleted on uninstall.
 
+Executable script shebangs, including bundled sidecars, are patched at runtime
+to public Nix-provided interpreters. Bash, POSIX sh, env and Python are available
+by default; additional interpreter packages can be supplied through
+`extraRuntimeLibs`. Missing interpreters produce warnings. This also fixes scripts
+using `/bin/bash`, which is not available on a standard NixOS installation.
+
 The default library pool supports native CLI, GTK3 and WebKitGTK 4.1 applications.
 Add only public library derivations with
 `programs.localDebInstaller.extraRuntimeLibs = [ pkgs.someLibrary ];`.

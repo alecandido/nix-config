@@ -41,6 +41,8 @@
     export wrapper_shell=${lib.escapeShellArg "${pkgs.bash}/bin/bash"}
     export desktop_helper=${pkgs.writeText "local-deb-desktop.py" (builtins.readFile ./desktop.py)}
     export archive_helper=${pkgs.writeText "local-deb-archive.py" (builtins.readFile ./archive.py)}
+    export shebang_helper=${pkgs.writeText "local-deb-shebangs.py" (builtins.readFile ./shebangs.py)}
+    export shebang_path=${lib.escapeShellArg (lib.makeBinPath ([pkgs.bash pkgs.coreutils pkgs.python3] ++ runtimeLibs))}
   '';
   application = name: file:
     pkgs.writeShellApplication {

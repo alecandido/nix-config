@@ -15,10 +15,17 @@ printf 'int main(void) { return 0; }\n' > executable.c
 cc executable.c -o payload/usr/bin/fixture-run
 cc -shared -fPIC executable.c -o payload/usr/lib/libfixture.so.1
 cat > payload/usr/bin/fixture-script <<'EOF'
-#!/bin/sh
-printf '%s\n' "$@"
+#!/bin/bash
+arguments=("$@")
+printf '%s\n' "${arguments[@]}"
 EOF
 chmod 700 payload/usr/bin/fixture-script
+cat > payload/usr/lib/fixture-sidecar <<'EOF'
+#!/usr/bin/env -S bash -eu
+arguments=("$@")
+printf '%s\n' "${arguments[@]}"
+EOF
+chmod 700 payload/usr/lib/fixture-sidecar
 printf '<svg/>\n' > payload/usr/share/pixmaps/fixture-icon.svg
 cat > payload/usr/share/applications/fixture.desktop <<'EOF'
 [Desktop Entry]
@@ -45,6 +52,9 @@ grep -Fx 'DBusActivatable=false' "$desktop"
 ! grep -q GDK_BACKEND "$HOME/.local/bin/fixture-run"
 "$HOME/.local/bin/fixture-run"
 test "$("$HOME/.local/bin/fixture-script" 'argument with spaces')" = 'argument with spaces'
+# Sidecars are launched directly by applications, not through generated wrappers.
+test "$("$HOME/.local/opt/local-deb-fixture/usr/bin/fixture-script" 'direct argument')" = 'direct argument'
+test "$("$HOME/.local/opt/local-deb-fixture/usr/lib/fixture-sidecar" 'sidecar argument')" = 'sidecar argument'
 patchelf --print-rpath "$HOME/.local/opt/local-deb-fixture/usr/bin/fixture-run" |
   grep -F "$HOME/.local/opt/local-deb-fixture/usr/lib"
 patchelf --print-rpath "$HOME/.local/opt/local-deb-fixture/usr/lib/libfixture.so.1" |

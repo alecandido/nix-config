@@ -49,6 +49,7 @@ done < <(find "$work/tree" -type l -print0)
 find "$work/tree" -type d -exec chmod 700 {} +
 find "$work/tree" -type f -perm /111 -exec chmod 700 {} +
 find "$work/tree" -type f ! -perm /111 -exec chmod 600 {} +
+python3 "$shebang_helper" "$work/tree" "$shebang_path"
 
 declare -A binaries=()
 while IFS= read -r -d '' path; do
