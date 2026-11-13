@@ -20,10 +20,16 @@
             plan.mail = {
               enable = true;
               work.address = "work@example.org";
-              secrets = lib.optionalAttrs ready {
-                personal = builtins.toFile "mail-personal-test.age" "synthetic encrypted fixture";
-                work = builtins.toFile "mail-work-test.age" "synthetic encrypted fixture";
-              };
+              secrets =
+                if ready
+                then {
+                  personal = builtins.toFile "mail-personal-test.age" "synthetic encrypted fixture";
+                  work = builtins.toFile "mail-work-test.age" "synthetic encrypted fixture";
+                }
+                else {
+                  personal = "${./.}/unprovisioned-personal.age";
+                  work = "${./.}/unprovisioned-work.age";
+                };
             };
           }
         ]
