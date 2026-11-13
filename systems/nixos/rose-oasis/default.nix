@@ -17,7 +17,6 @@
   };
 
   time.timeZone = lib.mkForce "Asia/Dubai";
-  i18n.extraLocaleSettings = lib.mkForce {};
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
