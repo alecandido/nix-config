@@ -89,14 +89,8 @@
       usbutils
       wl-clipboard
       telegram-desktop
-      fractal
       waypipe
       thunderbird
-      zoom-us
-      xournalpp
-      beeper
-      teams-for-linux
-      spotify
     ];
   };
 

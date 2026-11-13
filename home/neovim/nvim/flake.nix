@@ -1,7 +1,11 @@
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-  outputs = {self, nixpkgs, ...}: let
+  outputs = {
+    self,
+    nixpkgs,
+    ...
+  }: let
     lib = nixpkgs.lib;
 
     supportedSystems = [
@@ -17,11 +21,12 @@
 
     # Everything nvim needs on the PATH, as a plain list.
     # Shared by devenv and the installed home configuration.
-    servers = pkgs:
-      import ./nix/servers.nix {
-        inherit pkgs;
-        inherit (pkgs) lib;
-      };
+    servers = pkgs: languages:
+      import ./nix/servers.nix ({
+          inherit pkgs;
+          inherit (pkgs) lib;
+        }
+        // languages);
 
     # Home-manager module: installs neovim + this configuration + servers.
     # Expects the `plan.neovim` options (defined here) so that the
@@ -42,9 +47,15 @@
       # feed init.lua via programs.neovim.initLua.
       src = self;
     in {
-      options.plan.neovim = {
-        enable = lib.mkEnableOption "neovim";
-        lsp = lib.mkEnableOption "neovim lsp";
+      options.plan = {
+        haskell.enable = lib.mkEnableOption "Haskell tooling (language server, formatter and debug adapter)";
+        java.enable = lib.mkEnableOption "JVM tooling (Metals for Scala and ktlint for Kotlin)";
+        rust.enable = lib.mkEnableOption "Rust formatting with rustfmt";
+        neovim = {
+          enable = lib.mkEnableOption "neovim";
+          lsp = lib.mkEnableOption "neovim lsp";
+          cppDebug.enable = lib.mkEnableOption "C/C++ debugging with cpptools";
+        };
       };
 
       config = lib.mkIf cfg.enable {
@@ -56,9 +67,14 @@
               luarocks
             ]
           )
-          ++ [ pkgs.dwt1-shell-color-scripts ]
+          ++ [pkgs.dwt1-shell-color-scripts]
           ++ lib.optional cfg.lsp pkgs.tree-sitter
-          ++ lib.optionals cfg.lsp (servers pkgs);
+          ++ lib.optionals cfg.lsp (servers pkgs {
+            haskell = config.plan.haskell.enable;
+            java = config.plan.java.enable;
+            rust = config.plan.rust.enable;
+            cppDebug = cfg.cppDebug.enable;
+          });
 
         programs.neovim.enable = true;
         programs.neovim.defaultEditor = true;
@@ -72,7 +88,6 @@
         xdg.configFile."nvim/lua".source = src + "/lua";
         xdg.configFile."nvim/ftdetect".source = src + "/ftdetect";
         xdg.configFile."nvim/ftplugin".source = src + "/ftplugin";
-
       };
     };
   in {
@@ -84,7 +99,7 @@
         nvim = pkgs.neovim;
         nvim-servers = pkgs.buildEnv {
           name = "nvim-servers";
-          paths = servers pkgs;
+          paths = servers pkgs {};
         };
       }
     );

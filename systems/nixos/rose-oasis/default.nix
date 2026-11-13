@@ -10,6 +10,11 @@
   ];
 
   plan.desktop = "niri";
+  plan.apps = {
+    zoom.enable = true;
+    teams.enable = true;
+    spotify.enable = true;
+  };
 
   time.timeZone = lib.mkForce "Asia/Dubai";
   i18n.extraLocaleSettings = lib.mkForce {};

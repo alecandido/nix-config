@@ -5,6 +5,14 @@
   ...
 }: let
   niri = config.plan.desktop == "niri";
+  apps = {
+    zoom = pkgs.zoom-us;
+    teams = pkgs.teams-for-linux;
+    spotify = pkgs.spotify;
+    beeper = pkgs.beeper;
+    fractal = pkgs.fractal;
+    xournalpp = pkgs.xournalpp;
+  };
 in {
   imports = [./gnome.nix];
 
@@ -14,8 +22,17 @@ in {
     description = "Desktop session, shared with Home Manager.";
   };
 
+  options.plan.apps =
+    lib.mapAttrs (name: _: {
+      enable = lib.mkEnableOption name;
+    })
+    apps;
+
   config = lib.mkMerge [
     {
+      environment.systemPackages =
+        lib.attrValues (lib.filterAttrs (name: _: config.plan.apps.${name}.enable) apps);
+
       services.displayManager.gdm = {
         enable = true;
         autoSuspend = false;

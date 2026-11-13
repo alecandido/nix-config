@@ -4,6 +4,10 @@
 {
   pkgs,
   lib,
+  haskell ? false,
+  java ? false,
+  rust ? false,
+  cppDebug ? false,
   ...
 }:
 # language servers
@@ -14,9 +18,7 @@
       fortls
       golangci-lint-langserver
       gopls
-      haskell-language-server
       lua-language-server
-      metals
       nil
       pyright
       ruff
@@ -63,12 +65,9 @@
         black
         fnlfmt
         isort
-        ktlint
         pgformatter
         prettier
-        rustfmt
         shfmt
-        stylish-haskell
         stylua
         uncrustify
       ]
@@ -80,13 +79,20 @@
       ]
       ++ (with pkgs.vscode-extensions; [
         firefox-devtools.vscode-firefox-debug
-        ms-vscode.cpptools
       ])
       ++ (with pkgs.python3Packages; [
         debugpy
       ])
-      ++ (with pkgs.haskellPackages; [
-        haskell-debug-adapter
-      ])
     )
+    ++ lib.optionals haskell [
+      haskell-language-server
+      stylish-haskell
+      haskellPackages.haskell-debug-adapter
+    ]
+    ++ lib.optionals java [
+      metals
+      ktlint
+    ]
+    ++ lib.optional rust rustfmt
+    ++ lib.optional cppDebug vscode-extensions.ms-vscode.cpptools
 )

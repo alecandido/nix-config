@@ -1,25 +1,36 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [
-    gnumake
-    gcc
-  ];
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  options.plan.build.enable =
+    lib.mkEnableOption "native build tools (GCC and Make)"
+    // {default = true;};
 
-  xdg.configFile."gdb/gdbinit".text = ''
-    set history save
-    tui enable
-    # TODO: remove the following
-    set auto-load safe-path /
+  config = lib.mkIf config.plan.build.enable {
+    home.packages = with pkgs; [
+      gnumake
+      gcc
+    ];
 
-    define hook-next
-      refresh
-    end
+    xdg.configFile."gdb/gdbinit".text = ''
+      set history save
+      tui enable
+      # TODO: remove the following
+      set auto-load safe-path /
 
-    define hook-step
-      refresh
-    end
+      define hook-next
+        refresh
+      end
 
-    define hook-continue
-      refresh
-    end
-  '';
+      define hook-step
+        refresh
+      end
+
+      define hook-continue
+        refresh
+      end
+    '';
+  };
 }
