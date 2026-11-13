@@ -10,9 +10,13 @@
       modules = [{plan.apps.teams.enable = lib.mkForce false;}];
     }).config;
   other = inputs.self.nixosConfigurations.yukon.config;
+  managed =
+    (inputs.self.nixosConfigurations.rose-oasis.extendModules {
+      modules = [{home-manager.sharedModules = [{xdg.mimeApps.enable = true;}];}];
+    }).config;
   home = config: config.home-manager.users.alessandro;
   hasTeamsRules = config:
-    lib.hasInfix ''app-id="^ms-teams$"'' (home config).plan.niri.extraConfig;
+    lib.hasInfix "ms-teams|chrome-teams" (home config).plan.niri.extraConfig;
   testHome = inputs.home-manager.lib.homeManagerConfiguration {
     pkgs = pkgs.extend (_final: prev: {
       chromium = prev.writeShellScriptBin "chromium" ''
@@ -49,13 +53,35 @@ in
   assert !(home disabled).plan.teams.enable && !(home other).plan.teams.enable;
   assert !(disabled.xdg.portal.config.niri ? "org.freedesktop.impl.portal.ScreenCast");
   assert !((home other).xdg.desktopEntries ? ms-teams);
+  assert !((home niri).xdg.configFile ? "mimeapps.list");
+  assert !((home gnome).xdg.configFile ? "mimeapps.list");
+  assert (home managed).xdg.mimeApps.defaultApplications."x-scheme-handler/msteams" == ["ms-teams.desktop"];
+  assert !((home managed).home.activation ? teamsMimeHandler);
     pkgs.runCommand "teams-check" {} ''
       # Build-time validation also checks the real host's merged KDL.
       test -s ${niri.home-manager.users.alessandro.xdg.configFile."niri/config.kdl".source}
+      app_id_pattern="$(sed -n 's/^    match app-id=r#"\(.*\)"#$/\1/p' ${../home/teams/niri.kdl} | head -n 1)"
+      test -n "$app_id_pattern"
+      for app_id in \
+        ms-teams \
+        chrome-teams.microsoft.com__v2_-Default \
+        chrome-teams.microsoft.com__l_meetup-join_meeting-Default \
+        chrome-teams.cloud.microsoft__v2_-Default; do
+        printf '%s\n' "$app_id" | grep -Ex "$app_id_pattern"
+      done
+      for app_id in chromium chrome-login.microsoftonline.com__-Default chrome-teams.microsoft.com.evil__v2_-Default; do
+        if printf '%s\n' "$app_id" | grep -Ex "$app_id_pattern"; then
+          echo "Teams rule unexpectedly matched: $app_id" >&2
+          exit 1
+        fi
+      done
       launcher=${testHome.config.home.path}/bin/ms-teams
       desktop=${testHome.config.home.path}/share/applications/ms-teams.desktop
       grep -Fx 'StartupWMClass=ms-teams' "$desktop"
       grep -Ex 'MimeType=x-scheme-handler/msteams;?' "$desktop"
+      icon="$(sed -n 's/^Icon=//p' "$desktop")"
+      test -s "$icon"
+      cmp ${../home/teams/ms-teams.svg} "$icon"
 
       "$launcher" > actual
       for flag in \
@@ -93,5 +119,41 @@ in
         exit 1
       fi
       grep -F 'Usage: ms-teams' error
+
+      export HOME="$TMPDIR/teams-home"
+      export XDG_CONFIG_HOME="$HOME/.config"
+      export XDG_DATA_HOME="$HOME/.local/share"
+      export XDG_DATA_DIRS="${testHome.config.home.path}/share"
+      export XDG_CURRENT_DESKTOP=niri
+      unset KDE_SESSION_VERSION
+      mkdir -p "$XDG_CONFIG_HOME" "$XDG_DATA_HOME"
+      cp ${pkgs.writeText "existing-mimeapps.list" ''
+        [Default Applications]
+        x-scheme-handler/https=personal-browser.desktop
+        x-scheme-handler/tg=org.telegram.desktop.desktop
+
+        [Added Associations]
+        x-scheme-handler/tg=org.telegram.desktop.desktop;
+      ''} "$XDG_CONFIG_HOME/mimeapps.list"
+      cp "$XDG_CONFIG_HOME/mimeapps.list" original
+      run() { "$@"; }
+      unset DRY_RUN
+      source ${pkgs.writeText "teams-mime-handler.sh" testHome.config.home.activation.teamsMimeHandler.data}
+      grep -Fx 'x-scheme-handler/msteams=ms-teams.desktop' "$XDG_CONFIG_HOME/mimeapps.list"
+      grep -v '^x-scheme-handler/msteams=' "$XDG_CONFIG_HOME/mimeapps.list" > preserved
+      cmp original preserved
+      cp "$XDG_CONFIG_HOME/mimeapps.list" first-activation
+      source ${pkgs.writeText "teams-mime-handler.sh" testHome.config.home.activation.teamsMimeHandler.data}
+      cmp first-activation "$XDG_CONFIG_HOME/mimeapps.list"
+      cp original "$XDG_CONFIG_HOME/mimeapps.list"
+      export DRY_RUN=1
+      run() { :; }
+      source ${pkgs.writeText "teams-mime-handler.sh" testHome.config.home.activation.teamsMimeHandler.data}
+      cmp original "$XDG_CONFIG_HOME/mimeapps.list"
+      export XDG_CONFIG_HOME="$HOME/first-login-config"
+      unset DRY_RUN
+      run() { "$@"; }
+      source ${pkgs.writeText "teams-mime-handler.sh" testHome.config.home.activation.teamsMimeHandler.data}
+      grep -Fx 'x-scheme-handler/msteams=ms-teams.desktop' "$XDG_CONFIG_HOME/mimeapps.list"
       touch "$out"
     ''

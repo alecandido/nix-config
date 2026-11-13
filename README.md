@@ -42,6 +42,9 @@ separate from personal browsing. Existing Teams-for-Linux sessions are not
 migrated. `msteams:` meeting links use this profile; ordinary HTTPS links keep
 using the default browser. You can explicitly open an HTTPS Teams meeting link
 with `ms-teams 'https://teams.microsoft.com/l/meetup-join/...'`.
+Activation updates only the `msteams:` default handler in the existing writable
+`mimeapps.list`, preserving other associations. If `xdg.mimeApps.enable` is
+explicitly enabled, the Teams association joins its declarative defaults instead.
 
 On first login, allow notifications, microphone and camera in this profile,
 and enable Teams' desktop notifications in its settings. Keep the window open
@@ -53,14 +56,19 @@ expiry and notification permissions can still suppress alerts. After switching,
 test an incoming message and call while working on another workspace, and test
 screen sharing with the portal chooser; these require a live Teams login.
 
-Only when both Teams and Niri are enabled, Teams opens full-width on `4-comms`,
-secondary `Microsoft Teams Notification` windows float at the top-right without
+Only when both Teams and Niri are enabled, Teams opens full-width on `4-comms`.
+Rules match both `ms-teams` and Chromium's URL-derived Wayland app IDs (`--class`
+does not override the app ID of Chromium app windows).
+Secondary `Microsoft Teams Notification` windows float at the top-right without
 taking focus, and shared windows receive a green border. Floating windows are
 not sticky across Niri workspaces: native desktop notifications, not these
 optional web popups, deliver off-workspace alerts. Teams chat remains hidden
 from screencasts like other messaging windows. Explicit GNOME ScreenCast and
 Screenshot portal routes are added only for Teams+Niri, preserving the GTK
 file chooser and existing portal routes.
+
+If Vicinae still offers the removed **Microsoft Teams for Linux** entry after
+switching, refresh its application list with `systemctl --user restart vicinae`.
 
 `plan.desktop = "niri"` in a NixOS host selects Niri instead of GNOME and enables
 `plan.niri.enable` in Home Manager. The default remains `"gnome"`; only
