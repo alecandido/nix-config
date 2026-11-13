@@ -74,17 +74,37 @@ while IFS= read -r -d '' directory; do
   rpath="$rpath:$target/${directory#"$work/tree/"}"
 done < <(find "$work/tree" \( -type f -o -type l \) -name '*.so*' -printf '%h\0' | sort -zu)
 elf_files=()
+declare -A elf_payloads=()
 while IFS= read -r -d '' path; do
   [[ -f "$path" ]] || continue
-  [[ "$(head -c 4 -- "$path")" == $'\177ELF' ]] || continue
-  elf_files+=("$path")
+  path="$(realpath -e -- "$path")"
+  [[ -z "${elf_payloads[$path]+set}" ]] || continue
+  [[ "$(od -An -tx1 -N4 -- "$path")" == " 7f 45 4c 46" ]] || continue
+  elf_payloads["$path"]="$path"
   if patchelf --print-interpreter "$path" > /dev/null 2>&1; then
-    patchelf --set-interpreter "$dynamic_linker" --set-rpath "$rpath" "$path"
+    if readelf --wide --section-headers "$path" | grep -E '[[:space:]]\.bun[[:space:]]' > /dev/null; then
+      # Long RPATH rewrites can break Bun's self-contained executable layout.
+      original="${path%/*}/.${path##*/}.local-deb-elf"
+      [[ ! -e "$original" && ! -L "$original" ]] || die "private ELF payload collision"
+      patchelf --set-interpreter "$dynamic_linker" "$path"
+      mv -- "$path" "$original"
+      {
+        printf '#!%s\n' "$wrapper_shell"
+        printf "export LD_LIBRARY_PATH=%q\"\${LD_LIBRARY_PATH:+:\$LD_LIBRARY_PATH}\"\n" "$rpath"
+        printf 'exec %q "$@"\n' "$target/${original#"$work/tree/"}"
+      } > "$path"
+      chmod 700 "$path"
+      elf_payloads["$path"]="$original"
+      elf_payloads["$original"]="$original"
+    else
+      patchelf --set-interpreter "$dynamic_linker" --set-rpath "$rpath" "$path"
+    fi
   elif patchelf --print-needed "$path" > /dev/null 2>&1; then
     patchelf --set-rpath "$rpath" "$path"
   else
     printf 'Warning: static or non-dynamic ELF left unchanged: %s\n' "${path#"$work/tree/"}" >&2
   fi
+  elf_files+=("${elf_payloads[$path]}")
 done < <(find "$work/tree" \( -type f -o -type l \) \( -perm /111 -o -name '*.so*' \) -print0)
 
 mapping='{}'
@@ -95,10 +115,12 @@ fi
 mkdir -m 700 "$work/wrappers" "$work/desktops"
 for name in "${!binaries[@]}"; do
   path="$work/tree/${binaries[$name]}"
+  resolved="$(realpath -e -- "$path")"
+  probe="${elf_payloads[$resolved]:-$resolved}"
   tauri=false
   if [[ "$mode" == tauri ]] ||
-    { [[ "$mode" == auto && "$(head -c 4 -- "$path")" == $'\177ELF' ]] &&
-      patchelf --print-needed "$path" | grep '^libwebkit2gtk' > /dev/null; }; then
+    { [[ "$mode" == auto && "$(od -An -tx1 -N4 -- "$probe")" == " 7f 45 4c 46" ]] &&
+      patchelf --print-needed "$probe" | grep '^libwebkit2gtk' > /dev/null; }; then
     tauri=true
     any_tauri=true
   fi

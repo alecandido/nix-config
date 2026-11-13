@@ -57,6 +57,12 @@ by default; additional interpreter packages can be supplied through
 `extraRuntimeLibs`. Missing interpreters produce warnings. This also fixes scripts
 using `/bin/bash`, which is not available on a standard NixOS installation.
 
+Self-contained Bun executables need special handling: long RPATH rewrites can
+break their embedded runtime. These receive interpreter-only ELF patches and a
+private wrapper that supplies the same library pool through `LD_LIBRARY_PATH`.
+The wrapped payload stays beside the executable in the private package tree.
+This applies to directly launched sidecars as well as public command wrappers.
+
 The default library pool supports native CLI, GTK3 and WebKitGTK 4.1 applications.
 Add only public library derivations with
 `programs.localDebInstaller.extraRuntimeLibs = [ pkgs.someLibrary ];`.

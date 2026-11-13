@@ -26,6 +26,17 @@ arguments=("$@")
 printf '%s\n' "${arguments[@]}"
 EOF
 chmod 700 payload/usr/lib/fixture-sidecar
+cat > bundle.js <<'EOF'
+const paths = process.env.LD_LIBRARY_PATH?.split(":") || [];
+if (!paths.some(path => path.endsWith("/usr/lib")) || paths.includes("")) {
+  throw new Error("Bundled executable did not receive its runtime library pool");
+}
+if (process.env.EXPECT_LIBRARY && !paths.includes(process.env.EXPECT_LIBRARY)) {
+  throw new Error("Bundled executable lost an inherited library search path");
+}
+console.log(process.argv.slice(2).join("|"));
+EOF
+bun build --compile --outfile payload/usr/lib/fixture-bundle bundle.js
 printf '<svg/>\n' > payload/usr/share/pixmaps/fixture-icon.svg
 cat > payload/usr/share/applications/fixture.desktop <<'EOF'
 [Desktop Entry]
@@ -55,6 +66,9 @@ test "$("$HOME/.local/bin/fixture-script" 'argument with spaces')" = 'argument w
 # Sidecars are launched directly by applications, not through generated wrappers.
 test "$("$HOME/.local/opt/local-deb-fixture/usr/bin/fixture-script" 'direct argument')" = 'direct argument'
 test "$("$HOME/.local/opt/local-deb-fixture/usr/lib/fixture-sidecar" 'sidecar argument')" = 'sidecar argument'
+test "$("$HOME/.local/opt/local-deb-fixture/usr/lib/fixture-bundle" 'bundle argument' --flag)" = 'bundle argument|--flag'
+# Preserve inherited library search paths without introducing empty entries.
+test "$(EXPECT_LIBRARY=/existing LD_LIBRARY_PATH=/existing "$HOME/.local/opt/local-deb-fixture/usr/lib/fixture-bundle" 'inherited argument')" = 'inherited argument'
 patchelf --print-rpath "$HOME/.local/opt/local-deb-fixture/usr/bin/fixture-run" |
   grep -F "$HOME/.local/opt/local-deb-fixture/usr/lib"
 patchelf --print-rpath "$HOME/.local/opt/local-deb-fixture/usr/lib/libfixture.so.1" |

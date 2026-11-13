@@ -33,6 +33,7 @@ in
         pkgs.jq
         pkgs.patchelf
         pkgs.python3
+        pkgs.bun
         pkgs.shellcheck
       ];
     } ''

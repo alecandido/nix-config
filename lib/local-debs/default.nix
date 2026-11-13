@@ -47,7 +47,7 @@
   application = name: file:
     pkgs.writeShellApplication {
       inherit name;
-      runtimeInputs = with pkgs; [coreutils findutils gnugrep util-linux dpkg patchelf jq python3];
+      runtimeInputs = with pkgs; [coreutils findutils gnugrep util-linux dpkg patchelf binutils jq python3];
       text = environment + builtins.readFile ./common.sh + builtins.readFile file;
     };
   install = application "install-local-deb" ./install.sh;
