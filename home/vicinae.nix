@@ -35,6 +35,7 @@
     search_files_in_root = true;
     favorites = ["files:search"];
     theme.dark.name = "nord";
+    providers.applications.preferences.launchPrefix = "${pkgs.systemd}/bin/systemd-run --user --scope --collect --quiet --";
     providers.clipboard.preferences.monitoring = false;
     providers."@bl4zee1g/vicinae-extension-bitwarden-0".preferences.rbwPath =
       lib.getExe config.programs.rbw.package;
