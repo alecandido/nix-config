@@ -98,6 +98,8 @@ next to the profile to connect and the unplug button to disconnect. The section
 switch turns off all active VPN profiles; turning it back on shows the profiles
 without automatically connecting them. `nm-applet` runs in the graphical session
 to provide VPN authentication dialogs, with its duplicate tray icon hidden.
+Home Manager starts the agent on activation when the graphical session is
+already running, as well as on subsequent logins.
 Passwords and one-time codes belong in those dialogs, not in Nix configuration
 or the public-readable Nix store. Authentication depends on the VPN server;
 browser-based SSO and custom OpenConnect scripts may need additional setup.

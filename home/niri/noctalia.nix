@@ -18,6 +18,7 @@ in {
     home.packages = [
       pkgs.noctalia
       pkgs.ddcutil
+      pkgs.networkmanagerapplet
     ];
 
     plan.niri.noctaliaSettings = {
@@ -68,6 +69,21 @@ in {
       ${lib.getExe pkgs.noctalia} config validate ${rawConfig}
       cp ${rawConfig} "$out"
     '';
+
+    # Home Manager starts newly added units during activation in a running session.
+    systemd.user.services.nm-applet = {
+      Unit = {
+        Description = "NetworkManager VPN authentication agent";
+        PartOf = ["graphical-session.target"];
+        After = ["graphical-session.target"];
+        ConditionEnvironment = "WAYLAND_DISPLAY";
+      };
+      Service = {
+        ExecStart = "${lib.getExe pkgs.networkmanagerapplet} --indicator";
+        Restart = "on-failure";
+      };
+      Install.WantedBy = ["graphical-session.target"];
+    };
 
     systemd.user.services.noctalia = {
       Unit = {
