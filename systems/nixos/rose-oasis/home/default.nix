@@ -6,6 +6,10 @@
     ./niri.nix
     ({config, ...}: {
       plan = {
+        mail = {
+          enable = true;
+          work.address = "alessandro.candido@tii.ae";
+        };
         amenities.enable = true;
         dconf = {
           enable = !config.plan.niri.enable;
