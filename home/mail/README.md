@@ -139,7 +139,10 @@ access tokens automatically, serializes token operations, and stores rotating
 OAuth tokens in the encrypted GNOME keyring, **not Git or agenix**. Background
 access fails rather than opening an unlock prompt if the keyring is locked.
 The user session/keyring must be available; this is not a pre-login headless sync
-service. Timer jobs time out after two minutes. Never publish `oama show` or
+service. Timer jobs time out after fifteen minutes, allowing larger syncs to
+complete; IMAP socket timeouts still fail normally. The isync package explicitly
+enables the Cyrus SASL XOAUTH2 plugin for both manual and timer runs.
+Never publish `oama show` or
 `oama printenv` output: they can disclose credentials.
 
 Open `thunderbird -P mail`, sign into Google and Microsoft in their respective

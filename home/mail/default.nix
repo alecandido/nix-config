@@ -259,7 +259,10 @@ in {
         DisableFeedbackCommands = true;
       };
     };
-    programs.mbsync.enable = true;
+    programs.mbsync = {
+      enable = true;
+      package = pkgs.isync.override {withCyrusSaslXoauth2 = true;};
+    };
     programs.msmtp.enable = true;
     services.mbsync = {
       enable = cfg.credentialsReady && cfg.sync.enable;
@@ -274,7 +277,7 @@ in {
       };
       services.mbsync.Service = {
         UMask = "0077";
-        TimeoutStartSec = "2m";
+        TimeoutStartSec = "15m";
       };
     };
     programs.aerc = {

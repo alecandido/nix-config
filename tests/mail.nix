@@ -121,6 +121,7 @@ in
   assert systemHome.services.mbsync.enable && system.services.gnome.gnome-keyring.enable;
   assert lib.any (a: !a.assertion && lib.hasInfix "Mail activation requires" a.message) invalidIdentities.assertions;
   assert ready.systemd.user.timers.mbsync.Timer.OnUnitActiveSec == "5m";
+  assert ready.services.mbsync.package == ready.programs.mbsync.package;
   assert lib.hasInfix "source = maildir:///tmp/mail-test/.local/share/mail/personal" accounts;
   assert lib.hasInfix "source = maildir:///tmp/mail-test/.local/share/mail/work" accounts;
   assert lib.hasInfix "--account=work" accounts && lib.hasInfix "copy-to = Sent Items" accounts;
@@ -138,6 +139,7 @@ in
       grep -F 'auth xoauth2' ${ready.xdg.configFile."msmtp/config".source}
       grep -F 'passwordeval ' ${ready.xdg.configFile."msmtp/config".source}
       grep -F 'text/html = ${pkgs.w3m}/bin/w3m -dump' ${ready.home.file."/tmp/mail-test/.config/aerc/aerc.conf".source}
+      python3 ${./mail-sasl.py} ${ready.programs.mbsync.package}/bin/mbsync
 
       export HOME="$TMPDIR/home"
       export XDG_STATE_HOME="$HOME/.local/state"
