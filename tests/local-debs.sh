@@ -11,7 +11,15 @@ Architecture: all
 Maintainer: Fixture <fixture@example.invalid>
 Description: Synthetic runtime-only test package
 EOF
-printf 'int main(void) { return 0; }\n' > executable.c
+cat > executable.c <<'EOF'
+#include <string.h>
+#include <unistd.h>
+int main(int argc, char **argv) {
+  if (argc > 1 && strcmp(argv[1], "--hold") == 0)
+    for (;;) pause();
+  return 0;
+}
+EOF
 cc executable.c -o payload/usr/bin/fixture-run
 cc -shared -fPIC executable.c -o payload/usr/lib/libfixture.so.1
 cat > payload/usr/bin/fixture-script <<'EOF'
@@ -77,6 +85,57 @@ test -z "$(find "$HOME/.local/opt/local-deb-fixture" -type d ! -perm 700 -print)
 test -z "$(find "$HOME/.local/opt/local-deb-fixture" -type f -perm /077 -print)"
 list-local-debs | grep -E 'local-deb-fixture +1.0 +standard'
 list-local-debs --json | jq -e 'length == 1'
+
+# Running native applications must survive rejected upgrades and uninstalls.
+holding_pid=
+cleanup_running_fixture() {
+  if [[ -n "$holding_pid" ]]; then
+    kill "$holding_pid"
+    wait "$holding_pid" || [[ $? == 143 ]]
+    holding_pid=
+  fi
+}
+trap cleanup_running_fixture EXIT
+"$HOME/.local/bin/fixture-run" --hold &
+holding_pid=$!
+for ((attempt = 0; attempt < 50; attempt++)); do
+  if [[ "$(readlink "/proc/$holding_pid/exe")" == "$HOME/.local/opt/local-deb-fixture/usr/bin/fixture-run" ]]; then
+    break
+  fi
+  sleep 0.1
+done
+[[ "$(readlink "/proc/$holding_pid/exe")" == "$HOME/.local/opt/local-deb-fixture/usr/bin/fixture-run" ]]
+if install-local-deb package.deb > rejected.log 2>&1; then
+  exit 1
+fi
+grep -F "still in use by PID $holding_pid" rejected.log
+if uninstall-local-deb local-deb-fixture > rejected.log 2>&1; then
+  exit 1
+fi
+grep -F "still in use by PID $holding_pid" rejected.log
+jq -e 'length == 1 and .[0].version == "1.0"' "$registry"
+test -x "$HOME/.local/bin/fixture-run"
+cleanup_running_fixture
+
+# Public interpreters can retain a deleted working directory in the package.
+working="$HOME/.local/opt/local-deb-fixture/working"
+mkdir "$working"
+(cd "$working"; exec sleep 60) &
+holding_pid=$!
+for ((attempt = 0; attempt < 50; attempt++)); do
+  if [[ "$(readlink "/proc/$holding_pid/cwd")" == "$working" ]]; then
+    break
+  fi
+  sleep 0.1
+done
+[[ "$(readlink "/proc/$holding_pid/cwd")" == "$working" ]]
+rmdir "$working"
+if uninstall-local-deb local-deb-fixture > rejected.log 2>&1; then
+  exit 1
+fi
+grep -F "still in use by PID $holding_pid" rejected.log
+cleanup_running_fixture
+trap - EXIT
 
 # Upgrades remove obsolete wrappers and desktop entries.
 rm payload/usr/bin/fixture-script payload/usr/share/applications/fixture.desktop

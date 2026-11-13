@@ -38,6 +38,7 @@ case "$(uname -m):$architecture" in
 esac
 
 target="$root/$package"
+ensure_package_stopped "$package"
 mkdir -m 700 "$work/tree"
 dpkg-deb --fsys-tarfile "$work/source.deb" | python3 "$archive_helper"
 dpkg-deb -x "$work/source.deb" "$work/tree"

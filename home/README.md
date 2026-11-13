@@ -51,6 +51,13 @@ Icons remain inside the private extracted tree. The original input file is not
 deleted or secured by the CLI; keep it outside the repository and in a private
 directory yourself. Retained archives are not deleted on uninstall.
 
+Quit applications **and their background processes** before upgrading or
+uninstalling. The commands refuse removal while a user-owned process is
+executing from, or has its working directory inside, the package tree (including
+deleted directories). Closing a window may leave a backend running. This guard
+avoids leaving applications with deleted executables or working directories;
+it does not kill processes automatically.
+
 Executable script shebangs, including bundled sidecars, are patched at runtime
 to public Nix-provided interpreters. Bash, POSIX sh, env and Python are available
 by default; additional interpreter packages can be supplied through

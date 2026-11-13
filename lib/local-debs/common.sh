@@ -65,9 +65,25 @@ owned_wrapper() {
     grep -Fxq -- "# local-deb-owner: $2" "$1"
 }
 
+ensure_package_stopped() {
+  local package="$1" target process reference linked
+  target="$(realpath -m -- "$root/$package")"
+  for process in /proc/[0-9]*; do
+    [[ -O "$process" ]] || continue
+    for reference in exe cwd; do
+      if linked="$(readlink -- "$process/$reference" 2>/dev/null)"; then
+        if [[ "$linked" == "$target" || "$linked" == "$target/"* || "$linked" == "$target (deleted)" ]]; then
+          die "package $package is still in use by PID ${process##*/}; quit the application and its background processes before reinstalling or uninstalling"
+        fi
+      fi
+    done
+  done
+}
+
 remove_package() {
   local package="$1" path name
   valid_package "$package" || die "invalid package name"
+  ensure_package_stopped "$package"
   while IFS= read -r -d '' path; do
     name="${path##*/}"
     [[ "$path" == "$bin_dir/$name" && "$name" != "." && "$name" != ".." ]] ||
