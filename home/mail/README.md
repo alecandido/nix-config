@@ -23,9 +23,14 @@ and supplies their runtime paths to Home Manager. The user agenix service does
 not decrypt these mail secrets. Missing/wrong host keys or recipients cause a
 decryption failure, not an interactive fallback.
 
-This requires agenix's NixOS `age.identityPaths` to contain only OpenSSH host
-keys; the mail module asserts that invariant. Keep host private keys root-only
-and outside Git. Other, unrelated Home Manager secrets still use their own
+The mbsync service uses Home Manager's `X-SwitchMethod=keep-old`: a rebuild does
+not stop/restart an ongoing sync or wait for it. Only the timer is installed into
+`timers.target`; the service is not directly enabled on a target. The next timer
+run uses the updated configuration, while an already-running job can finish.
+
+Host-managed mail decryption requires agenix's NixOS `age.identityPaths` to
+contain only OpenSSH host keys; the mail module asserts that invariant. Keep host
+private keys root-only and outside Git. Other, unrelated Home Manager secrets still use their own
 existing agenix configuration.
 
 ## Storage isolation

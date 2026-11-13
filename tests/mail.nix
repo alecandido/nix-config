@@ -121,6 +121,9 @@ in
   assert systemHome.services.mbsync.enable && system.services.gnome.gnome-keyring.enable;
   assert lib.any (a: !a.assertion && lib.hasInfix "Mail activation requires" a.message) invalidIdentities.assertions;
   assert ready.systemd.user.timers.mbsync.Timer.OnUnitActiveSec == "5m";
+  assert ready.systemd.user.services.mbsync.Unit.X-SwitchMethod == "keep-old";
+  assert (ready.systemd.user.services.mbsync.Install.WantedBy or []) == [];
+  assert ready.systemd.user.timers.mbsync.Install.WantedBy == ["timers.target"];
   assert ready.services.mbsync.package == ready.programs.mbsync.package;
   assert lib.hasInfix "source = maildir:///tmp/mail-test/.local/share/mail/personal" accounts;
   assert lib.hasInfix "source = maildir:///tmp/mail-test/.local/share/mail/work" accounts;

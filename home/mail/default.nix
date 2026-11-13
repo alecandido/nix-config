@@ -275,9 +275,12 @@ in {
         OnStartupSec = "2m";
         OnUnitActiveSec = "5m";
       };
-      services.mbsync.Service = {
-        UMask = "0077";
-        TimeoutStartSec = "15m";
+      services.mbsync = {
+        Unit.X-SwitchMethod = "keep-old";
+        Service = {
+          UMask = "0077";
+          TimeoutStartSec = "15m";
+        };
       };
     };
     programs.aerc = {
