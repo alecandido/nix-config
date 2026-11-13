@@ -21,6 +21,10 @@ in {
     ];
 
     plan.niri.noctaliaSettings = {
+      brightness.enable_ddcutil = lib.mkDefault true;
+      location.auto_locate = lib.mkDefault true;
+      weather.enabled = lib.mkDefault true;
+      calendar.enabled = lib.mkDefault true;
       theme = {
         mode = lib.mkDefault "dark";
         source = lib.mkDefault "builtin";
