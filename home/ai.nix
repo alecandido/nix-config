@@ -29,6 +29,10 @@
 in {
   programs.github-copilot-cli = {
     enable = true;
+    mutableSettings = true;
+    settings = {
+      editorMode = "vim";
+    };
   };
 
   home.activation.updateAntigravitySettings = let
