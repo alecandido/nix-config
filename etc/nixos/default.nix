@@ -7,6 +7,7 @@
 }: {
   imports = [
     ./desktop.nix
+    ./mail.nix
     ../fonts.nix
     ../nix.nix
   ];

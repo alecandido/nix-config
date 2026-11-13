@@ -3,6 +3,27 @@
   pkgs,
 }: let
   inherit (pkgs) lib;
+  testModule = ready: {
+    home = {
+      username = "mail-test";
+      homeDirectory = "/tmp/mail-test";
+      stateVersion = "26.05";
+    };
+    plan.mail = {
+      enable = true;
+      work.address = "work@example.org";
+      secrets =
+        if ready
+        then {
+          personal = builtins.toFile "mail-personal-test.age" "synthetic encrypted fixture";
+          work = builtins.toFile "mail-work-test.age" "synthetic encrypted fixture";
+        }
+        else {
+          personal = "${./.}/unprovisioned-personal.age";
+          work = "${./.}/unprovisioned-work.age";
+        };
+    };
+  };
   makeHome = ready: extraModules:
     (inputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
@@ -11,32 +32,44 @@
         [
           ../home/mail
           inputs.agenix.homeManagerModules.age
-          {
-            home = {
-              username = "mail-test";
-              homeDirectory = "/tmp/mail-test";
-              stateVersion = "26.05";
-            };
-            plan.mail = {
-              enable = true;
-              work.address = "work@example.org";
-              secrets =
-                if ready
-                then {
-                  personal = builtins.toFile "mail-personal-test.age" "synthetic encrypted fixture";
-                  work = builtins.toFile "mail-work-test.age" "synthetic encrypted fixture";
-                }
-                else {
-                  personal = "${./.}/unprovisioned-personal.age";
-                  work = "${./.}/unprovisioned-work.age";
-                };
-            };
-          }
+          (testModule ready)
         ]
         ++ extraModules;
     }).config;
   ready = makeHome true [];
   pending = makeHome false [];
+  testSystem = inputs.nixpkgs.lib.nixosSystem {
+    modules = [
+      inputs.home-manager.nixosModules.home-manager
+      inputs.agenix.nixosModules.default
+      ../etc/nixos/mail.nix
+      {
+        nixpkgs.pkgs = pkgs;
+        services.openssh.enable = true;
+        users.users.mail-test = {
+          isNormalUser = true;
+          home = "/tmp/mail-test";
+        };
+        home-manager.extraSpecialArgs = {inherit inputs;};
+        home-manager.users.mail-test.imports = [
+          ../home/mail
+          inputs.agenix.homeManagerModules.age
+          (testModule true)
+        ];
+        system.stateVersion = "26.05";
+      }
+    ];
+  };
+  system = testSystem.config;
+  invalidIdentities =
+    (testSystem.extendModules {
+      modules = [
+        {
+          age.identityPaths = lib.mkForce ["/tmp/mail-test/.ssh/id_ed25519"];
+        }
+      ];
+    }).config;
+  systemHome = system.home-manager.users.mail-test;
   custom = makeHome true [
     {
       plan.mail.work = {
@@ -77,6 +110,16 @@ in
   assert ready.plan.mail.credentialsReady && ready.age.secrets.mail-personal.enable;
   assert !pending.plan.mail.credentialsReady && !pending.age.secrets.mail-personal.enable;
   assert ready.services.mbsync.enable && !pending.services.mbsync.enable;
+  assert system.age.secrets.mail-mail-test-personal.enable;
+  assert system.age.secrets.mail-mail-test-personal.owner == "mail-test";
+  assert system.age.secrets.mail-mail-test-personal.mode == "0400";
+  assert !systemHome.age.secrets.mail-personal.enable;
+  assert !systemHome.age.secrets.mail-work-oauth.enable;
+  assert !(systemHome.systemd.user.services ? agenix);
+  assert systemHome.age.secrets.mail-personal.path == system.age.secrets.mail-mail-test-personal.path;
+  assert lib.hasInfix "/run/agenix/mail-mail-test-personal" (toString systemHome.accounts.email.accounts.personal.passwordCommand);
+  assert systemHome.services.mbsync.enable && system.services.gnome.gnome-keyring.enable;
+  assert lib.any (a: !a.assertion && lib.hasInfix "Mail activation requires" a.message) invalidIdentities.assertions;
   assert ready.systemd.user.timers.mbsync.Timer.OnUnitActiveSec == "5m";
   assert lib.hasInfix "source = maildir:///tmp/mail-test/.local/share/mail/personal" accounts;
   assert lib.hasInfix "source = maildir:///tmp/mail-test/.local/share/mail/work" accounts;

@@ -74,6 +74,7 @@
         checks = lib.optionalAttrs (system == "x86_64-linux") {
           mail = import ./tests/mail.nix {inherit inputs pkgs;};
           teams = import ./tests/teams.nix {inherit inputs pkgs;};
+          local-debs = import ./tests/local-debs.nix {inherit inputs pkgs;};
         };
       };
     };

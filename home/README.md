@@ -27,3 +27,51 @@ NixOS also provides `plan.apps.<app>.enable` for `zoom`, `teams`, `spotify`,
 `beeper`, `fractal` and `xournalpp` at the system level, outside `extraHomeModules`.
 All default to `false`; `rose-oasis` and `ocopoli` enable Zoom, Teams and Spotify.
 CJK fonts remain installed unconditionally.
+
+## Private local Debian packages (Linux)
+
+`programs.localDebInstaller.enable` defaults to `true` in this configuration on
+Linux. The reusable module in [`lib/local-debs`](../lib/local-debs) is opt-in;
+`home/local-debs` only imports it and sets configuration defaults. It installs
+three generic commands:
+
+```sh
+install-local-deb [--tauri|--no-tauri] /path/to/package.deb
+list-local-debs [--json]
+uninstall-local-deb package-name
+```
+
+Never add a private package path or name to a Nix expression. Metadata, ELF
+patching, wrappers and desktop integration are discovered at runtime only.
+Managed package trees and registry live in `~/.local/opt` (directory mode `0700`,
+registry `0600`); package archives live in
+`~/.local/share/private-debs/installed`. Wrappers are `0700` and desktop entries
+`0600`, in owner-only `~/.local/bin` and `~/.local/share/applications` directories.
+Icons remain inside the private extracted tree. The original input file is not
+deleted or secured by the CLI; keep it outside the repository and in a private
+directory yourself. Retained archives are not deleted on uninstall.
+
+The default library pool supports native CLI, GTK3 and WebKitGTK 4.1 applications.
+Add only public library derivations with
+`programs.localDebInstaller.extraRuntimeLibs = [ pkgs.someLibrary ];`.
+These libraries remain rooted in the Home Manager profile. WebKitGTK 4.0 and
+other incompatible ABIs require their matching providers; missing libraries
+produce warnings, not fake compatibility symlinks. The audit inspects ELF
+dependencies without executing `ldd`; it cannot detect libraries loaded
+dynamically with `dlopen`.
+
+The optional watcher defaults to enabled. Drop complete `.deb` files into
+`~/.local/share/private-debs` (prefer an atomic rename after copying). A
+long-running user service checks the inbox every five seconds once activated,
+moving successful inputs to `installed/` and rejected inputs to `failed/`.
+Diagnostics go to a private `0600` `watcher.log`, not the systemd journal.
+Disable it with `programs.localDebInstaller.watchDirectory.enable = false;`.
+
+Only install trusted packages: user-space executables still have your account's
+permissions. Maintainer scripts are never executed. Escaping archive paths,
+links, special files, conflicting wrapper names and unresolvable desktop
+commands are rejected. This is not a substitute for Debian's system package
+manager or a sandbox; packages needing system services or nonstandard launch
+layouts may not work. Validation finishes before an upgrade removes the old
+version; a subsequent installation failure cleans up the incomplete new version
+but does not restore the previous one.

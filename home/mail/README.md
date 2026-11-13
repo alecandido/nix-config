@@ -1,4 +1,34 @@
-# Mail on rose-oasis
+# Mail on NixOS
+
+Currently enabled on rose-oasis. Other NixOS hosts opt in through their Home
+Manager host module; enabling mail also enables GNOME Keyring declaratively.
+
+## Deployment lifecycle
+
+| Task | When repeated | Where it runs |
+| --- | --- | --- |
+| Create a Gmail App Password / choose an approved Entra app | Once per credential, or when rotated | Provider website and secrets repository |
+| Enroll the machine's public SSH host key as an age recipient | Once per machine, or after its host key changes | Secrets repository |
+| Enable `plan.mail` and choose account/credential options | Once per machine | Host Home Manager module |
+| Microsoft `oama authorize` and Thunderbird OAuth sign-ins | Once per user/machine; again if tokens are revoked or policy changes | Explicit user commands / client UI |
+| Set up the default keyring and Thunderbird Primary Password | Once per user/machine; unlock on login | Desktop/client UI |
+| Create profile/Maildir paths, install configuration, decrypt mail secrets, install timer | Every rebuild, automatically | NixOS / Home Manager |
+| Refresh tokens and synchronize | Automatically after sign-in, in an unlocked user session | oama / systemd user timer |
+
+**Mail activation is non-interactive.** It never runs `oama authorize`, launches a
+browser or mail client, unlocks a keyring, asks for a user SSH-key passphrase, or
+waits for the first mail sync. NixOS agenix decrypts mail secrets with the existing
+OpenSSH host keys as root, installs them with mode `0400` owned by the mail user,
+and supplies their runtime paths to Home Manager. The user agenix service does
+not decrypt these mail secrets. Missing/wrong host keys or recipients cause a
+decryption failure, not an interactive fallback.
+
+This requires agenix's NixOS `age.identityPaths` to contain only OpenSSH host
+keys; the mail module asserts that invariant. Keep host private keys root-only
+and outside Git. Other, unrelated Home Manager secrets still use their own
+existing agenix configuration.
+
+## Storage isolation
 
 Thunderbird uses its own `~/.thunderbird/mail` profile and talks directly to
 IMAP/SMTP. aerc uses only `~/.local/share/mail/{personal,work}`, synchronized by
@@ -11,8 +41,9 @@ Close Thunderbird before the first activation.
 ## Provisioning (locally, not in chat)
 
 The recipient rules and flake exports are prepared in
-`~/Projects/misc/secrets`. Only the rose-oasis user's existing SSH identity can
-decrypt these two files. Do not enter passwords/tokens in chat, shell command
+`~/Projects/misc/secrets`. Recipients include the rose-oasis user's SSH identity
+for manual editing and its SSH host key for unattended NixOS decryption.
+Do not enter passwords/tokens in chat, shell command
 arguments, Nix files, or environment variables.
 
 | Encrypted file | Contents before encryption |
@@ -72,8 +103,9 @@ and Git leakage, but no workflow can promise secrecy on a compromised or recorde
 machine. Keep disk/swap encrypted; plaintext runtime credentials necessarily exist
 while clients use them.
 
-The recipient declarations and exports are already committed. Stage/commit/push
-**only the two encrypted files** in the secrets repository. Then, in this repository:
+Keep ciphertext and recipient-rule changes together in the secrets repository:
+stage/commit/push the **two encrypted files and `secrets.nix` if its recipients
+changed**, never plaintext credentials. Then, in this repository:
 
 ```sh
 nix flake update secrets
@@ -94,7 +126,7 @@ Do not change the production flake to an unencrypted local credential path.
 In your logged-in desktop session, unlock the default GNOME keyring, then:
 
 ```sh
-systemctl --user stop mbsync.timer
+systemctl --user stop mbsync.timer mbsync.service
 oama authorize microsoft alessandro.candido@tii.ae --device
 mbsync -a
 systemctl --user start mbsync.timer
@@ -136,6 +168,83 @@ Items copy from the client. Folder names assume English server folders; check
 All folders are synchronized, including Gmail All Mail, which can duplicate local
 storage across labels. `Expunge Both` finalizes message deletions after moves; do
 not use aerc's explicit `:delete` unless permanent deletion is intended.
+
+## Adding another machine
+
+Run the following outside activation, in a local Bash session.
+
+1. Bootstrap the machine with OpenSSH enabled, without enabling mail yet. NixOS
+   creates its host keys automatically. Read **only the public key**:
+
+   ```sh
+   cat /etc/ssh/ssh_host_ed25519_key.pub
+   ```
+
+2. In `~/Projects/misc/secrets/secrets.nix`, add that public key to **both**
+   `mail-personal.age` and `mail-work-oauth.json.age` recipient lists. Keep the
+   existing recipients, including a user key you can use to edit/rekey. Host keys
+   cannot be inferred safely at Nix evaluation time, so enrollment is deliberate.
+   Re-encrypt existing files without printing their plaintext:
+
+   ```sh
+   cd ~/Projects/misc/secrets
+   umask 077
+   export TMPDIR="/run/user/$(id -u)"
+   export AGENIX_RULES="$PWD/secrets.nix"
+   EDITOR=: nix run --inputs-from ~/Projects/nix-config agenix -- \
+     -e mail-personal.age -i "$HOME/.ssh/id_ed25519"
+   EDITOR=: nix run --inputs-from ~/Projects/nix-config agenix -- \
+     -e mail-work-oauth.json.age -i "$HOME/.ssh/id_ed25519"
+   unset AGENIX_RULES TMPDIR
+   git add -- secrets.nix mail-personal.age mail-work-oauth.json.age
+   git commit -m "Enroll mail host key"
+   git push
+   ```
+
+   Use the identity of an **existing recipient**, on a machine where that private
+   user key is available. A new host key alone cannot decrypt the old ciphertext.
+   If these files have not been created yet, use the provisioning editor commands
+   above instead. If files were encrypted before the rose-oasis host recipient was
+   added, repeat these two rekey commands before migrating that machine.
+
+3. Enable the following in the new host's Home Manager module:
+
+   ```nix
+   plan.mail = {
+     enable = true;
+     work.address = "alessandro.candido@tii.ae";
+   };
+   ```
+
+   The shared NixOS mail module handles root agenix declarations, ownership,
+   runtime paths, and keyring enablement. Do not create duplicate secret
+   declarations manually. To use separate per-machine credentials, override
+   `plan.mail.secrets.personal` / `work` with the corresponding encrypted paths
+   and enroll the host in those files instead.
+   A brand-new host must also be registered in the flake's NixOS configurations;
+   its hostname must match that configuration attribute.
+
+4. Update the shared secrets input once in nix-config, commit/push `flake.lock`,
+   and deploy that revision to the new machine. On the new machine:
+
+   ```sh
+   cd ~/Projects/nix-config
+   git pull --ff-only
+   HOST="$(hostname)"
+   sudo nixos-rebuild dry-build --flake ".#$HOST"
+   sudo nixos-rebuild switch --flake ".#$HOST"
+   ```
+
+5. Repeat the sign-in and initial sync section on that machine. OAuth tokens are
+   local client state, not portable configuration: do not copy keyring or
+   Thunderbird token databases between machines. Password login through GDM
+   normally unlocks GNOME Keyring; auto-login or other login methods may need
+   explicit unlocking. A locked keyring or revoked token fails background sync
+   visibly but does not block activation.
+
+After enrollment and sign-in, ordinary rebuilds need **no mail-specific manual
+commands**. Only credential rotation, host-key replacement, or provider consent
+changes require repeating the corresponding preparation step.
 
 ## Tenant restrictions / optional DavMail
 

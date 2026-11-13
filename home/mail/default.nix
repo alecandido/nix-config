@@ -121,6 +121,12 @@
 in {
   options.plan.mail = {
     enable = lib.mkEnableOption "isolated Thunderbird and aerc mail clients";
+    systemSecrets = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      internal = true;
+      description = "Use mail secrets decrypted by the NixOS host-key agenix module.";
+    };
     secrets = {
       personal = lib.mkOption {
         type = lib.types.path;
@@ -175,11 +181,11 @@ in {
     age.secrets = {
       mail-personal = {
         file = personalFile;
-        enable = cfg.credentialsReady;
+        enable = cfg.credentialsReady && !cfg.systemSecrets;
       };
       mail-work-oauth = {
         file = workFile;
-        enable = cfg.credentialsReady;
+        enable = cfg.credentialsReady && !cfg.systemSecrets;
       };
     };
 

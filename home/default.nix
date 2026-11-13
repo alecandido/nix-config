@@ -9,6 +9,7 @@
       ./cheats
       ./git
       ./kerberos
+      ./local-debs
       ./mail
       ./neovim
       ./niri
