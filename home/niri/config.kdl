@@ -69,7 +69,7 @@ window-rule {
     open-on-workspace "2-web"
 }
 window-rule {
-    match app-id=r#"(?i)^(thunderbird|org\.mozilla\.Thunderbird|org\.telegram\.desktop|org\.gnome\.Fractal|beeper|com\.beeper\.Beeper|teams-for-linux|com\.github\.IsmaelMartinez\.teams_for_linux)$"#
+    match app-id=r#"(?i)^(thunderbird|org\.mozilla\.Thunderbird|org\.telegram\.desktop|org\.gnome\.Fractal|beeper|com\.beeper\.Beeper)$"#
     open-on-workspace "4-comms"
     default-column-width { proportion 1.0; }
     block-out-from "screencast"

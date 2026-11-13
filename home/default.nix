@@ -15,6 +15,7 @@
       ./python
       ./shell
       ./ssh
+      ./teams
       ./xournalpp
       ./zellij
       ./ai.nix

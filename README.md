@@ -27,6 +27,41 @@ of defining a new option in a module, and then setting in the common one.
 
 ## Niri desktop
 
+### Microsoft Teams
+
+`plan.apps.teams.enable = true` on a NixOS host enables Teams and its
+PipeWire/portal plumbing, forwarding `plan.teams.enable = true` to Home Manager.
+It is enabled on `rose-oasis` (Niri) and `ocopoli` (GNOME); other hosts remain
+unchanged. Standalone Linux Home Manager configurations can enable
+`plan.teams.enable` independently, with screen-sharing portals supplied by the
+host system.
+
+Launch **Microsoft Teams** or `ms-teams`. This replaces `teams-for-linux` with a
+Wayland Chromium app using `${XDG_DATA_HOME:-~/.local/share}/teams-profile`,
+separate from personal browsing. Existing Teams-for-Linux sessions are not
+migrated. `msteams:` meeting links use this profile; ordinary HTTPS links keep
+using the default browser. You can explicitly open an HTTPS Teams meeting link
+with `ms-teams 'https://teams.microsoft.com/l/meetup-join/...'`.
+
+On first login, allow notifications, microphone and camera in this profile,
+and enable Teams' desktop notifications in its settings. Keep the window open
+on its workspace; this is not a tray client and closing it stops incoming
+alerts. Background timer/renderer throttling is disabled, and native Chromium
+notifications use the existing desktop notification service (Noctalia on Niri,
+GNOME Shell on GNOME). Do not disturb, Teams account settings, network/session
+expiry and notification permissions can still suppress alerts. After switching,
+test an incoming message and call while working on another workspace, and test
+screen sharing with the portal chooser; these require a live Teams login.
+
+Only when both Teams and Niri are enabled, Teams opens full-width on `4-comms`,
+secondary `Microsoft Teams Notification` windows float at the top-right without
+taking focus, and shared windows receive a green border. Floating windows are
+not sticky across Niri workspaces: native desktop notifications, not these
+optional web popups, deliver off-workspace alerts. Teams chat remains hidden
+from screencasts like other messaging windows. Explicit GNOME ScreenCast and
+Screenshot portal routes are added only for Teams+Niri, preserving the GTK
+file chooser and existing portal routes.
+
 `plan.desktop = "niri"` in a NixOS host selects Niri instead of GNOME and enables
 `plan.niri.enable` in Home Manager. The default remains `"gnome"`; only
 `rose-oasis` opts in. GDM remains the login screen. After rebuilding, log out

@@ -58,12 +58,21 @@
         inherit (nixConfigs) formatter;
       };
 
-      perSystem = {system, ...}: {
+      perSystem = {
+        system,
+        pkgs,
+        lib,
+        ...
+      }: {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
           config = {
             allowUnfree = true;
           };
+        };
+
+        checks = lib.optionalAttrs (system == "x86_64-linux") {
+          teams = import ./tests/teams.nix {inherit inputs pkgs;};
         };
       };
     };

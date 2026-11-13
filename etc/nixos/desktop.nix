@@ -7,14 +7,13 @@
   niri = config.plan.desktop == "niri";
   apps = {
     zoom = pkgs.zoom-us;
-    teams = pkgs.teams-for-linux;
     spotify = pkgs.spotify;
     beeper = pkgs.beeper;
     fractal = pkgs.fractal;
     xournalpp = pkgs.xournalpp;
   };
 in {
-  imports = [./gnome.nix];
+  imports = [./gnome.nix ./teams.nix];
 
   options.plan.desktop = lib.mkOption {
     type = lib.types.enum ["gnome" "niri"];

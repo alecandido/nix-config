@@ -1,0 +1,26 @@
+window-rule {
+    match app-id="^ms-teams$"
+    exclude app-id="^ms-teams$" title="^Microsoft Teams Notification$"
+    open-on-workspace "4-comms"
+    default-column-width { proportion 1.0; }
+    block-out-from "screencast"
+}
+
+window-rule {
+    match app-id="^ms-teams$" title="^Microsoft Teams Notification$"
+    open-floating true
+    open-focused false
+    default-column-width { fixed 420; }
+    default-window-height { fixed 240; }
+    default-floating-position x=24 y=24 relative-to="top-right"
+}
+
+window-rule {
+    match is-window-cast-target=true
+    border {
+        on
+        width 4
+        active-color "#a3be8c"
+        inactive-color "#a3be8c"
+    }
+}
