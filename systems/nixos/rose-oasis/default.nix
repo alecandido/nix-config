@@ -65,7 +65,15 @@
 
   hardware.cpu.amd.updateMicrocode = true;
   services.fstrim.enable = true;
+  services.tailscale.openFirewall = true;
   zramSwap.enable = true;
+
+  systemd.sleep.settings.Sleep = {
+    AllowSuspend = false;
+    AllowHibernation = false;
+    AllowHybridSleep = false;
+    AllowSuspendThenHibernate = false;
+  };
 
   users.users.alessandro.extraGroups = [
     "audio"

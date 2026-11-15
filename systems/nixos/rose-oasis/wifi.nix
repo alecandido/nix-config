@@ -26,6 +26,7 @@ in {
             type = "wifi";
             autoconnect = true;
             autoconnect-priority = 100;
+            autoconnect-retries = 0;
           };
           wifi = {
             mode = "infrastructure";
@@ -41,7 +42,8 @@ in {
             id = "$GUEST_SSID";
             uuid = "5a8777d6-0d49-4351-af6e-56c1cd907c33";
             type = "wifi";
-            autoconnect = false;
+            autoconnect = true;
+            autoconnect-priority = 0;
           };
           wifi = {
             mode = "infrastructure";
@@ -91,7 +93,7 @@ in {
       ''} > "/var/lib/iwd/$CORPORATE_SSID.8021x"
       ${pkgs.envsubst}/bin/envsubst -i ${pkgs.writeText "guest-wifi.psk" ''
         [Settings]
-        AutoConnect=false
+        AutoConnect=true
 
         [Security]
         Passphrase=$GUEST_PSK
