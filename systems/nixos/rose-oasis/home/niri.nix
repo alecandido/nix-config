@@ -1,9 +1,32 @@
-let
+{
+  inputs,
+  pkgs,
+  ...
+}: let
   # Exact EDID identities from this host. Confirm with `niri msg outputs`;
   # connector names change when the KVM/daisy chain is reconnected.
   primary = "Dell Inc. DELL U3225QE 9WJ0834";
   secondary = "Dell Inc. DELL U2722D JQKD093";
+  retrain = pkgs.writeShellApplication {
+    name = "niri-retrain-mst";
+    runtimeInputs = [pkgs.niri pkgs.jq pkgs.coreutils];
+    text = builtins.readFile "${inputs.self}/lib/niri/retrain-mst.sh";
+  };
 in {
+  systemd.user.services.niri-retrain-mst = {
+    Unit = {
+      Description = "Recover the portrait monitor after Niri initializes the MST chain";
+      After = ["niri.service"];
+      PartOf = ["niri.service"];
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${retrain}/bin/niri-retrain-mst '${primary}' '${secondary}'";
+      RemainAfterExit = true;
+    };
+    Install.WantedBy = ["niri.service"];
+  };
+
   plan.niri = {
     primaryOutput = primary;
     secondaryOutput = secondary;

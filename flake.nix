@@ -76,6 +76,7 @@
           teams = import ./tests/teams.nix {inherit inputs pkgs;};
           local-debs = import ./tests/local-debs.nix {inherit inputs pkgs;};
           niri-vpn = import ./tests/niri-vpn.nix {inherit inputs pkgs;};
+          niri-mst = import ./tests/niri-mst.nix {inherit pkgs;};
         };
       };
     };
