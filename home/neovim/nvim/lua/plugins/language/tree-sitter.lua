@@ -37,6 +37,12 @@ M.init = function()
 end
 
 M.config = function(_, opts)
+	-- The legacy installer passes --no-bindings, removed in newer tree-sitter releases.
+	require("nvim-treesitter.install").ts_generate_args = {
+		"generate",
+		"--abi",
+		tostring(vim.treesitter.language_version),
+	}
 	require("nvim-treesitter.configs").setup(opts)
 end
 

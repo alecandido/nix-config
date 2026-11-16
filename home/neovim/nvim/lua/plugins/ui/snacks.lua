@@ -36,7 +36,7 @@ M.opts = {
 				local cmds = {
 					{
 						title = "Notifications",
-						cmd = "gh notify -s -a -n5",
+						cmd = "gh api 'notifications?all=true&per_page=5' --jq '.[] | [.repository.full_name, .subject.title] | @tsv'",
 						action = function()
 							vim.ui.open("https://github.com/notifications")
 						end,
