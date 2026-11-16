@@ -1,12 +1,10 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   devenvConfig = {
     version = 1;
     shell.prompt_prefix = false;
     tui.statusline.enabled = false;
   };
-in
-{
+in {
   nix.settings = {
     experimental-features = [
       "nix-command"
@@ -21,6 +19,7 @@ in
 
   programs.devenv = {
     enable = true;
+    package = pkgs.callPackage ../lib/devenv {};
     enableNushellIntegration = true;
   };
 

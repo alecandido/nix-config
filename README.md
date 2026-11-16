@@ -25,6 +25,26 @@ conditioned, or directly extracted, from configurations defined in `systems/`.
 In this case, the configuration is directly defined in `systems/`, without the overhead
 of defining a new option in a module, and then setting in the common one.
 
+## Development shells
+
+The shared Home Manager configuration installs `devenv` with automatic shell
+reloading disabled by default on Linux and macOS, including shell
+auto-activation. This avoids the reloadable-shell PTY redraw issue observed
+over SSH. Development tools and tasks remain available.
+
+Use `devenv shell --reload` to opt in for a particular invocation.
+`devenv shell --no-reload` remains valid. The default is implemented by a package
+wrapper because devenv's global user configuration does not support `reload`;
+no project `devenv.yaml` needs changing.
+
+## SSH terminal compatibility
+
+On macOS, the shared shell environment includes the manually installed
+`/Applications/Ghostty.app` terminal definitions in `TERMINFO_DIRS`, preserving
+the existing search paths and system fallback. This lets Zsh recognize
+`xterm-ghostty` when connecting over SSH, without disabling autosuggestions.
+After rebuilding, reconnect so the login shell reloads its terminal capabilities.
+
 ## Niri desktop
 
 ### Remote applications
@@ -60,7 +80,7 @@ For an experimental native Wayland session, use a different number:
 ssh rose-oasis
 xpra-wayland seamless :101 --backend=wayland --start=your-wayland-app
 exit
-xpra attach ssh://rose-oasis/101 --remote-xpra=xpra-wayland
+xpra attach ssh://rose-oasis/101
 ```
 
 Detach using the Xpra client menu; applications keep running. Attach again from

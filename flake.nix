@@ -72,6 +72,7 @@
         };
 
         checks = lib.optionalAttrs (system == "x86_64-linux") {
+          devenv = import ./tests/devenv.nix {inherit inputs pkgs;};
           mail = import ./tests/mail.nix {inherit inputs pkgs;};
           teams = import ./tests/teams.nix {inherit inputs pkgs;};
           local-debs = import ./tests/local-debs.nix {inherit inputs pkgs;};
@@ -79,6 +80,7 @@
           niri-mst = import ./tests/niri-mst.nix {inherit pkgs;};
           niri-layout = import ./tests/niri-layout.nix {inherit inputs pkgs;};
           remote-apps = import ./tests/remote-apps.nix {inherit inputs pkgs;};
+          terminal = import ./tests/terminal.nix {inherit inputs pkgs;};
         };
       };
     };

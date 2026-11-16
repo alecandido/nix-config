@@ -3,10 +3,8 @@
   lib,
   config,
   ...
-}:
-{
-  home.packages =
-    with pkgs;
+}: {
+  home.packages = with pkgs;
     [
       # Some basics
       coreutils
@@ -56,7 +54,7 @@
       pciutils # lspci
       # usbutils # lsusb
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ m-cli ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [m-cli];
 
   # XDG
   xdg.enable = true;
@@ -65,10 +63,9 @@
   home.sessionVariables = {
     # default programs
     BROWSER =
-      if !pkgs.stdenv.hostPlatform.isDarwin then
-        "${config.programs.firefox.package}/bin/firefox"
-      else
-        "/Applications/Firefox.app/Contents/MacOS/firefox";
+      if !pkgs.stdenv.hostPlatform.isDarwin
+      then "${config.programs.firefox.package}/bin/firefox"
+      else "/Applications/Firefox.app/Contents/MacOS/firefox";
     EDITOR = lib.mkForce "${config.programs.neovim.package}/bin/nvim";
     MANPAGER = "${config.programs.neovim.package}/bin/nvim +Man!";
     NH_FLAKE = "${config.home.homeDirectory}/Projects/nix-config";
@@ -148,6 +145,10 @@
   };
 
   # Ghostty
+  home.sessionSearchVariables.TERMINFO_DIRS = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin [
+    "/Applications/Ghostty.app/Contents/Resources/terminfo"
+  ];
+
   programs.ghostty = {
     enable = true;
     package = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin null;
