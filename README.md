@@ -27,6 +27,68 @@ of defining a new option in a module, and then setting in the common one.
 
 ## Niri desktop
 
+### Remote applications
+
+`rose-oasis` provides two independent Xpra builds: stock `xpra` for stable X11
+sessions, and `xpra-wayland` with the experimental native Wayland server compiled
+in. Neither replaces nor captures the local Niri desktop. They can run
+simultaneously on different session numbers. Experimental failures do not
+replace the stock X11 executable or change its defaults.
+
+`ocopoli` has the Xpra Linux client; `donaldville` has the official ARM macOS app
+and an `xpra` command, packaged directly from its checksummed upstream DMG.
+No XQuartz is needed. Normal macOS security approval may be required on first
+launch; the package does not disable Gatekeeper. Both clients have an SSH entry
+for `rose-oasis`, using `alessandro` and the Tailscale MagicDNS hostname. All three
+machines must be connected to the tailnet, and its policy must permit SSH.
+Ordinary OpenSSH is used; no graphical TCP listener or extra firewall port is
+enabled. LAN access can instead use a resolvable LAN hostname/IP.
+
+After rebuilding the respective machines, start a persistent X11 session from
+either client (replace `your-x11-app` with an installed executable):
+
+```sh
+ssh rose-oasis
+xpra seamless :100 --backend=x11 --start='env GDK_BACKEND=x11 QT_QPA_PLATFORM=xcb MOZ_ENABLE_WAYLAND=0 your-x11-app'
+exit
+xpra attach ssh://rose-oasis/100
+```
+
+For an experimental native Wayland session, use a different number:
+
+```sh
+ssh rose-oasis
+xpra-wayland seamless :101 --backend=wayland --start=your-wayland-app
+exit
+xpra attach ssh://rose-oasis/101 --remote-xpra=xpra-wayland
+```
+
+Detach using the Xpra client menu; applications keep running. Attach again from
+either client to resume. To stop a session and its applications:
+
+```sh
+ssh rose-oasis xpra stop :100
+ssh rose-oasis xpra-wayland stop :101
+```
+
+The backend is chosen per session, not per application: use X11-capable apps in
+`:100` and native Wayland apps in `:101`. X11 and Wayland applications do not
+automatically share one compositor. Toolkit flags may be needed for individual
+apps. Single-instance applications may reuse an existing local process instead
+of opening in the remote session; use a separate profile or the application's
+new-instance option. GPU acceleration, portals, conferencing and native Wayland
+forwarding remain application-dependent.
+
+Waypipe is already installed on both Linux hosts. For direct native Wayland
+forwarding, run this from a terminal in `ocopoli`'s GNOME session:
+
+```sh
+waypipe ssh rose-oasis your-wayland-app
+```
+
+This is independent of Xpra, requires no Niri display access, and is not the
+persistent/reconnectable path. `donaldville` uses Xpra instead of waypipe.
+
 ### Microsoft Teams
 
 `plan.apps.teams.enable = true` on a NixOS host enables Teams and its

@@ -3,7 +3,9 @@
 
   extraHomeModules = [
     ./tools.nix
-    {
+    ({inputs, ...}: {
+      imports = ["${inputs.self}/home/remote-apps.nix"];
+
       plan = {
         amenities.enable = true;
         dconf = {
@@ -15,6 +17,6 @@
         };
         tex.enable = true;
       };
-    }
+    })
   ];
 }

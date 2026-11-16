@@ -78,6 +78,7 @@
           niri-vpn = import ./tests/niri-vpn.nix {inherit inputs pkgs;};
           niri-mst = import ./tests/niri-mst.nix {inherit pkgs;};
           niri-layout = import ./tests/niri-layout.nix {inherit inputs pkgs;};
+          remote-apps = import ./tests/remote-apps.nix {inherit inputs pkgs;};
         };
       };
     };
