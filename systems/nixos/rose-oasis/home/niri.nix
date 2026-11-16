@@ -28,6 +28,7 @@ in {
   };
 
   plan.niri = {
+    desktopLayouts.default = ./desktop-layout.json;
     primaryOutput = primary;
     secondaryOutput = secondary;
     extraConfig = ''

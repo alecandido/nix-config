@@ -77,6 +77,7 @@
           local-debs = import ./tests/local-debs.nix {inherit inputs pkgs;};
           niri-vpn = import ./tests/niri-vpn.nix {inherit inputs pkgs;};
           niri-mst = import ./tests/niri-mst.nix {inherit pkgs;};
+          niri-layout = import ./tests/niri-layout.nix {inherit inputs pkgs;};
         };
       };
     };

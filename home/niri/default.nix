@@ -8,7 +8,7 @@
   outputDirective = output:
     lib.optionalString (output != null) "open-on-output ${builtins.toJSON output}";
 in {
-  imports = [./noctalia.nix];
+  imports = [./noctalia.nix ./layout.nix];
 
   options.plan.niri = {
     enable = lib.mkEnableOption "the minimal Niri desktop";

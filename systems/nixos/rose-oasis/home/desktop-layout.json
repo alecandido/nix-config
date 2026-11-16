@@ -1,0 +1,67 @@
+{
+  "focus": "com.mitchellh.ghostty",
+  "workspaces": [
+    {
+      "name": "1-code",
+      "active": "com.mitchellh.ghostty",
+      "columns": [
+        {
+          "width": "100%",
+          "windows": [
+            {
+              "app_id": "com\\.mitchellh\\.ghostty",
+              "desktop": "com.mitchellh.ghostty"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2-web",
+      "active": "firefox",
+      "columns": [
+        {
+          "width": "100%",
+          "windows": [
+            {
+              "app_id": "(?i)firefox",
+              "desktop": "firefox"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4-comms",
+      "active": "spotify",
+      "columns": [
+        {
+          "width": "100%",
+          "windows": [
+            {
+              "app_id": "ms-teams|chrome-teams\\.microsoft\\.com__v2_-Default",
+              "desktop": "ms-teams"
+            },
+            {
+              "app_id": "org\\.telegram\\.desktop",
+              "desktop": "org.telegram.desktop"
+            },
+            {
+              "app_id": "(?i)spotify|com\\.spotify\\.Client",
+              "desktop": "spotify"
+            }
+          ]
+        },
+        {
+          "width": "100%",
+          "windows": [
+            {
+              "app_id": "(?i)thunderbird|org\\.mozilla\\.Thunderbird",
+              "desktop": "thunderbird"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
