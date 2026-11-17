@@ -30,8 +30,8 @@ export-env {
 # When using zoxide with --no-cmd, alias these internal functions as desired.
 #
 
-def zoxide_completer [context: string] {
-      let query = $context | split row " " | slice 1..
+def zoxide_completer [buffer: string] {
+      let query = $buffer | split row " " | slice 1..
       let matches = zoxide query -l ...$query | lines | where {|x| $x != $env.PWD}
       let completions = $matches | if ($in | is-not-empty) { $in } else { null }
 
