@@ -82,6 +82,7 @@ in
       grep -F 'Usage: niri-restore-desktop [layout-name]' error
 
       for desktop in ${lib.concatStringsSep " " (map (package: "${package}/share/applications/*.desktop") testDesktops)}; do
+        test -s "$(sed -n 's/^Icon=//p' "$desktop")"
         entry="$(sed -n 's/^Exec=//p' "$desktop")"
         case "$entry" in
           "${lib.getExe testRestore} default") "$launcher" default > selected; cmp selected implicit ;;

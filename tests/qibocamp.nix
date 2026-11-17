@@ -32,5 +32,6 @@ in
       python ${./qibocamp.py} ${../lib/qibocamp/launcher.py}
       test -x ${launcher}/bin/qibocamp-launcher
       test -f ${enabled.home.path}/share/applications/qibocamp-launcher.desktop
+      test -s "$(sed -n 's/^Icon=//p' ${enabled.home.path}/share/applications/qibocamp-launcher.desktop)"
       touch "$out"
     ''

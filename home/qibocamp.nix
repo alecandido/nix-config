@@ -4,6 +4,11 @@
   pkgs,
   ...
 }: let
+  icon = pkgs.fetchurl {
+    name = "qibocamp.svg";
+    url = "https://raw.githubusercontent.com/qiboteam/qibocamp/c7d492e4096148b6d520fcde3f5335f8e379757d/launcher/src-tauri/icon.svg";
+    hash = "sha256-Lk+RQ+TaMjgDg0PjAGfUOlOslLMGqg0stdPqv9DuqoU=";
+  };
   launcher = pkgs.writeShellApplication {
     name = "qibocamp-launcher";
     runtimeInputs = [pkgs.nix pkgs.zenity];
@@ -25,7 +30,7 @@ in {
       name = "Qibocamp";
       comment = "Launch the last prepared Qibocamp build or choose a source";
       exec = lib.getExe launcher;
-      icon = "applications-science";
+      icon = "${icon}";
       categories = ["Science" "Development"];
       settings.Keywords = "Qibocal;Calibration;Qibo;";
     };

@@ -67,7 +67,7 @@ in {
         name = "Restore Desktop Layout: ${name}";
         comment = "Open the saved set of applications and arrange their windows";
         exec = "${lib.getExe restore} ${name}";
-        icon = "view-restore";
+        icon = "${pkgs.adwaita-icon-theme}/share/icons/Adwaita/scalable/devices/video-display.svg";
         categories = ["Utility"];
         settings.Keywords = "Niri;Layout;Workspace;Restore;";
       })
