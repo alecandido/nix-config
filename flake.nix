@@ -81,6 +81,7 @@
           niri-layout = import ./tests/niri-layout.nix {inherit inputs pkgs;};
           remote-apps = import ./tests/remote-apps.nix {inherit inputs pkgs;};
           terminal = import ./tests/terminal.nix {inherit inputs pkgs;};
+          qibocamp = import ./tests/qibocamp.nix {inherit inputs pkgs;};
         };
       };
     };

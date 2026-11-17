@@ -25,6 +25,7 @@
       ./dconf.nix
       ./firefox.nix
       ./nix.nix
+      ./qibocamp.nix
       ./rclone.nix
       ./tex.nix
       ./tools.nix

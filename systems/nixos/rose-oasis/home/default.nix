@@ -11,6 +11,7 @@
           work.address = "alessandro.candido@tii.ae";
         };
         amenities.enable = true;
+        qibocamp.enable = true;
         dconf = {
           enable = !config.plan.niri.enable;
           server = true;

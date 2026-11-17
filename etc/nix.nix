@@ -11,6 +11,7 @@
       "https://devenv.cachix.org"
       "https://nixpkgs-python.cachix.org"
       "https://alecandido.cachix.org"
+      "https://qiboteam.cachix.org"
     ];
   in {
     registry.nixpkgs.flake = inputs.nixpkgs;
@@ -34,6 +35,7 @@
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU="
         "alecandido.cachix.org-1:TgsrZYrtoZVpZ9nSlYBw2ylVFpHqLI1YnwhPTwjGdgM="
+        "qiboteam.cachix.org-1:uBKM05W3C7MNXwT1GxMa1c/juaBCSZe34iMokEu66gA="
       ];
     };
   };
